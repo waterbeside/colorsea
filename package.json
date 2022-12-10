@@ -4,10 +4,9 @@
   "description": "",
   "main": "dist/index.js",
   "types": "dist/typings/index.d.ts",
-  "type": "module",
   "scripts": {
     "build": "rollup -c --configPlugin typescript",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint --fix --ext .js,.ts src"
   },
   "keywords": [],
   "author": "Natron Kan (waterbeside)",

@@ -6,7 +6,7 @@
  * @param max 上边界
  * @returns 处理后的值
  */
-export const clampInRange = function(num:number, min: number, max: number): number {
+export const clampInRange = function (num: number, min: number, max: number): number {
   return Math.min(Math.max(num, min), max)
 }
 
@@ -16,7 +16,7 @@ export const clampInRange = function(num:number, min: number, max: number): numb
  * @param hexString 十六进制颜色字符串
  * @returns 处理后的颜色字符串
  */
-export const colorHex = function(hexString: string): string {
+export const colorHex = function (hexString: string): string {
   hexString = /^#/.test(hexString) ? hexString.slice(1) : hexString
   const len = hexString.length
   if (![3, 4, 6, 8].includes(len)) return '000000'
@@ -29,5 +29,5 @@ export const colorHex = function(hexString: string): string {
     }
     return res
   }
-  return '000000' 
+  return '000000'
 }
