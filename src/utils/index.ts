@@ -6,7 +6,7 @@
  * @param max 上边界
  * @returns 处理后的值
  */
-export const clampInRange = function (num: number, min: number, max: number): number {
+export const clamp = function (num: number, min: number, max: number): number {
   return Math.min(Math.max(num, min), max)
 }
 
