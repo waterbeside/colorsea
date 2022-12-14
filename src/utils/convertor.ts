@@ -1,4 +1,5 @@
 import { clamp, colorHex } from './index'
+import { XYZ_RGB, RGB_XYZ, LAB_CONST } from '../constants/lab'
 
 const rgb2percent255 = (r: number, g: number, b: number): [number, number, number] => {
   r = r / 255
@@ -53,8 +54,6 @@ function rgb2hslOrhsv(
   ;[r, g, b] = rgb2percent255(r, g, b)
   const max = Math.max(r, g, b),
     min = Math.min(r, g, b)
-  console.log('r g b:', r, g, b)
-  console.log('maxmin:', max, min)
   let h: number = 0
   let s: number = 0
   const l = (max + min) / 2
@@ -69,11 +68,13 @@ function rgb2hslOrhsv(
     else h = (r - g) / d + 4 // max === b
     h /= 6
   }
+  if (r === g && g === b) h = NaN
   return vl === 'l' ? { h: h * 360, s, l, a } : { h: h * 360, s, v, a }
 }
 
-export const rgb2hsl = function (r: number, g: number, b: number, a?: number) {
-  return rgb2hslOrhsv(r, g, b, a, 'l')
+export const rgb2hsl = function (r: number, g: number, b: number): HslType {
+  const { h, s, l } = rgb2hslOrhsv(r, g, b, 1, 'l')
+  return [h, s, l]
 }
 
 export const hsl2rgb = function (h: number, s: number, l: number): RgbType {
@@ -107,7 +108,7 @@ export const hsl2rgb = function (h: number, s: number, l: number): RgbType {
   ]
 }
 
-export const hsv2rgb = function (h: number, s: number, v: number) {
+export const hsv2rgb = function (h: number, s: number, v: number): RgbType {
   h = ((h % 360) / 360) * 360
 
   let i
@@ -131,6 +132,72 @@ export const hsv2rgb = function (h: number, s: number, v: number) {
   ]
 }
 
-export const rgb2hsv = function (r: number, g: number, b: number, a?: number) {
-  return rgb2hslOrhsv(r, g, b, a, 'v')
+export const rgb2hsv = function (r: number, g: number, b: number): HslType {
+  const { h, s, v } = rgb2hslOrhsv(r, g, b, 1, 'v')
+  return [h, s, v]
+}
+
+export const rgb2linear = function (r: number, g: number, b: number): RgbType {
+  return [r, g, b].map(c => {
+    c /= 255
+    console.log('c', c)
+    return c > 0.04045 ? Math.pow((c + 0.055) / 1.055, 2.4) : c / 12.92
+  }) as RgbType
+}
+
+export const linear2rgb = function (r: number, g: number, b: number): RgbType {
+  return [r, g, b].map(c => {
+    return Math.round(255 * (c <= 0.00304 ? 12.92 * c : 1.055 * Math.pow(c, 1 / 2.4) - 0.055))
+  }) as RgbType
+}
+
+export const rgb2xyz = function (r: number, g: number, b: number): XyzType {
+  // Calibration for observer @2° with illumination = D65
+  const rgb = rgb2linear(r, g, b)
+  const x = RGB_XYZ.x.reduce((c, v, i) => c + v * rgb[i], 0) * 100
+  const y = RGB_XYZ.y.reduce((c, v, i) => c + v * rgb[i], 0) * 100
+  const z = RGB_XYZ.z.reduce((c, v, i) => c + v * rgb[i], 0) * 100
+  return [x, y, z]
+  //
+}
+
+export const xyz2rgb = function (x: number, y: number, z: number): RgbType {
+  const xyz = [x, y, z]
+  const r = XYZ_RGB.r.reduce((c, v, i) => c + v * xyz[i], 0) / 100
+  const g = XYZ_RGB.g.reduce((c, v, i) => c + v * xyz[i], 0) / 100
+  const b = XYZ_RGB.b.reduce((c, v, i) => c + v * xyz[i], 0) / 100
+  return linear2rgb(r, g, b)
+}
+
+export const xyz2lab = function (x: number, y: number, z: number): LabType {
+  x = x / LAB_CONST.x / 100
+  y = y / LAB_CONST.y / 100
+  z = z / LAB_CONST.z / 100
+  ;[x, y, z] = [x, y, z].map(i => {
+    if (i > LAB_CONST.eps) return Math.pow(i, 1 / 3)
+    else return (LAB_CONST.k * i + 16) / 116
+  })
+  const l = Math.max(0, 116 * y - 16)
+  const a = 500 * (x - y)
+  const b = 200 * (y - z)
+  return [l, a, b]
+}
+
+export const lab2xyz = function (l: number, a: number, b: number): XyzType {
+  let y = (l + 16) / 116
+  let x = isNaN(a) ? y : y + a / 500
+  let z = isNaN(b) ? y : y - b / 200
+  ;[x, y, z] = [x, y, z].map(i => {
+    if (i > LAB_CONST.t) return Math.pow(i, 3)
+    return (i * 116 - 16) / LAB_CONST.k
+  })
+  return [x * LAB_CONST.x * 100, y * LAB_CONST.y * 100, z * LAB_CONST.z * 100]
+}
+
+export const rgb2lab = function (r: number, g: number, b: number) {
+  return xyz2lab(...rgb2xyz(r, g, b))
+}
+
+export const lab2rgb = function (l: number, a: number, b: number) {
+  return xyz2rgb(...lab2xyz(l, a, b))
 }

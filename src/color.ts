@@ -1,4 +1,4 @@
-import { rgb2hex, hex2rgb, rgb2hsv, rgb2hsl, hsl2rgb } from './utils/convertor'
+import { rgb2hex, hex2rgb, rgb2hsv, rgb2hsl, hsl2rgb, rgb2xyz, rgb2lab } from './utils/convertor'
 import { clamp } from './utils'
 import { cache } from './utils/cacheDecorator'
 import { mix } from './utils/mix'
@@ -22,11 +22,10 @@ function getOrChang(
   const idx = typeDict[type][0]
   if (['h', 's', 'l'].includes(type)) {
     const hsl = color.hsl()
-    if (amount === void 0) return hsl[type as 'h' | 's' | 'l']
-    const hslList: [number, number, number] = [hsl.h, hsl.s, hsl.l]
+    if (amount === void 0) return hsl[idx]
     amount = typeDict[type][1](amount)
-    hslList[idx] = amount
-    rgb = hsl2rgb(...hslList)
+    hsl[idx] = amount
+    rgb = hsl2rgb(...hsl)
   } else {
     rgb = color.rgb()
     if (amount === void 0) return rgb[idx]
@@ -40,7 +39,7 @@ export class Color {
   private cache = new Map<string, any>()
   private _rgb: [number, number, number] = [0, 0, 0]
   private _alpha = 1
-  constructor(rgb: string | number[], a?: number) {
+  constructor(rgb: RgbaType | RgbType | string, a?: number) {
     if (a !== void 0) {
       this._alpha = clamp(a, 0, 1)
     }
@@ -48,7 +47,7 @@ export class Color {
       if (rgb.length < 3) throw new Error('Invalid Color')
       for (let i = 0; i < rgb.length; i++) {
         if (i < 3) this._rgb[i] = rgb[i]
-        else if (i === 3 && a === void 0) this._alpha = rgb[3]
+        else if (i === 3 && a === void 0) this._alpha = rgb[3] as number
         else break
       }
     } else {
@@ -128,13 +127,27 @@ export class Color {
   }
 
   @cache('color:hsl')
-  hsl(): { h: number; s: number; l: number; a: number } {
-    return rgb2hsl(this.red(), this.green(), this.blue(), this._alpha)
+  hsl(): HslType {
+    return rgb2hsl(this.red(), this.green(), this.blue())
+  }
+
+  hsla(): HslaType {
+    return [...this.hsl(), this._alpha]
   }
 
   @cache('color:hsv')
-  hsv(): { h: number; s: number; v: number; a: number } {
-    return rgb2hsv(this.red(), this.green(), this.blue(), this._alpha)
+  hsv(): HslType {
+    return rgb2hsv(this.red(), this.green(), this.blue())
+  }
+
+  @cache('color:xyz')
+  xyz() {
+    return rgb2xyz(...this._rgb)
+  }
+
+  @cache('color:lab')
+  lab() {
+    return rgb2lab(...this._rgb)
   }
 
   /**
@@ -159,27 +172,18 @@ export class Color {
   }
 
   lighten(amount: number = 0.1, method?: string) {
-    const hsl = this.hsl()
+    let [h, s, l] = this.hsl()
     if (method !== void 0 && method === 'relative') {
-      hsl.l += hsl.l * amount
+      l += l * amount
     } else {
-      hsl.l += amount
+      l += amount
     }
-    hsl.l = clamp(hsl.l, 0, 1)
-    const rgb = hsl2rgb(hsl.h, hsl.s, hsl.l)
-    return new Color(rgb, this._alpha)
+    l = clamp(l, 0, 1)
+    return new Color(hsl2rgb(h, s, l), this._alpha)
   }
 
   darken(amount: number = 0.1, method?: string) {
-    const hsl = this.hsl()
-    if (method !== void 0 && method === 'relative') {
-      hsl.l -= hsl.l * amount
-    } else {
-      hsl.l -= amount
-    }
-    hsl.l = clamp(hsl.l, 0, 1)
-    const rgb = hsl2rgb(hsl.h, hsl.s, hsl.l)
-    return new Color(rgb, this._alpha)
+    return this.lighten(-amount, method)
   }
 
   /**
@@ -190,27 +194,18 @@ export class Color {
    * @returns new Color
    */
   saturate(amount: number = 0.1, method?: string) {
-    const hsl = this.hsl()
+    let [h, s, l] = this.hsl()
     if (method !== void 0 && method === 'relative') {
-      hsl.s += hsl.s * amount
+      s += s * amount
     } else {
-      hsl.s += amount
+      s += amount
     }
-    hsl.s = clamp(hsl.s, 0, 1)
-    const rgb = hsl2rgb(hsl.h, hsl.s, hsl.l)
-    return new Color(rgb, this._alpha)
+    s = clamp(s, 0, 1)
+    return new Color(hsl2rgb(h, s, l), this._alpha)
   }
 
   desaturate(amount: number = 0.1, method?: string) {
-    const hsl = this.hsl()
-    if (method !== void 0 && method === 'relative') {
-      hsl.s += hsl.s * amount
-    } else {
-      hsl.s += amount
-    }
-    hsl.s = clamp(hsl.s, 0, 1)
-    const rgb = hsl2rgb(hsl.h, hsl.s, hsl.l)
-    return new Color(rgb, this._alpha)
+    return this.saturate(-amount, method)
   }
 
   /**
@@ -219,10 +214,9 @@ export class Color {
    * @param angle rotation angle 旋转角度
    */
   spin(angle: number): Color {
-    const hsl = this.hsl()
-    hsl.h = (hsl.h + (angle % 360) + 360) % 360
-    const rgb = hsl2rgb(hsl.h, hsl.s, hsl.l)
-    return new Color(rgb, this._alpha)
+    let [h, s, l] = this.hsl()
+    h = (h + (angle % 360) + 360) % 360
+    return new Color(hsl2rgb(h, s, l), this._alpha)
   }
 
   mix(color: Color | string | RgbaType | RgbType, weight: number = 0.5): Color {
