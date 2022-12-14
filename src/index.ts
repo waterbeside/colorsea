@@ -1,8 +1,8 @@
 import { Color } from './color'
 import * as convertor from './utils/convertor'
 
-function colorsea() {
-  // return new Color()
+function colorsea(colorSetting: RgbType | RgbaType | string, alpha?: number) {
+  return new Color(colorSetting, alpha)
 }
 
 colorsea.convertor = convertor
