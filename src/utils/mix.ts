@@ -14,7 +14,7 @@ export const mix = function (
   const w1 = (combinedWeight1 + 1) / 2
   const w2 = 1 - w1
 
-  const rgb = [
+  const rgb: RgbType = [
     Math.round(clamp(c1.red() * w1 + c2.red() * w2, 0, 255)),
     Math.round(clamp(c1.green() * w1 + c2.green() * w2, 0, 255)),
     Math.round(clamp(c1.blue() * w1 + c2.blue() * w2, 0, 255))

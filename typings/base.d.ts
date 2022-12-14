@@ -2,6 +2,10 @@ type ColorBaseProp = 'h' | 's' | 'l' | 'r' | 'g' | 'b'
 
 type RgbType = [number, number, number]
 type RgbaType = [number, number, number, number]
+type LabType = [number, number, number]
+type XyzType = [number, number, number]
+type HslaType = [number, number, number, number]
+type HslType = [number, number, number]
 
 interface RgbDict {
   r: number
