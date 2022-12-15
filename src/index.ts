@@ -1,5 +1,5 @@
 import { Color } from './color'
-import * as convertor from './utils/convertor'
+import * as convertor from './convertor'
 
 function colorsea(colorSetting: RgbType | RgbaType | string, alpha?: number) {
   return new Color(colorSetting, alpha)
