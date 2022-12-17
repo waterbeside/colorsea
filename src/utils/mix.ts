@@ -1,5 +1,7 @@
 import { Color } from '../color'
 import { clamp } from '../utils/'
+import type { RgbaType, RgbType } from '../../typings/colorType'
+
 export const mix = function (
   color1: Color | string | RgbaType | RgbType,
   color2: Color | string | RgbaType | RgbType,

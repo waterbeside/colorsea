@@ -1,4 +1,5 @@
 import { clamp } from '../utils'
+import type { RgbType, HslType } from '../../typings/colorType'
 
 function rgb2hslOrhsv(
   r: number,

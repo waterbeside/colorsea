@@ -1,5 +1,6 @@
 import { XYZ_RGB, RGB_XYZ } from '../constants/lab'
 import { rgb2linear, linear2rgb } from './linearRgb'
+import type { RgbType, XyzType } from '../../typings/colorType'
 
 export const rgb2xyz = function (r: number, g: number, b: number): XyzType {
   // Calibration for observer @2° with illumination = D65

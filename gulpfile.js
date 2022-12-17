@@ -21,9 +21,5 @@ const taskScript = async done => {
   done()
 }
 
-const taskCopyType = () => {
-  return gulp.src('./typings/base.d.ts').pipe(gulp.dest('./dist/typings'))
-}
-
 exports.clean = taskClean
-exports.default = gulp.series(taskClean, taskScript, taskCopyType)
+exports.default = gulp.series(taskClean, taskScript)

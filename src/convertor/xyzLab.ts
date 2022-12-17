@@ -1,4 +1,5 @@
 import { LAB_CONST } from '../constants/lab'
+import type { LabType, XyzType } from '../../typings/colorType'
 
 export const xyz2lab = function (x: number, y: number, z: number): LabType {
   x = x / LAB_CONST.x / 100

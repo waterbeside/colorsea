@@ -1,3 +1,5 @@
+import type { RgbType } from '../../typings/colorType'
+
 export const rgb2linear = function (r: number, g: number, b: number): RgbType {
   return [r, g, b].map(c => {
     c /= 255

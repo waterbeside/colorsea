@@ -2,6 +2,7 @@ import { rgb2hex, hex2rgb, rgb2hsv, rgb2hsl, hsl2rgb, rgb2xyz, rgb2lab } from '.
 import { clamp } from './utils'
 import { cache } from './utils/cacheDecorator'
 import { mix } from './utils/mix'
+import type { ColorBaseProp, RgbType, RgbaType, HslType, HslaType } from '../typings/colorType'
 
 function getOrChang(
   color: Color,
