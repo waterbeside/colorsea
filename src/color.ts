@@ -1,4 +1,4 @@
-import { rgb2hex, hex2rgb, rgb2hsv, rgb2hsl, hsl2rgb, rgb2xyz, rgb2lab } from './convertor'
+import { rgb2hex, hex2rgb, rgb2hsv, rgb2hsl, hsl2rgb, rgb2xyz, rgb2lab, rgb2hwb } from './convertor'
 import { clamp } from './utils'
 import { cache } from './utils/cacheDecorator'
 import { mix } from './utils/mix'
@@ -149,6 +149,11 @@ export class Color {
   @cache('color:lab')
   lab() {
     return rgb2lab(...this._rgb)
+  }
+
+  @cache('color: hwb')
+  hwb() {
+    return rgb2hwb(...this._rgb)
   }
 
   /**

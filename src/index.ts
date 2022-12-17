@@ -15,5 +15,6 @@ colorsea.hsl = creator.hsl
 colorsea.hsv = creator.hsv
 colorsea.xyz = creator.xyz
 colorsea.lab = creator.lab
+colorsea.hwb = creator.hwb
 
 export default colorsea
