@@ -1,11 +1,15 @@
 import { clamp, colorHex } from '../utils'
+import type { RgbType, RgbaType } from '../../typings/colorType'
 
 export const rgb2hex = function (r: number, g: number, b: number, a?: number) {
   const arr = [r, g, b]
   let hex = '#'
-  const toHex = (c: number) => clamp(c, 0, 255).toString(16).padStart(2, '0')
+  const toHex = (c: number) => Math.round(clamp(c, 0, 255)).toString(16).padStart(2, '0')
   for (let i = 0; i < arr.length; i++) hex += toHex(arr[i])
-  if (a != void 0) hex += (clamp(a, 0, 1) * 255).toString(16).padStart(2, '0')
+  if (a != void 0)
+    hex += Math.round(clamp(a, 0, 1) * 255)
+      .toString(16)
+      .padStart(2, '0')
   return hex
 }
 
