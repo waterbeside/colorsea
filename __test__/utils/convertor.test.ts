@@ -1,6 +1,11 @@
 import colorsea from '../../src/index'
 const { convertor } = colorsea
 describe('test convertor', () => {
+  it('test rgb hex', () => {
+    const res = convertor.rgb2hex(255, 2, 20, 0.9)
+    expect(res).toBe('#ff0214e6')
+  })
+
   it('test rgb hsl', () => {
     const color = colorsea('#555')
     const hsl = convertor.rgb2hsl(...color.rgb())
