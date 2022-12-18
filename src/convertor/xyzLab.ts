@@ -1,7 +1,7 @@
 import { LAB_CONST } from '../constants/lab'
-import type { LabType, XyzType } from '../../typings/colorType'
+import type { CommonColorTuple } from '../../typings/colorType'
 
-export const xyz2lab = function (x: number, y: number, z: number): LabType {
+export const xyz2lab = function (x: number, y: number, z: number): CommonColorTuple {
   x = x / LAB_CONST.x / 100
   y = y / LAB_CONST.y / 100
   z = z / LAB_CONST.z / 100
@@ -15,7 +15,7 @@ export const xyz2lab = function (x: number, y: number, z: number): LabType {
   return [l, a, b]
 }
 
-export const lab2xyz = function (l: number, a: number, b: number): XyzType {
+export const lab2xyz = function (l: number, a: number, b: number): CommonColorTuple {
   let y = (l + 16) / 116
   let x = isNaN(a) ? y : y + a / 500
   let z = isNaN(b) ? y : y - b / 200

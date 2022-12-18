@@ -1,10 +1,10 @@
 import { Color } from '../color'
 import { clamp } from '../utils/'
-import type { RgbaType, RgbType } from '../../typings/colorType'
+import type { CommonColorTuple, CommonColoraTuple } from '../../typings/colorType'
 
 export const mix = function (
-  color1: Color | string | RgbaType | RgbType,
-  color2: Color | string | RgbaType | RgbType,
+  color1: Color | string | CommonColoraTuple | CommonColorTuple,
+  color2: Color | string | CommonColoraTuple | CommonColorTuple,
   weight: number
 ) {
   const c1 = color1 instanceof Color ? color1 : new Color(color1)
@@ -16,7 +16,7 @@ export const mix = function (
   const w1 = (combinedWeight1 + 1) / 2
   const w2 = 1 - w1
 
-  const rgb: RgbType = [
+  const rgb: CommonColorTuple = [
     Math.round(clamp(c1.red() * w1 + c2.red() * w2, 0, 255)),
     Math.round(clamp(c1.green() * w1 + c2.green() * w2, 0, 255)),
     Math.round(clamp(c1.blue() * w1 + c2.blue() * w2, 0, 255))
