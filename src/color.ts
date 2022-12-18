@@ -1,46 +1,25 @@
-import { rgb2hex, hex2rgb, rgb2hsv, rgb2hsl, hsl2rgb, rgb2xyz, rgb2lab, rgb2hwb } from './convertor'
-import { clamp } from './utils'
+import {
+  rgb2hex,
+  hex2rgb,
+  rgb2hsv,
+  rgb2hsl,
+  hsl2rgb,
+  rgb2xyz,
+  rgb2lab,
+  rgb2hwb,
+  rgb2hsi,
+  rgb2lch
+} from './convertor'
+import { clamp, roundDecimal } from './utils'
 import { cache } from './utils/cacheDecorator'
 import { mix } from './utils/mix'
-import type { ColorBaseProp, RgbType, RgbaType, HslType, HslaType } from '../typings/colorType'
-
-function getOrChang(
-  color: Color,
-  type: ColorBaseProp,
-  amount?: number | undefined
-): number | Color {
-  const clamp01 = (v: number) => clamp(v, 0, 1)
-  const clamp0255 = (v: number) => clamp(v, 0, 255)
-  const typeDict: { [key in ColorBaseProp]: [number, (v: number) => number] } = {
-    h: [0, (v: number) => v % 360],
-    s: [1, clamp01],
-    l: [2, clamp01],
-    r: [0, clamp0255],
-    g: [1, clamp0255],
-    b: [2, clamp0255]
-  }
-  let rgb: [number, number, number]
-  const idx = typeDict[type][0]
-  if (['h', 's', 'l'].includes(type)) {
-    const hsl = color.hsl()
-    if (amount === void 0) return hsl[idx]
-    amount = typeDict[type][1](amount)
-    hsl[idx] = amount
-    rgb = hsl2rgb(...hsl)
-  } else {
-    rgb = color.rgb()
-    if (amount === void 0) return rgb[idx]
-    amount = typeDict[type][1](amount)
-    rgb[idx] = amount
-  }
-  return new Color(rgb, color.alpha())
-}
+import type { ColorBaseProp, CommonColorTuple, CommonColoraTuple } from '../typings/colorType'
 
 export class Color {
   private cache = new Map<string, any>()
   private _rgb: [number, number, number] = [0, 0, 0]
   private _alpha = 1
-  constructor(rgb: RgbaType | RgbType | string, a?: number) {
+  constructor(rgb: CommonColorTuple | CommonColoraTuple | string, a?: number) {
     if (a !== void 0) {
       this._alpha = clamp(a, 0, 1)
     }
@@ -60,19 +39,19 @@ export class Color {
   red(): number
   red(amount: number): Color
   red(amount?: number): Color | number {
-    return getOrChang(this, 'r', amount)
+    return getOrChange(this, 'r', amount)
   }
 
   green(): number
   green(amount: number): Color
   green(amount?: number): Color | number {
-    return getOrChang(this, 'g', amount)
+    return getOrChange(this, 'g', amount)
   }
 
   blue(): number
   blue(amount: number): Color
   blue(amount?: number): Color | number {
-    return getOrChang(this, 'b', amount)
+    return getOrChange(this, 'b', amount)
   }
 
   alpha(): number
@@ -104,19 +83,19 @@ export class Color {
   hue(): number
   hue(amount: number): Color
   hue(amount?: number): Color | number {
-    return getOrChang(this, 'h', amount)
+    return getOrChange(this, 'h', amount)
   }
 
   saturation(): number
   saturation(amount: number): Color
   saturation(amount?: number): Color | number {
-    return getOrChang(this, 's', amount)
+    return getOrChange(this, 's', amount)
   }
 
   lightness(): number
   lightness(amount: number): Color
   lightness(amount?: number): Color | number {
-    return getOrChang(this, 'l', amount)
+    return getOrChange(this, 'l', amount)
   }
 
   rgb(): [number, number, number] {
@@ -128,32 +107,42 @@ export class Color {
   }
 
   @cache('color:hsl')
-  hsl(): HslType {
-    return rgb2hsl(this.red(), this.green(), this.blue())
+  hsl(round: boolean | number = true): CommonColorTuple {
+    return toWhatSpace(this, round, rgb2hsl)
   }
 
-  hsla(): HslaType {
-    return [...this.hsl(), this._alpha]
+  hsla(round: boolean | number = true): CommonColoraTuple {
+    return [...this.hsl(round), this._alpha]
   }
 
   @cache('color:hsv')
-  hsv(): HslType {
-    return rgb2hsv(this.red(), this.green(), this.blue())
+  hsv(round: boolean | number = true): CommonColorTuple {
+    return toWhatSpace(this, round, rgb2hsv)
   }
 
-  @cache('color:xyz')
-  xyz() {
-    return rgb2xyz(...this._rgb)
-  }
-
-  @cache('color:lab')
-  lab() {
-    return rgb2lab(...this._rgb)
+  @cache('color:hsi')
+  hsi(round: boolean | number = true): CommonColorTuple {
+    return toWhatSpace(this, round, rgb2hsi)
   }
 
   @cache('color: hwb')
-  hwb() {
-    return rgb2hwb(...this._rgb)
+  hwb(round: boolean | number = true) {
+    return toWhatSpace(this, round, rgb2hwb)
+  }
+
+  @cache('color:xyz')
+  xyz(round: boolean | number = true): CommonColorTuple {
+    return toWhatSpace(this, round, rgb2xyz, 2)
+  }
+
+  @cache('color:lab')
+  lab(round: boolean | number = true): CommonColorTuple {
+    return toWhatSpace(this, round, rgb2lab, 2)
+  }
+
+  @cache('color:lch')
+  lch(round: boolean | number = true): CommonColorTuple {
+    return toWhatSpace(this, round, rgb2lch, 2)
   }
 
   /**
@@ -178,7 +167,7 @@ export class Color {
   }
 
   lighten(amount: number = 0.1, method?: string) {
-    let [h, s, l] = this.hsl()
+    let [h, s, l] = this.hsl(false)
     if (method !== void 0 && method === 'relative') {
       l += l * amount
     } else {
@@ -200,7 +189,7 @@ export class Color {
    * @returns new Color
    */
   saturate(amount: number = 0.1, method?: string) {
-    let [h, s, l] = this.hsl()
+    let [h, s, l] = this.hsl(false)
     if (method !== void 0 && method === 'relative') {
       s += s * amount
     } else {
@@ -220,15 +209,16 @@ export class Color {
    * @param angle rotation angle 旋转角度
    */
   spin(angle: number): Color {
-    let [h, s, l] = this.hsl()
+    let [h, s, l] = this.hsl(false)
     h = (h + (angle % 360) + 360) % 360
     return new Color(hsl2rgb(h, s, l), this._alpha)
   }
 
-  mix(color: Color | string | RgbaType | RgbType, weight: number = 0.5): Color {
+  mix(color: Color | string | CommonColoraTuple | CommonColorTuple, weight: number = 0.5): Color {
     return mix(this, color, 1 - clamp(weight, 0, 1))
   }
 
+  @cache('color:luma')
   luma(): number {
     let [r, g, b] = this._rgb.map(item => item / 255)
     r = r <= 0.03928 ? r / 12.92 : Math.pow((r + 0.055) / 1.055, 2.4)
@@ -236,4 +226,53 @@ export class Color {
     b = b <= 0.03928 ? b / 12.92 : Math.pow((b + 0.055) / 1.055, 2.4)
     return 0.2126 * r + 0.7152 * g + 0.0722 * b
   }
+}
+
+function getOrChange(
+  color: Color,
+  type: ColorBaseProp,
+  amount?: number | undefined
+): number | Color {
+  const clamp01 = (v: number) => clamp(v, 0, 1)
+  const clamp0255 = (v: number) => clamp(v, 0, 255)
+  const typeDict: { [key in ColorBaseProp]: [number, (v: number) => number] } = {
+    h: [0, (v: number) => v % 360],
+    s: [1, clamp01],
+    l: [2, clamp01],
+    r: [0, clamp0255],
+    g: [1, clamp0255],
+    b: [2, clamp0255]
+  }
+  let rgb: [number, number, number]
+  const idx = typeDict[type][0]
+  if (['h', 's', 'l'].includes(type)) {
+    const hsl = color.hsl()
+    if (amount === void 0) return hsl[idx]
+    amount = typeDict[type][1](amount)
+    hsl[idx] = amount
+    rgb = hsl2rgb(...hsl)
+  } else {
+    rgb = color.rgb()
+    if (amount === void 0) return rgb[idx]
+    amount = typeDict[type][1](amount)
+    rgb[idx] = amount
+  }
+  return new Color(rgb, color.alpha())
+}
+
+function toWhatSpace(
+  instance: Color,
+  round: number | boolean,
+  fn: (r: number, g: number, b: number) => CommonColorTuple,
+  defaultRound: [number, number, number] | number = [0, 2, 2]
+): CommonColorTuple {
+  const [a, b, c] = fn(...instance.rgb())
+  const roundOffset = typeof round === 'number' ? Math.round(round) : 0
+  const roundList =
+    typeof defaultRound === 'number'
+      ? [defaultRound, defaultRound, defaultRound]
+      : defaultRound.map(v => v + roundOffset)
+  return round === false
+    ? [a, b, c]
+    : ([a, b, c].map((v, i) => roundDecimal(v, roundList[i])) as CommonColorTuple)
 }

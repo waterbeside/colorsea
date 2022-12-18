@@ -1,5 +1,5 @@
 import { clamp, colorHex } from '../utils'
-import type { RgbType, RgbaType } from '../../typings/colorType'
+import type { CommonColorTuple, CommonColoraTuple } from '../../typings/colorType'
 
 export const rgb2hex = function (r: number, g: number, b: number, a?: number) {
   const arr = [r, g, b]
@@ -13,7 +13,7 @@ export const rgb2hex = function (r: number, g: number, b: number, a?: number) {
   return hex
 }
 
-export const hex2rgb = function (hexString: string): RgbType | RgbaType {
+export const hex2rgb = function (hexString: string): CommonColorTuple | CommonColoraTuple {
   hexString = colorHex(hexString).padEnd(8, 'ff')
   const matched = hexString.match(/.{2}/g)
   if (!matched) return [0, 0, 0, 1]

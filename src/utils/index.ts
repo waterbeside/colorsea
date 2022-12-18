@@ -32,6 +32,8 @@ export const colorHex = function (hexString: string): string {
   return '000000'
 }
 
-export const roundFixed = function (n: number, fractionDigits: number): number {
-  return Math.round((n + Number.EPSILON) * fractionDigits) / fractionDigits
+export const roundDecimal = function (n: number, fractionDigits: number): number {
+  return (
+    Math.round((n + Number.EPSILON) * Math.pow(10, fractionDigits)) / Math.pow(10, fractionDigits)
+  )
 }
