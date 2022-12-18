@@ -1,6 +1,6 @@
 {
   "name": "colorsea",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/typings/index.d.ts",
