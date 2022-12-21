@@ -74,11 +74,7 @@ export const hsl2rgb = function (h: number, s: number, l: number): CommonColorTu
   m2 = l <= 0.5 ? l * (s + 1) : l + s - l * s
   m1 = l * 2 - m2
 
-  return [
-    Math.round(hue(h + 1 / 3) * 255),
-    Math.round(hue(h) * 255),
-    Math.round(hue(h - 1 / 3) * 255)
-  ]
+  return [hue(h + 1 / 3) * 255, hue(h) * 255, hue(h - 1 / 3) * 255]
 }
 
 export const rgb2hsv = function (r: number, g: number, b: number): CommonColorTuple {
@@ -102,11 +98,7 @@ export const hsv2rgb = function (h: number, s: number, v: number): CommonColorTu
     [3, 1, 0],
     [0, 1, 2]
   ]
-  return [
-    Math.round(vs[perm[i][0]] * 255),
-    Math.round(vs[perm[i][1]] * 255),
-    Math.round(vs[perm[i][2]] * 255)
-  ]
+  return [vs[perm[i][0]] * 255, vs[perm[i][1]] * 255, vs[perm[i][2]] * 255]
 }
 
 export const rgb2hsi = function (r: number, g: number, b: number): CommonColorTuple {
@@ -138,6 +130,6 @@ export const hsi2rgb = function (h: number, s: number, i: number): CommonColorTu
     b = x(h)
     r = 1 - (g + b)
   }
-  ;[r, g, b] = [r, g, b].map(v => Math.round(clamp(i * v * 3, 0, 1) * 255))
+  ;[r, g, b] = [r, g, b].map(v => clamp(i * v * 3, 0, 1) * 255)
   return [r, g, b]
 }

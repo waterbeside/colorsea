@@ -3,9 +3,10 @@ import { clamp } from '../utils'
 
 export const lab2lch = function (l: number, a: number, b: number): CommonColorTuple {
   a = clamp(a, -100, 100)
-  b = clamp(a, -100, 100)
+  b = clamp(b, -100, 100)
   const c = Math.sqrt(a * a + b * b)
-  let h = (Math.atan2(b, a) * (Math.PI / 180) + 360) % 360
+  let h = ((180 * Math.atan2(b, a)) / Math.PI + 360) % 360
+
   if (Math.round(c * 10000) === 0) h = Number.NaN
   return [l, c, h]
 }
