@@ -30,7 +30,7 @@ describe('test convertor', () => {
     const color = colorsea('#405060')
     const xyz = convertor.rgb2xyz(...color.rgb())
     expect(xyz.map(i => Number(i.toFixed(2)))).toEqual([7.09, 7.67, 12.17])
-    expect(convertor.xyz2rgb(...xyz)).toEqual(color.rgb())
+    expect(convertor.xyz2rgb(...xyz).map(v => utils.roundDecimal(v, 0))).toEqual(color.rgb())
 
     expect(convertor.rgb2xyz(85, 85, 85).map(i => utils.roundDecimal(i, 0))).toEqual([9, 9, 10])
   })
@@ -39,11 +39,20 @@ describe('test convertor', () => {
     const color = colorsea('#444D69')
     const lab = convertor.rgb2lab(...color.rgb())
     expect(lab.map(i => Number(i.toFixed(2)))).toEqual([33.04, 3.9, -17.39])
-    expect(convertor.lab2rgb(...lab)).toEqual(color.rgb())
+    expect(convertor.lab2rgb(...lab).map(v => utils.roundDecimal(v, 0))).toEqual(color.rgb())
 
     const color2 = colorsea('#ff00ff')
     const lab2 = convertor.rgb2lab(...color2.rgb())
     expect(lab2.map(i => utils.roundDecimal(i, 2))).toEqual([60.32, 98.23, -60.82])
-    expect(convertor.lab2rgb(...lab2)).toEqual(color2.rgb())
+    expect(convertor.lab2rgb(...lab2).map(v => utils.roundDecimal(v, 0))).toEqual(color2.rgb())
+  })
+
+  it('test lab lch', () => {
+    expect(convertor.lab2lch(33.29, -1.94, -11.36).map(i => utils.roundDecimal(i, 2))).toEqual([
+      33.29, 11.52, 260.31
+    ])
+    expect(convertor.lch2lab(33.29, 11.52, 260.31).map(i => utils.roundDecimal(i, 2))).toEqual([
+      33.29, -1.94, -11.36
+    ])
   })
 })
