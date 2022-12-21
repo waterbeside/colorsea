@@ -98,12 +98,13 @@ export class Color {
     return getOrChange(this, 'l', amount)
   }
 
-  rgb(): [number, number, number] {
-    return [...this._rgb]
+  @cache('color:rgb')
+  rgb(): CommonColorTuple {
+    return this._rgb.map(v => Math.round(v)) as CommonColorTuple
   }
 
-  rgba(): [number, number, number, number] {
-    return [...this._rgb, this._alpha]
+  rgba(): CommonColoraTuple {
+    return [...this.rgb(), this._alpha]
   }
 
   @cache('color:hsl')
@@ -132,17 +133,17 @@ export class Color {
 
   @cache('color:xyz')
   xyz(round: boolean | number = true): CommonColorTuple {
-    return toWhatSpace(this, round, rgb2xyz, 2)
+    return toWhatSpace(this, round, rgb2xyz, 2, 1)
   }
 
   @cache('color:lab')
   lab(round: boolean | number = true): CommonColorTuple {
-    return toWhatSpace(this, round, rgb2lab, 2)
+    return toWhatSpace(this, round, rgb2lab, 2, 1)
   }
 
   @cache('color:lch')
   lch(round: boolean | number = true): CommonColorTuple {
-    return toWhatSpace(this, round, rgb2lch, 2)
+    return toWhatSpace(this, round, rgb2lch, 2, 1)
   }
 
   /**
@@ -264,15 +265,16 @@ function toWhatSpace(
   instance: Color,
   round: number | boolean,
   fn: (r: number, g: number, b: number) => CommonColorTuple,
-  defaultRound: [number, number, number] | number = [0, 2, 2]
+  defaultRound: [number, number, number] | number = [0, 2, 2],
+  roundModFlag: 0 | 1 = 0
 ): CommonColorTuple {
-  const [a, b, c] = fn(...instance.rgb())
+  const res = fn(...instance.rgb())
+  if (round === false) return res
   const roundOffset = typeof round === 'number' ? Math.round(round) : 0
-  const roundList =
-    typeof defaultRound === 'number'
-      ? [defaultRound, defaultRound, defaultRound]
-      : defaultRound.map(v => v + roundOffset)
-  return round === false
-    ? [a, b, c]
-    : ([a, b, c].map((v, i) => roundDecimal(v, roundList[i])) as CommonColorTuple)
+  const newDefaultRound =
+    typeof defaultRound === 'number' ? new Array(res.length).fill(defaultRound) : defaultRound
+  const roundList = newDefaultRound.map(v =>
+    roundModFlag === 1 ? (typeof round === 'number' ? roundOffset : v) : v + roundOffset
+  )
+  return res.map((v, i) => roundDecimal(v, roundList[i])) as CommonColorTuple
 }
