@@ -8,7 +8,8 @@ import {
   xyz2lab,
   rgb2hwb,
   rgb2hsi,
-  lab2lch
+  lab2lch,
+  xyz2xyY
 } from './convertor'
 import { clamp } from './utils'
 import { cache } from './decorators/cache'
@@ -153,6 +154,12 @@ export class Color {
   @cache('color:lch')
   lch(round: boolean | number = true): CommonColorTuple {
     return lab2lch(...this.lab(false))
+  }
+
+  @roundRes(2, 1)
+  @cache('color:xyY')
+  xyY(round: boolean | number = true): CommonColorTuple {
+    return xyz2xyY(...this.xyz(false))
   }
 
   /**
