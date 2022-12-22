@@ -1,14 +1,10 @@
-type CacheMethodDecorator = <T>(
-  target: Object,
-  propertyKey: string | symbol,
-  descriptor: TypedPropertyDescriptor<T>
-) => TypedPropertyDescriptor<T> | void
+import { MethodDecorator } from '../../typings/decorator'
 
-export function cache(cacheKey: string): CacheMethodDecorator {
+export function cache(cacheKey: string, isArgsAffectKey: boolean = false): MethodDecorator {
   return function (target, propertyKey, descriptor) {
     const original = descriptor.value as Function
     ;(descriptor as any).value = function (this: any, ...args: any[]) {
-      if (args.length > 0) {
+      if (args.length > 0 && isArgsAffectKey) {
         const argsStr = JSON.stringify(args)
         cacheKey += argsStr
       }
