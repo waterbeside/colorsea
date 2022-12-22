@@ -1,5 +1,5 @@
 import { Color } from './color'
-import { hsl2rgb, hsv2rgb, xyz2rgb, lab2rgb, hwb2rgb, hsi2rgb, lch2rgb } from './convertor'
+import { hsl2rgb, hsv2rgb, xyz2rgb, lab2rgb, hwb2rgb, hsi2rgb, lch2xyz } from './convertor'
 
 export default {
   rgb(r: number, g: number, b: number, alpha?: number): Color {
@@ -24,6 +24,6 @@ export default {
     return new Color(lab2rgb(l, a, b), alpha)
   },
   lch(l: number, c: number, h: number, alpha?: number): Color {
-    return new Color(lch2rgb(l, c, h), alpha)
+    return new Color(xyz2rgb(...lch2xyz(l, c, h)), alpha)
   }
 }
