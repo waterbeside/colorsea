@@ -5,13 +5,14 @@ import {
   rgb2hsl,
   hsl2rgb,
   rgb2xyz,
-  rgb2lab,
+  xyz2lab,
   rgb2hwb,
   rgb2hsi,
-  rgb2lch
+  lab2lch
 } from './convertor'
-import { clamp, roundDecimal } from './utils'
-import { cache } from './utils/cacheDecorator'
+import { clamp } from './utils'
+import { cache } from './decorators/cache'
+import { roundRes } from './decorators/roundRes'
 import { mix } from './utils/mix'
 import type { ColorBaseProp, CommonColorTuple, CommonColoraTuple } from '../typings/colorType'
 
@@ -98,8 +99,9 @@ export class Color {
     return getOrChange(this, 'l', amount)
   }
 
+  @roundRes(0, 1)
   @cache('color:rgb')
-  rgb(): CommonColorTuple {
+  rgb(round: boolean | number = true): CommonColorTuple {
     return this._rgb.map(v => Math.round(v)) as CommonColorTuple
   }
 
@@ -107,43 +109,50 @@ export class Color {
     return [...this.rgb(), this._alpha]
   }
 
+  @roundRes([0, 2, 2], 0)
   @cache('color:hsl')
   hsl(round: boolean | number = true): CommonColorTuple {
-    return toWhatSpace(this, round, rgb2hsl)
+    return rgb2hsl(...this._rgb)
   }
 
   hsla(round: boolean | number = true): CommonColoraTuple {
     return [...this.hsl(round), this._alpha]
   }
 
+  @roundRes([0, 2, 2], 0)
   @cache('color:hsv')
   hsv(round: boolean | number = true): CommonColorTuple {
-    return toWhatSpace(this, round, rgb2hsv)
+    return rgb2hsv(...this._rgb)
   }
 
+  @roundRes([0, 2, 2], 0)
   @cache('color:hsi')
   hsi(round: boolean | number = true): CommonColorTuple {
-    return toWhatSpace(this, round, rgb2hsi)
+    return rgb2hsi(...this._rgb)
   }
 
+  @roundRes([0, 2, 2], 0)
   @cache('color: hwb')
   hwb(round: boolean | number = true) {
-    return toWhatSpace(this, round, rgb2hwb)
+    return rgb2hwb(...this._rgb)
   }
 
+  @roundRes(2, 1)
   @cache('color:xyz')
   xyz(round: boolean | number = true): CommonColorTuple {
-    return toWhatSpace(this, round, rgb2xyz, 2, 1)
+    return rgb2xyz(...this._rgb)
   }
 
+  @roundRes(2, 1)
   @cache('color:lab')
   lab(round: boolean | number = true): CommonColorTuple {
-    return toWhatSpace(this, round, rgb2lab, 2, 1)
+    return xyz2lab(...this.xyz(false))
   }
 
+  @roundRes(2, 1)
   @cache('color:lch')
   lch(round: boolean | number = true): CommonColorTuple {
-    return toWhatSpace(this, round, rgb2lch, 2, 1)
+    return lab2lch(...this.lab(false))
   }
 
   /**
@@ -259,22 +268,4 @@ function getOrChange(
     rgb[idx] = amount
   }
   return new Color(rgb, color.alpha())
-}
-
-function toWhatSpace(
-  instance: Color,
-  round: number | boolean,
-  fn: (r: number, g: number, b: number) => CommonColorTuple,
-  defaultRound: [number, number, number] | number = [0, 2, 2],
-  roundModFlag: 0 | 1 = 0
-): CommonColorTuple {
-  const res = fn(...instance.rgb())
-  if (round === false) return res
-  const roundOffset = typeof round === 'number' ? Math.round(round) : 0
-  const newDefaultRound =
-    typeof defaultRound === 'number' ? new Array(res.length).fill(defaultRound) : defaultRound
-  const roundList = newDefaultRound.map(v =>
-    roundModFlag === 1 ? (typeof round === 'number' ? roundOffset : v) : v + roundOffset
-  )
-  return res.map((v, i) => roundDecimal(v, roundList[i])) as CommonColorTuple
 }
