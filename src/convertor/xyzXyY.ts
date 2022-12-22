@@ -11,7 +11,7 @@ export const xyz2xyY = function (x: number, y: number, z: number): CommonColorTu
   return [xx, yy, y]
 }
 
-export const xyY2xyz = function (xx: number, yy: number, y: number): CommonColorTuple {
-  if (yy === 0) return [0, 0, 0]
-  return [(xx * y) / yy, y, ((1 - xx - yy) * y) / yy]
+export const xyY2xyz = function (x: number, y: number, Y: number): CommonColorTuple {
+  if (y === 0) return [0, 0, 0]
+  return [x * (Y / y), Y, (1 - x - y) * (Y / y)]
 }
