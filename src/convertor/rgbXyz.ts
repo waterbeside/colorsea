@@ -9,7 +9,6 @@ export const rgb2xyz = function (r: number, g: number, b: number): CommonColorTu
   const y = RGB_XYZ.y.reduce((c, v, i) => c + v * rgb[i], 0) * 100
   const z = RGB_XYZ.z.reduce((c, v, i) => c + v * rgb[i], 0) * 100
   return [x, y, z]
-  //
 }
 
 export const xyz2rgb = function (x: number, y: number, z: number): CommonColorTuple {
