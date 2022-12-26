@@ -1,5 +1,6 @@
 export { linear2rgb, rgb2linear } from './linearRgb'
 export { rgb2hex, hex2rgb } from './rgbHex'
+export { rgb2cmyk, cmyk2rgb } from './rgbCmyk'
 export { rgb2hsl, hsl2rgb, rgb2hsv, hsv2rgb, rgb2hsi, hsi2rgb } from './rgbHsx'
 export { rgb2hwb, hwb2rgb } from './rgbHwb'
 export { rgb2xyz, xyz2rgb } from './rgbXyz'

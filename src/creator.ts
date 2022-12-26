@@ -1,9 +1,21 @@
 import { Color } from './color'
-import { hsl2rgb, hsv2rgb, xyz2rgb, lab2rgb, hwb2rgb, hsi2rgb, lch2xyz } from './convertor'
+import {
+  cmyk2rgb,
+  hsl2rgb,
+  hsv2rgb,
+  xyz2rgb,
+  lab2rgb,
+  hwb2rgb,
+  hsi2rgb,
+  lch2xyz
+} from './convertor'
 
 export default {
   rgb(r: number, g: number, b: number, alpha?: number): Color {
     return new Color([r, g, b], alpha)
+  },
+  cmyk(c: number, m: number, y: number, k: number, alpha?: number): Color {
+    return new Color(cmyk2rgb(c, m, y, k), alpha)
   },
   hsl(h: number, s: number, l: number, alpha?: number): Color {
     return new Color(hsl2rgb(h, s, l), alpha)
