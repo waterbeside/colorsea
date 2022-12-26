@@ -8,7 +8,9 @@
     "build": "gulp",
     "rollup": "rollup -c --configPlugin typescript",
     "clean": "gulp clean",
-    "lint": "eslint --fix --ext .js,.ts src"
+    "lint": "eslint --fix --ext .js,.ts src",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
   },
   "keywords": [],
   "author": "Natron Kan (waterbeside)",
@@ -43,6 +45,7 @@
     "ts-jest": "^29.0.3",
     "ts-node": "^10.9.1",
     "tslib": "^2.4.1",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.4",
+    "vuepress": "^1.9.7"
   }
 }
