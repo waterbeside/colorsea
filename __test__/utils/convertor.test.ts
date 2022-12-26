@@ -10,7 +10,12 @@ describe('test convertor', () => {
   })
 
   it('test rgb to hwb', () => {
-    expect(convertor.rgb2hwb(255, 2, 20).map(i => utils.roundDecimal(i, 0))).toEqual([356, 1, 0])
+    expect(convertor.rgb2hwb(255, 2, 20).map(i => utils.roundDecimal(i, 2))).toEqual([
+      355.73, 0.01, 0
+    ])
+    expect(convertor.hwb2rgb(27, 0.08, 0.22).map(i => utils.roundDecimal(i, 0))).toEqual([
+      199, 101, 20
+    ])
   })
 
   it('test rgb hsl', () => {
