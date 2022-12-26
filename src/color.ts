@@ -9,21 +9,27 @@ import {
   rgb2hwb,
   rgb2hsi,
   lab2lch,
-  xyz2xyY
+  xyz2xyY,
+  rgb2cmyk
 } from './convertor'
 import { clamp } from './utils'
 import { cache } from './decorators/cache'
 import { roundRes } from './decorators/roundRes'
 import { mix } from './utils/mix'
-import type { ColorBaseProp, CommonColorTuple, CommonColoraTuple } from '../typings/colorType'
+import type {
+  ColorBaseProp,
+  CommonColorTuple,
+  CommonColoraTuple,
+  CmykTuple
+} from '../typings/colorType'
 
 export class Color {
   private cache = new Map<string, any>()
   private _rgb: [number, number, number] = [0, 0, 0]
-  private _alpha = 1
+  private _alpha = 100
   constructor(rgb: CommonColorTuple | CommonColoraTuple | string, a?: number) {
     if (a !== void 0) {
-      this._alpha = clamp(a, 0, 1)
+      this._alpha = clamp(a, 0, 100)
     }
     if (Array.isArray(rgb)) {
       if (rgb.length < 3) throw new Error('Invalid Color')
@@ -64,22 +70,22 @@ export class Color {
     return new Color(this.rgb(), amount)
   }
 
-  fadeIn(amount: number = 0.1, method?: string): Color {
-    amount = method && method === 'relative' ? this._alpha * amount : amount
-    return new Color(this.rgb(), clamp(this._alpha + amount, 0, 1))
+  fadeIn(amount: number = 10, method?: string): Color {
+    amount = method && method === 'relative' ? (this._alpha * amount) / 100 : amount
+    return new Color(this.rgb(), clamp(this._alpha + amount, 0, 100))
   }
 
-  fadeOut(amount: number = 0.1, method?: string): Color {
-    amount = method && method === 'relative' ? this._alpha * amount : amount
-    return new Color(this.rgb(), clamp(this._alpha - amount, 0, 1))
+  fadeOut(amount: number = 10, method?: string): Color {
+    amount = method && method === 'relative' ? (this._alpha * amount) / 100 : amount
+    return new Color(this.rgb(), clamp(this._alpha - amount, 0, 100))
   }
 
-  opacity(amount: number = 0.1, method?: string): Color {
+  opacity(amount: number = 10, method?: string): Color {
     return this.fadeIn(amount, method)
   }
 
-  transparentize(amount: number = 0.1, method?: string): Color {
-    return this.fadeOut(amount)
+  transparentize(amount: number = 10, method?: string): Color {
+    return this.fadeOut(amount, method)
   }
 
   hue(): number
@@ -103,14 +109,20 @@ export class Color {
   @roundRes(0, 1)
   @cache('color:rgb')
   rgb(round: boolean | number = true): CommonColorTuple {
-    return this._rgb.map(v => Math.round(v)) as CommonColorTuple
+    return [...this._rgb]
   }
 
   rgba(): CommonColoraTuple {
     return [...this.rgb(), this._alpha]
   }
 
-  @roundRes([0, 2, 2], 0)
+  @roundRes(2, 1)
+  @cache('color:cmyk')
+  cmyk(round: boolean | number = true): CmykTuple {
+    return rgb2cmyk(...this._rgb)
+  }
+
+  @roundRes(0, 1)
   @cache('color:hsl')
   hsl(round: boolean | number = true): CommonColorTuple {
     return rgb2hsl(...this._rgb)
@@ -120,19 +132,19 @@ export class Color {
     return [...this.hsl(round), this._alpha]
   }
 
-  @roundRes([0, 2, 2], 0)
+  @roundRes(0, 1)
   @cache('color:hsv')
   hsv(round: boolean | number = true): CommonColorTuple {
     return rgb2hsv(...this._rgb)
   }
 
-  @roundRes([0, 2, 2], 0)
+  @roundRes(0, 1)
   @cache('color:hsi')
   hsi(round: boolean | number = true): CommonColorTuple {
     return rgb2hsi(...this._rgb)
   }
 
-  @roundRes([0, 2, 2], 0)
+  @roundRes(0, 1)
   @cache('color: hwb')
   hwb(round: boolean | number = true) {
     return rgb2hwb(...this._rgb)
@@ -173,7 +185,7 @@ export class Color {
         ? undefined
         : alphaFlag === 1
         ? this._alpha
-        : this._alpha === 1
+        : this._alpha === 100
         ? undefined
         : this._alpha
     const cacheKey = `color:hex:param_${alphaFlag}`
@@ -183,40 +195,40 @@ export class Color {
     return res
   }
 
-  lighten(amount: number = 0.1, method?: string) {
+  lighten(amount: number = 10, method?: string) {
     let [h, s, l] = this.hsl(false)
     if (method !== void 0 && method === 'relative') {
       l += l * amount
     } else {
       l += amount
     }
-    l = clamp(l, 0, 1)
+    l = clamp(l, 0, 100)
     return new Color(hsl2rgb(h, s, l), this._alpha)
   }
 
-  darken(amount: number = 0.1, method?: string) {
+  darken(amount: number = 10, method?: string) {
     return this.lighten(-amount, method)
   }
 
   /**
    * Increased saturation
    * 增加饱和度
-   * @param amount Between 0 and 1
+   * @param amount Between 0 and 100
    * @param method Use the relative value when entering relative
    * @returns new Color
    */
-  saturate(amount: number = 0.1, method?: string) {
+  saturate(amount: number = 10, method?: string) {
     let [h, s, l] = this.hsl(false)
     if (method !== void 0 && method === 'relative') {
       s += s * amount
     } else {
       s += amount
     }
-    s = clamp(s, 0, 1)
+    s = clamp(s, 0, 100)
     return new Color(hsl2rgb(h, s, l), this._alpha)
   }
 
-  desaturate(amount: number = 0.1, method?: string) {
+  desaturate(amount: number = 10, method?: string) {
     return this.saturate(-amount, method)
   }
 
@@ -231,8 +243,8 @@ export class Color {
     return new Color(hsl2rgb(h, s, l), this._alpha)
   }
 
-  mix(color: Color | string | CommonColoraTuple | CommonColorTuple, weight: number = 0.5): Color {
-    return mix(this, color, 1 - clamp(weight, 0, 1))
+  mix(color: Color | string | CommonColoraTuple | CommonColorTuple, weight: number = 50): Color {
+    return mix(this, color, 100 - clamp(weight, 0, 100))
   }
 
   @cache('color:luma')
@@ -250,7 +262,7 @@ function getOrChange(
   type: ColorBaseProp,
   amount?: number | undefined
 ): number | Color {
-  const clamp01 = (v: number) => clamp(v, 0, 1)
+  const clamp01 = (v: number) => clamp(v, 0, 100)
   const clamp0255 = (v: number) => clamp(v, 0, 255)
   const typeDict: { [key in ColorBaseProp]: [number, (v: number) => number] } = {
     h: [0, (v: number) => v % 360],

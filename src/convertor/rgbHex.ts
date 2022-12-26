@@ -7,7 +7,7 @@ export const rgb2hex = function (r: number, g: number, b: number, a?: number) {
   const toHex = (c: number) => Math.round(clamp(c, 0, 255)).toString(16).padStart(2, '0')
   for (let i = 0; i < arr.length; i++) hex += toHex(arr[i])
   if (a != void 0)
-    hex += Math.round(clamp(a, 0, 1) * 255)
+    hex += Math.round((clamp(a, 0, 100) / 100) * 255)
       .toString(16)
       .padStart(2, '0')
   return hex
@@ -21,7 +21,7 @@ export const hex2rgb = function (hexString: string): CommonColorTuple | CommonCo
   let a: boolean | number = false
   matched.forEach((c, i) => {
     if (i < 3) rgb[i] = parseInt(c, 16)
-    else a = parseInt(c, 16) / 255
+    else a = (parseInt(c, 16) * 100) / 255
   })
   return a === false ? rgb : [...rgb, a]
 }

@@ -9,6 +9,7 @@ export const mix = function (
 ) {
   const c1 = color1 instanceof Color ? color1 : new Color(color1)
   const c2 = color2 instanceof Color ? color2 : new Color(color2)
+  weight /= 100
   const w = clamp(weight, 0, 1) * 2 - 1
   const d = c1.alpha() - c2.alpha()
 

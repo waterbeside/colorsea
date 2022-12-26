@@ -8,13 +8,13 @@ describe('Class Color', () => {
     expect(color.red()).toBe(255)
     expect(color.green()).toBe(0)
     expect(color.blue()).toBe(0)
-    expect(color.hsl()).toEqual([0, 1, 0.5])
+    expect(color.hsl()).toEqual([0, 100, 50])
   })
 
   it('test mix', () => {
     const color1 = new Color('#ff0000')
     const color2 = new Color('#0000ff')
-    expect(color1.mix(color2, 0.2).hex(0)).toBe('#cc0033')
+    expect(color1.mix(color2, 20).hex(0)).toBe('#cc0033')
   })
 
   it('test convert color space', () => {
@@ -24,7 +24,7 @@ describe('Class Color', () => {
     expect(color.xyz(0)).toEqual([7, 8, 12])
     expect(color.lab()).toEqual([33.29, -1.94, -11.36])
     expect(color.lab(4)).toEqual([33.2892, -1.9394, -11.3614])
-    expect(color.hsl(2)).toEqual([210, 0.2, 0.3137])
+    expect(color.hsl(2)).toEqual([210, 20, 31.37])
     expect(color.lch()).toEqual([33.29, 11.53, 260.31])
   })
 })

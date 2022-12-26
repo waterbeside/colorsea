@@ -36,13 +36,17 @@ function rgb2hsx(r: number, g: number, b: number, vl: 'l' | 'v' | 'i' = 'l'): Co
     min = Math.min(r, g, b)
   let h: number = rgb2hue(r, g, b, vl === 'i')
   let s: number = 0
-  const l = (max + min) / 2
+  let l = (max + min) / 2
   const d = max - min
-  const v = max
-  const i = (r + g + b) / 3
+  let v = max
+  let i = (r + g + b) / 3
   if (vl === 'v') s = max === 0 ? 0 : d / max
   if (max !== min && vl === 'l') s = l > 0.5 ? d / (2 - max - min) : d / (max + min)
   if (vl === 'i') s = i > 0 ? 1 - min / i : 0
+  s *= 100
+  l *= 100
+  v *= 100
+  i *= 100
   return vl === 'l' ? [h, s, l] : vl === 'v' ? [h, s, v] : [h, s, i]
 }
 
@@ -68,8 +72,8 @@ export const hsl2rgb = function (h: number, s: number, l: number): CommonColorTu
   }
 
   h = (h % 360) / 360
-  s = clamp(s, 0, 1)
-  l = clamp(l, 0, 1)
+  s = clamp(s / 100, 0, 1)
+  l = clamp(l / 100, 0, 1)
 
   m2 = l <= 0.5 ? l * (s + 1) : l + s - l * s
   m1 = l * 2 - m2
@@ -83,6 +87,8 @@ export const rgb2hsv = function (r: number, g: number, b: number): CommonColorTu
 
 export const hsv2rgb = function (h: number, s: number, v: number): CommonColorTuple {
   h = ((h % 360) / 360) * 360
+  s /= 100
+  v /= 100
 
   let i
   let f
@@ -107,6 +113,8 @@ export const rgb2hsi = function (r: number, g: number, b: number): CommonColorTu
 
 export const hsi2rgb = function (h: number, s: number, i: number): CommonColorTuple {
   let r, g, b
+  s /= 100
+  i /= 100
 
   if (isNaN(h)) h = 0
   if (isNaN(s)) s = 0
