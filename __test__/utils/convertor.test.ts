@@ -2,33 +2,37 @@ import colorsea from '../../src/index'
 const { convertor, utils } = colorsea
 describe('test convertor', () => {
   it('test rgb hex', () => {
-    const res = convertor.rgb2hex(255, 2, 20, 0.9)
+    const res = convertor.rgb2hex(255, 2, 20, 90)
     expect(res).toBe('#ff0214e6')
-    expect(convertor.hex2rgb('#ff0214e6').map(i => utils.roundDecimal(i, 2))).toEqual([
-      255, 2, 20, 0.9
+    expect(convertor.hex2rgb('#ff0214e6').map(i => utils.roundDecimal(i, 0))).toEqual([
+      255, 2, 20, 90
     ])
   })
 
+  it('test rgb cmyk', () => {
+    const res = convertor.rgb2cmyk(70, 120, 200)
+    expect(res.map(v => utils.roundDecimal(v, 0))).toEqual([65, 40, 0, 22])
+    expect(
+      convertor.cmyk2rgb(64.9999999, 39.999999, 0, 21.568).map(i => utils.roundDecimal(i, 0))
+    ).toEqual([70, 120, 200])
+  })
+
   it('test rgb to hwb', () => {
-    expect(convertor.rgb2hwb(255, 2, 20).map(i => utils.roundDecimal(i, 2))).toEqual([
-      355.73, 0.01, 0
-    ])
-    expect(convertor.hwb2rgb(27, 0.08, 0.22).map(i => utils.roundDecimal(i, 0))).toEqual([
-      199, 101, 20
-    ])
+    expect(convertor.rgb2hwb(255, 2, 20).map(i => utils.roundDecimal(i, 0))).toEqual([356, 1, 0])
+    expect(convertor.hwb2rgb(27, 8, 22).map(i => utils.roundDecimal(i, 0))).toEqual([199, 101, 20])
   })
 
   it('test rgb hsl', () => {
     const color = colorsea('#555')
     const hsl = convertor.rgb2hsl(...color.rgb())
-    expect(hsl.map(i => Number(i.toFixed(2)))).toEqual([NaN, 0, 0.33])
-    expect(convertor.hsl2rgb(...hsl)).toEqual(color.rgb())
+    expect(hsl.map(i => Math.round(i))).toEqual([NaN, 0, 33])
+    expect(convertor.hsl2rgb(...hsl).map(i => Math.round(i))).toEqual(color.rgb())
   })
 
   it('test rgb hsi', () => {
     const hsi = convertor.rgb2hsi(83, 82, 72)
-    expect(hsi.map(i => Number(i.toFixed(2)))).toEqual([55.28, 0.09, 0.31])
-    expect(convertor.rgb2hsl(83, 82, 72).map(i => Number(i.toFixed(2)))).toEqual([54.55, 0.07, 0.3])
+    expect(hsi.map(i => Math.round(i))).toEqual([55, 9, 31])
+    expect(convertor.rgb2hsl(83, 82, 72).map(i => Math.round(i))).toEqual([55, 7, 30])
   })
 
   it('test rgb xyz', () => {
