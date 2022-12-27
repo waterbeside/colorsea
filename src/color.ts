@@ -66,7 +66,7 @@ export class Color {
   alpha(amount: number): Color
   alpha(amount?: number): Color | number {
     if (amount === void 0) return this._alpha
-    amount = clamp(amount, 0, 1)
+    amount = clamp(amount, 0, 100)
     return new Color(this.rgb(), amount)
   }
 
@@ -80,7 +80,7 @@ export class Color {
     return new Color(this.rgb(), clamp(this._alpha - amount, 0, 100))
   }
 
-  opacity(amount: number = 10, method?: string): Color {
+  opacify(amount: number = 10, method?: string): Color {
     return this.fadeIn(amount, method)
   }
 
@@ -206,11 +206,11 @@ export class Color {
   /**
    * Increase lightness
    * 增加亮度
-   * @param amount 亮度增加百分多少, 默认为10，代表10%
-   * @param method 如果填入relative则表示相对参数amount为相对值
+   * @param amount 亮度增加百分多少, 默认为5，代表5%
+   * @param method 如果填入relative则表示参数amount为相对值
    * @returns Color
    */
-  lighten(amount: number = 10, method?: string): Color {
+  lighten(amount: number = 5, method?: string): Color {
     let [h, s, l] = this.hsl(false)
     if (method !== void 0 && method === 'relative') {
       l += l * (amount / 100)
@@ -224,11 +224,11 @@ export class Color {
   /**
    * Reduce lightness
    * 减少亮度
-   * @param amount 亮度增加百分多少, 默认为10，代表10%
-   * @param method 如果填入relative则表示相对参数amount为相对值
+   * @param amount 亮度增加百分多少, 默认为5，代表5%
+   * @param method 如果填入relative则表示参数amount为相对值
    * @returns Color
    */
-  darken(amount: number = 10, method?: string) {
+  darken(amount: number = 5, method?: string): Color {
     return this.lighten(-amount, method)
   }
 
@@ -239,10 +239,10 @@ export class Color {
    * @param method Use the relative value when entering relative
    * @returns new Color
    */
-  saturate(amount: number = 10, method?: string) {
+  saturate(amount: number = 5, method?: string): Color {
     let [h, s, l] = this.hsl(false)
     if (method !== void 0 && method === 'relative') {
-      s += s * amount
+      s += s * (amount / 100)
     } else {
       s += amount
     }
@@ -250,12 +250,19 @@ export class Color {
     return new Color(hsl2rgb(h, s, l), this._alpha)
   }
 
-  desaturate(amount: number = 10, method?: string) {
+  /**
+   * Reduce saturation
+   * 降低饱和度
+   * @param amount Between 0 and 100
+   * @param method Use the relative value when entering relative
+   * @returns new Color
+   */
+  desaturate(amount: number = 5, method?: string): Color {
     return this.saturate(-amount, method)
   }
 
   /**
-   * Modify the hue
+   * Rotating hue
    * 旋转色相
    * @param angle rotation angle 旋转角度
    */
@@ -263,6 +270,25 @@ export class Color {
     let [h, s, l] = this.hsl(false)
     h = (h + (angle % 360) + 360) % 360
     return new Color(hsl2rgb(h, s, l), this._alpha)
+  }
+
+  adjustHue(angle: number): Color {
+    return this.spin(angle)
+  }
+
+  /**
+   * 取得补色
+   */
+  complement(): Color {
+    return this.spin(180)
+  }
+
+  /**
+   * 取得反色
+   */
+  invert(): Color {
+    const [r, g, b] = this._rgb.map(v => 255 - v)
+    return new Color([r, g, b], this._alpha)
   }
 
   mix(color: Color | string | CommonColoraTuple | CommonColorTuple, weight: number = 50): Color {
