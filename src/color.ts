@@ -106,77 +106,85 @@ export class Color {
     return getOrChange(this, 'l', amount)
   }
 
-  @roundRes(0, 1)
+  @roundRes(0, 1, true, 0)
   @cache('color:rgb')
-  rgb(round: boolean | number = true): CommonColorTuple {
+  rgb(round?: boolean | number): CommonColorTuple {
     return [...this._rgb]
   }
 
-  rgba(): CommonColoraTuple {
-    return [...this.rgb(), this._alpha]
+  @roundRes(0, 1, true, 0)
+  rgba(round?: boolean | number): CommonColoraTuple {
+    return [...this.rgb(false), this._alpha]
   }
 
-  @roundRes(2, 1)
+  @roundRes(0, 1, true, 0)
   @cache('color:cmyk')
-  cmyk(round: boolean | number = true): CmykTuple {
+  cmyk(round?: boolean | number): CmykTuple {
     return rgb2cmyk(...this._rgb)
   }
 
-  @roundRes(0, 1)
+  @roundRes(0, 1, true, 0)
   @cache('color:hsl')
-  hsl(round: boolean | number = true): CommonColorTuple {
+  hsl(round?: boolean | number): CommonColorTuple {
     return rgb2hsl(...this._rgb)
   }
 
-  hsla(round: boolean | number = true): CommonColoraTuple {
-    return [...this.hsl(round), this._alpha]
+  @roundRes(0, 1, true, 0)
+  hsla(round?: boolean | number): CommonColoraTuple {
+    return [...this.hsl(false), this._alpha]
   }
 
-  @roundRes(0, 1)
+  @roundRes(0, 1, true, 0)
   @cache('color:hsv')
-  hsv(round: boolean | number = true): CommonColorTuple {
+  hsv(round?: boolean | number): CommonColorTuple {
     return rgb2hsv(...this._rgb)
   }
 
-  @roundRes(0, 1)
+  @roundRes(0, 1, true, 0)
   @cache('color:hsi')
-  hsi(round: boolean | number = true): CommonColorTuple {
+  hsi(round?: boolean | number): CommonColorTuple {
     return rgb2hsi(...this._rgb)
   }
 
-  @roundRes(0, 1)
+  @roundRes(0, 1, true, 0)
   @cache('color: hwb')
-  hwb(round: boolean | number = true) {
+  hwb(round?: boolean | number) {
     return rgb2hwb(...this._rgb)
   }
 
-  @roundRes(2, 1)
+  @roundRes(2, 1, true, 0)
   @cache('color:xyz')
-  xyz(round: boolean | number = true): CommonColorTuple {
+  xyz(round?: boolean | number): CommonColorTuple {
     return rgb2xyz(...this._rgb)
   }
 
-  @roundRes(2, 1)
+  @roundRes(2, 1, true, 0)
   @cache('color:lab')
-  lab(round: boolean | number = true): CommonColorTuple {
+  lab(round?: boolean | number): CommonColorTuple {
     return xyz2lab(...this.xyz(false))
   }
 
-  @roundRes(2, 1)
+  @roundRes(2, 1, true, 0)
   @cache('color:lch')
-  lch(round: boolean | number = true): CommonColorTuple {
+  lch(round?: boolean | number): CommonColorTuple {
     return lab2lch(...this.lab(false))
   }
 
-  @roundRes(2, 1)
+  @roundRes(2, 1, true, 0)
   @cache('color:xyY')
-  xyY(round: boolean | number = true): CommonColorTuple {
+  xyY(round?: boolean | number): CommonColorTuple {
     return xyz2xyY(...this.xyz(false))
   }
 
   /**
+   * to hex
    * 转16进制色
-   * @param alphaFlag 0:不展示alpha值，1：展示alpha值，2：当alpha不等于一时才展示alpha
+   * @param alphaFlag 
+    ```
+      0: alpha is not displayed. 不展示alpha值，
+      1：alpha is displayed. 展示alpha值，
+      2：alpha is displayed when alpha is not equal to 100%. 当alpha不等于100%才展示alpha
+    ```
    * @returns like '#000000'
    */
   hex(alphaFlag: 0 | 1 | 2 = 2): string {
@@ -195,10 +203,17 @@ export class Color {
     return res
   }
 
-  lighten(amount: number = 10, method?: string) {
+  /**
+   * Increase lightness
+   * 增加亮度
+   * @param amount 亮度增加百分多少, 默认为10，代表10%
+   * @param method 如果填入relative则表示相对参数amount为相对值
+   * @returns Color
+   */
+  lighten(amount: number = 10, method?: string): Color {
     let [h, s, l] = this.hsl(false)
     if (method !== void 0 && method === 'relative') {
-      l += l * amount
+      l += l * (amount / 100)
     } else {
       l += amount
     }
@@ -206,6 +221,13 @@ export class Color {
     return new Color(hsl2rgb(h, s, l), this._alpha)
   }
 
+  /**
+   * Reduce lightness
+   * 减少亮度
+   * @param amount 亮度增加百分多少, 默认为10，代表10%
+   * @param method 如果填入relative则表示相对参数amount为相对值
+   * @returns Color
+   */
   darken(amount: number = 10, method?: string) {
     return this.lighten(-amount, method)
   }
