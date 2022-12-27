@@ -224,7 +224,7 @@ export class Color {
   /**
    * Reduce lightness
    * 减少亮度
-   * @param amount 亮度增加百分多少, 默认为5，代表5%
+   * @param amount 亮度减少百分多少, 默认为5，代表5%
    * @param method 如果填入relative则表示参数amount为相对值
    * @returns Color
    */
@@ -291,16 +291,23 @@ export class Color {
     return new Color([r, g, b], this._alpha)
   }
 
+  /**
+   * mix color
+   * 颜色混合
+   * @param color 另一个颜色
+   * @param weight 另一颜色的混合比例，默认值为50即50%
+   * @returns Color
+   */
   mix(color: Color | string | CommonColoraTuple | CommonColorTuple, weight: number = 50): Color {
     return mix(this, color, 100 - clamp(weight, 0, 100))
   }
 
   @cache('color:luma')
   luma(): number {
-    let [r, g, b] = this._rgb.map(item => item / 255)
-    r = r <= 0.03928 ? r / 12.92 : Math.pow((r + 0.055) / 1.055, 2.4)
-    g = g <= 0.03928 ? g / 12.92 : Math.pow((g + 0.055) / 1.055, 2.4)
-    b = b <= 0.03928 ? b / 12.92 : Math.pow((b + 0.055) / 1.055, 2.4)
+    let [r, g, b] = this._rgb.map(item => {
+      item /= 255
+      return item <= 0.03928 ? item / 12.92 : Math.pow((item + 0.055) / 1.055, 2.4)
+    })
     return 0.2126 * r + 0.7152 * g + 0.0722 * b
   }
 }
