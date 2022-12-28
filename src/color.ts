@@ -205,8 +205,8 @@ export class Color {
 
   /**
    * Increase lightness
-   * 增加亮度
-   * @param amount 亮度增加百分多少, 默认为5，代表5%
+   * 增加光亮度
+   * @param amount 光亮度增加百分多少, 默认为5，代表5%
    * @param method 如果填入relative则表示参数amount为相对值
    * @returns Color
    */
@@ -223,8 +223,8 @@ export class Color {
 
   /**
    * Reduce lightness
-   * 减少亮度
-   * @param amount 亮度减少百分多少, 默认为5，代表5%
+   * 减少光亮度
+   * @param amount 光亮度减少百分多少, 默认为5，代表5%
    * @param method 如果填入relative则表示参数amount为相对值
    * @returns Color
    */
@@ -233,7 +233,7 @@ export class Color {
   }
 
   /**
-   * Increased saturation
+   * Increase saturation
    * 增加饱和度
    * @param amount Between 0 and 100
    * @param method Use the relative value when entering relative
