@@ -1,7 +1,7 @@
 {
   "name": "colorsea",
-  "version": "0.0.8",
-  "description": "",
+  "version": "0.1.0",
+  "description": "A color tool library written in Typescript, you can use it to convert color spaces (RGB, HSL, HSV, HSI, HWB, XYZ, LAB, LCH, xyY), or operate on colors like LESS/SASS ( darken/lighten, saturate/desaturate, spin, mix). 一个使用Typescript编写的颜色工具库，你可以使用此进行颜色空间的转换(RGB, HSL, HSV, HSI, HWB, XYZ, LAB, LCH, xyY)，又或者像LESS/SASS那样对颜色进行操作（darken/lighten, saturate/desaturate, spin, mix)",
   "main": "dist/index.js",
   "types": "dist/typings/index.d.ts",
   "scripts": {
@@ -14,6 +14,7 @@
   },
   "keywords": [],
   "author": "Natron Kan (waterbeside)",
+  "homepage": "https://waterbeside.github.io/colorsea/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/waterbeside/colorsea"
