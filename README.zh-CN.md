@@ -3,6 +3,8 @@
 
 ---
 
+[文档](https://waterbeside.github.io/colorsea/zh/)
+
 [English](./README.md) | **简体中文**
 
 ## 📝 Table of Contents
@@ -24,7 +26,7 @@ npm install colorsea
 ```typescript
 import colorsea from 'colorsea'
 
-// ----- color conversion
+// ----- 颜色空间转换
 colorsea('#ff0000').rgb() // [255, 0, 0]
 colorsea('#ff0000', 50).rgba() // [255, 0, 0, 50]
 const color = colorsea('#405060')
@@ -36,9 +38,9 @@ colorsea.xyz(7.09, 7.67, 12.17).rgb() // [64, 80, 96]
 colorsea.hsl(210, 20, 31.37).rgb() // [64, 80, 96]
 // ... Other color spaces are similar
 
-// ---- Color operations
+// ---- 颜色操作
 const color = colorsea('#ffffff')
-const newColor = color.darken(10) // All operations will return a new Color instance object
+const newColor = color.darken(10) // 所有操作都会返回一个新的Color实例对象
 newColor.hex() // #e6e6e6
 colorsea('#000').lighten(10).hex() // #1a1a1a
 colorsea('#ff0000').spin(180).hex() // #00ffff
@@ -52,3 +54,5 @@ const color = color1.mix(color2, 20)
 color.hex() // #cc0033
 
 ```
+
+更明细的使用方式请参考文档： [https://waterbeside.github.io/colorsea/zh/](https://waterbeside.github.io/colorsea/zh/)

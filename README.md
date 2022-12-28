@@ -1,8 +1,12 @@
 # ColorSea
 
+[Document](https://waterbeside.github.io/colorsea/)
+
+[English](./README.md) | [简体中文](./README.zh-CN.md)
+
 ## About
 
-This is a color tool library written in Typescript. You can use it to convert color spaces (RGB, HSL, HSV, HSI, HWB, XYZ, LAB, LCH, xyY), or to convert colors like LESS/SASS Operation (darken/lighten, saturate/desaturate, spin, mix)
+A color tool library written in Typescript, you can use it to convert color spaces (RGB, HSL, HSV, HSI, HWB, XYZ, LAB, LCH, xyY), or operate on colors like LESS/SASS ( darken/lighten, saturate/desaturate, spin, mix)
 
 ## Quick Start
 
@@ -40,3 +44,5 @@ const color2 = new Color('#0000ff')
 const color = color1.mix(color2, 20)
 color.hex() // #cc0033
 ```
+
+For more detailed usage, please refer to the documentation: [https://waterbeside.github.io/colorsea/](https://waterbeside.github.io/colorsea/)
