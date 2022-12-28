@@ -96,10 +96,10 @@ colorsea.rgb(r, g, b, alpha) 等同于 colorsea(rgb, alpha)
 
 ```typescript
 /**
-@param r number 红  范围[0~255]
-@param g number 绿  范围[0~255]
-@param b number 蓝  范围[0~255]
-@param alpha number alpha  范围[0~1]
+@param r number 红  范围[0, 255]
+@param g number 绿  范围[0, 255]
+@param b number 蓝  范围[0, 255]
+@param alpha number alpha  范围[0, 100]
 */
 colorsea.rgb(r: number, g: number, b: number, alpha?: number)
 
@@ -117,7 +117,7 @@ colorsea.rgb(100, 20, 92)
 /**
 @param h number 色相    范围[0, 360)
 @param s number 饱和度  范围[0, 100]
-@param l number 亮度    范围[0, 100]
+@param l number 光亮度    范围[0, 100]
 @param alpha number alpha  范围[0, 100]
 */
 colorsea.hsl(h: number, s: number, l: number, alpha?: number)
@@ -191,8 +191,8 @@ colorsea.hwb(200, 30, 47)
 
 ```typescript
 /**
-@param c number 品红    范围[0, 100]
-@param m number 青      范围[0, 100]
+@param c number 青   范围[0, 100]
+@param m number 品红      范围[0, 100]
 @param y number 黄      范围[0, 100]
 @param k number 黑      范围[0, 100]
 @param alpha number alpha  范围[0, 100]
@@ -214,7 +214,7 @@ colorsea.cmyk(65, 40, 0, 21.57)
 @param x number x   
 @param y number y  
 @param z number z  
-@param alpha number alpha  范围[0~100]
+@param alpha number alpha  范围[0, 100]
 */
 colorsea.xyz(x: number, y: number, z: number, alpha?: number)
 
@@ -231,7 +231,7 @@ colorsea.xyz(36.44, 21.54, 20.98)
 @param l number 亮度 [0,100]
 @param a number 红色到绿色 [127,-128]
 @param b number 黄色到蓝色 [127,-128]
-@param alpha number alpha  范围[0~100]
+@param alpha number alpha  范围[0, 100]
 */
 colorsea.lab(l: number, a: number, b: number, alpha?: number)
 
@@ -250,7 +250,7 @@ colorsea.lab(50.57, 8.77, -46.64)
 @param l number 亮度
 @param c number 色度
 @param h number 色相 [0, 360)
-@param alpha number alpha  范围[0~100]
+@param alpha number alpha  范围[0, 100]
 */
 colorsea.lch(l: number, c: number, h: number, alpha?: number)
 
@@ -441,7 +441,7 @@ colorsea('#ff0000').spin(180).darken(30).desaturate(10) // Color: #0ac2c2
 /**
   * Increase lightness
   * 增加亮度
-  * @param amount 亮度增加百分多少, 默认为5，代表5%
+  * @param amount 光亮度增加百分多少, 默认为5，代表5%
   * @param method 如果填入relative则表示参数amount为相对值
   * @returns Color
   */
@@ -458,20 +458,20 @@ colorsea('#338800').lighten(10) // Color: #46bb00
 
 ### color.darken()
 
-减少亮度
+减少光亮度
 
 ```typescript
  /**
    * Reduce lightness
-   * 减少亮度
-   * @param amount 亮度增加百分多少, 默认为5，代表5%
+   * 减少光亮度
+   * @param amount 光亮度减少百分多少, 默认为5，代表5%
    * @param method 如果填入relative则表示参数amount为相对值
    * @returns Color
    */
 color.darken(amount: number = 5, method?: string): Color
 ```
 
-例：减少亮度10%
+例：减少光亮度10%
 
 ```typescript
 colorsea('#338800').darken(10) // Color: #205500
@@ -485,7 +485,7 @@ colorsea('#338800').darken(10) // Color: #205500
 
 ```typescript
  /**
-   * Increased saturation
+   * Increase saturation
    * 增加饱和度
    * @param amount 饱和度增加百分多少, 默认为5，代表5%
    * @param method 如果填入relative则表示参数amount为相对值
@@ -631,7 +631,7 @@ colorsea('#0396FF').mix('#7367F0', 33).mix('#EA5455', 50) // #896da8
 
 ```typescript
  /**
-   * Increased opacity
+   * Increase opacity
    * 增加不透明度
    * @param amount 不透明度增加的数值, 默认为10，代表10%
    * @param method 如果填入relative则表示参数amount为相对值
@@ -656,7 +656,7 @@ colorsea('#ff0000', 10).fadeIn(30) // #ff000066
  /**
    * Reduce opacity
    * 减少不透明度
-   * @param amount 不透明度减少的数值, 默认为5，代表5%
+   * @param amount 不透明度减少的数值, 默认为10，代表10%
    * @param method 如果填入relative则表示参数amount为相对值
    * @returns new Color
    */
@@ -684,11 +684,192 @@ colorsea('#ff0000', 100).fadeOut(50) // #ff000080
 ### color.red()
 
 ```typescript
-color.red(amount?: number): Color | number
+color.red(): number
+color.red(amount: number): Color
 ```
 
 - 参数 amount?: number
-  - 当不传入amount时，取得rgb的红色通道的值范围为[0, 255]
+  - 当不传入amount时，取得rgb的红色通道的值，范围为[0, 255]
   - 当传入amount时，为修改红色通度的值，并返回一个新的Color实例
 
+例1：取得红色通道值
 
+```typescript
+colorsea('#ffcc22').red() // 255
+```
+
+例2：设置红色通道为200
+
+```typescript
+colorsea('#ffcc22').red(200) // Color #c8cc22
+```
+
+<ColorBox box-color="#ffcc22">#ffcc22</ColorBox> -> <ColorBox box-color="#c8cc22">#c8cc22</ColorBox>
+
+### color.green()
+
+```typescript
+color.green(): number
+color.green(amount: number): Color
+```
+
+- 参数 amount?: number
+  - 当不传入amount时，取得rgb的绿色通道的值，范围为[0, 255]
+  - 当传入amount时，为修改绿色通度的值，并返回一个新的Color实例
+
+例1：取得绿色通道值
+
+```typescript
+colorsea('#ffcc22').green() // 204
+```
+
+例2：设置绿色通道为100
+
+```typescript
+colorsea('#ffcc22').green(100) // Color #ff6422
+```
+
+<ColorBox box-color="#ffcc22">#ffcc22</ColorBox> -> <ColorBox box-color="#ff6422">#ff6422</ColorBox>
+
+### color.blue()
+
+```typescript
+color.blue(): number
+color.blue(amount: number): Color
+```
+
+- 参数 amount?: number
+  - 当不传入amount时，取得rgb的蓝色通道的，值范围为[0, 255]
+  - 当传入amount时，为修改蓝色通度的值，并返回一个新的Color实例
+
+例1：取得蓝色通道值
+
+```typescript
+colorsea('#ffcc22').blue() // 34
+```
+
+例2：设置蓝色通道为255
+
+```typescript
+colorsea('#ffcc22').blue(255) // Color #ffccff
+```
+
+<ColorBox box-color="#ffcc22">#ffcc22</ColorBox> -> <ColorBox box-color="#ffccff">#ffccff</ColorBox>
+
+### color.hue()
+
+```typescript
+color.hue(): number
+color.hue(amount: number): Color
+```
+
+- 参数 amount?: number
+  - 当不传入amount时，取得色相值，范围为[0, 360)
+  - 当传入amount时，为修改色相值，并返回一个新的Color实例
+
+例1：取得色相
+
+```typescript
+colorsea('#ffcc22').hue() // 46
+```
+
+例2：设置色相为120°
+
+```typescript
+colorsea('#ffcc22').hue(120) // Color #24ff24
+```
+
+<ColorBox box-color="#ffcc22">#ffcc22</ColorBox> -> <ColorBox box-color="#24ff24">#24ff24</ColorBox>
+
+### color.saturation()
+
+```typescript
+color.saturation(): number
+color.saturation(amount: number): Color
+```
+
+- 参数 amount?: number
+  - 当不传入amount时，取得饱和度值，范围为[0, 100]
+  - 当传入amount时，为修改饱和度，并返回一个新的Color实例
+
+例1：取得饱和度
+
+```typescript
+colorsea('#ffcc22').saturation() // 100
+```
+
+例2：设置饱和度为20%
+
+```typescript
+colorsea('#ffcc22').saturation(20) // Color #a79d7b
+```
+
+<ColorBox box-color="#ffcc22">#ffcc22</ColorBox> -> <ColorBox box-color="#a79d7b">#a79d7b</ColorBox>
+
+### color.lightness()
+
+```typescript
+color.lightness(): number
+color.lightness(amount: number): Color
+```
+
+- 参数 amount?: number
+  - 当不传入amount时，取得光亮度，范围为[0, 100]
+  - 当传入amount时，为修改光亮度，并返回一个新的Color实例
+
+例1：取得光亮度
+
+```typescript
+colorsea('#ffcc22').lightness() // 57
+```
+
+例2：设置光亮度为30%
+
+```typescript
+colorsea('#ffcc22').lightness(30) // Color #664e00
+```
+
+<ColorBox box-color="#ffcc22">#ffcc22</ColorBox> -> <ColorBox box-color="#664e00">#664e00</ColorBox>
+
+### color.alpha()
+
+```typescript
+color.alpha(): number
+color.alpha(amount: number): Color
+```
+
+- 参数 amount?: number
+  - 当不传入amount时，取得alpha通道的值，范围为[0, 100]
+  - 当传入amount时，为修改alpha通道的值，并返回一个新的Color实例
+
+例1：取得不透明度
+
+```typescript
+colorsea('#22994a', 90).alpha() // 90
+```
+
+例2：设置不透明度为30%
+
+```typescript
+colorsea('#22994a', 90).alpha(30) // Color #22994a33
+```
+
+<ColorBox box-color="#22994a">#22994a</ColorBox> -> <ColorBox box-color="#22994a33">#22994a33</ColorBox>
+
+### color.luma()
+
+取得感知亮度
+
+```typescript
+color.luma(): number
+```
+
+例
+
+```typescript
+colorsea('#22994a').luma() // 0.23616959154733871
+```
+
+:::tips
+`color.red()`,`color.green()`,`color.blue()`,`color.hue()`,`color.saturation()`,`color.lightness()`, `color.alpha()`,`color.luma()`等方法的取值，如果其计算结果为小数，将会返会所有小数位数，并不会将结果进行取整或截取多少位小数。
+:::

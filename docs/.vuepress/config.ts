@@ -1,8 +1,9 @@
-import { defineConfig } from 'vuepress/config'
+import { defineConfig, PluginTuple } from 'vuepress/config'
 
 export default defineConfig({
   evergreen: true,
   base: '/colorsea/',
+  plugins: ['fulltext-search' as PluginTuple, '@vuepress/plugin-back-to-top'],
   locales: {
     '/': {
       lang: 'en-US', // 将会被设置为 <html> 的 lang 属性
@@ -17,6 +18,7 @@ export default defineConfig({
   },
   themeConfig: {
     repo: 'waterbeside/colorsea',
+    smoothScroll: true,
     locales: {
       '/': {
         selectText: 'Languages',
@@ -47,7 +49,7 @@ export default defineConfig({
       },
       '/zh/': {
         // 多语言下拉菜单的标题
-        selectText: '选择语言',
+        selectText: 'Languages',
         // 该语言在下拉菜单中的标签
         label: '简体中文',
         sidebar: [
