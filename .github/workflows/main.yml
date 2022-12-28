@@ -8,9 +8,6 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -18,7 +15,7 @@ jobs:
           persist-credentials: false
 
       - name: Build
-        run: pnpm install && pnpm run docs:build
+        run: npm install && npm run docs:build
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
