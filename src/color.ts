@@ -23,6 +23,9 @@ import type {
   CmykTuple
 } from '../typings/colorType'
 
+import { deltaE } from './utils/deltaE'
+import type { DeltaEMode, DeltaESetting } from './utils/deltaE'
+
 export class Color {
   private cache = new Map<string, any>()
   private _rgb: [number, number, number] = [0, 0, 0]
@@ -309,6 +312,20 @@ export class Color {
       return item <= 0.03928 ? item / 12.92 : Math.pow((item + 0.055) / 1.055, 2.4)
     })
     return 0.2126 * r + 0.7152 * g + 0.0722 * b
+  }
+
+  /**
+   * deltaE
+   * 色差
+   * @param color2 用于比较的颜色
+   * @param mode The default is CMC, Choose one from CMC | CIE2000 | CIE1994 | CIE1976
+   * @param setting Mode Setting
+    - CMC: { l: number, c: number }
+    - CIE2000: { kL: number; kC: number; kH: number }
+    - CIE1994: { kL: number; kC: number; kH: number; cate: 'graphic' | 'textiles' }
+     */
+  deltaE(color2: Color, mode: DeltaEMode = 'CMC', setting?: DeltaESetting): number {
+    return deltaE(this, color2, mode, setting)
   }
 }
 

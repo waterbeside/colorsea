@@ -2,6 +2,8 @@ import { Color } from './color'
 import * as convertor from './convertor'
 import creator from './creator'
 import { roundDecimal } from './utils'
+import { mix } from './utils/mix'
+import { deltaE } from './utils/deltaE'
 
 import type { CommonColorTuple, CommonColoraTuple } from '..//typings/colorType'
 
@@ -19,6 +21,8 @@ colorsea.hwb = creator.hwb
 colorsea.xyz = creator.xyz
 colorsea.lab = creator.lab
 colorsea.lch = creator.lch
+colorsea.mix = mix
+colorsea.deltaE = deltaE
 colorsea.utils = {
   roundDecimal
 }
