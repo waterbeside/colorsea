@@ -6,7 +6,7 @@ sidebar: auto
 
 ## 1. About
 
-This is a color tool library written in Typescript. You can use it to convert color spaces (RGB, HSL, HSV, HSI, HWB, XYZ, LAB, LCH, xyY), or to convert colors like LESS/SASS Operation (darken/lighten, saturate/desaturate, spin, mix)
+This is a color tool library written in Typescript. You can use it to convert color spaces (`RGB`, `HSL`, `HSV`, `HSI`, `HWB`, `XYZ`, `LAB`, `LCH`, `xyY`), or to convert colors like `LESS`/`SASS` Operation (`darken`/`lighten`, `saturate`/`desaturate`, `spin`, `mix`). Support `CMC(l:c)`, `CIE2000`, `CIE1994`, `CIE1976` color difference queries.
 
 ## 2. Quick Start
 
@@ -183,7 +183,7 @@ colorsea.hwb(h: number, w: number, b: number, alpha?: number)
 colorsea.hwb(200, 30, 47)
 ```
 
-<ColorBox box-color="hwb(200 30% 47%)">colorsea.hwb(200, 30, 47)</ColorBox>
+<ColorBox box-color="#4d7487">colorsea.hwb(200, 30, 47)</ColorBox>
 
 ---
 
@@ -444,7 +444,7 @@ Increase lightness
   * @param method If you fill in 'relative', it means that the parameter amount is a relative value
   * @returns Color
   */
-color.lighten(amount: number = 5, method?: string): Color
+color.lighten(amount: number = 5, method?: string) => Color
 ```
 
 Example: Increase lightness by 10%
@@ -466,7 +466,7 @@ Reduce lightness
    * @param method If you fill in 'relative', it means that the parameter amount is a relative value
    * @returns Color
    */
-color.darken(amount: number = 5, method?: string): Color
+color.darken(amount: number = 5, method?: string) => Color
 ```
 
 Example: Reduce lightness by 10%
@@ -488,7 +488,7 @@ Increase saturation
    * @param method If you fill in 'relative', it means that the parameter amount is a relative value
    * @returns new Color
    */
-color.saturate(amount: number = 5, method?: string): Color
+color.saturate(amount: number = 5, method?: string) => Color
 ```
 
 Example: 增加饱和度30%
@@ -510,7 +510,7 @@ Reduce saturation
    * @param method If you fill in 'relative', it means that the parameter amount is a relative value
    * @returns new Color
    */
-color.desaturate(amount: number = 5, method?: string): Color
+color.desaturate(amount: number = 5, method?: string) => Color
 ```
 
 Example: Reduce saturation by 50%
@@ -530,7 +530,7 @@ Rotate hue
   * Rotate hue
   * @param angle rotation angle
   */
-color.spin(angle: number): Color
+color.spin(angle: number) => Color
 ```
 
 Example: Rotate hue 90 degrees clockwise
@@ -586,7 +586,7 @@ color mixing
   * @param weight The mixing ratio of another color, the default value is 50 or 50%
   * @returns Color
   */
-color.mix(color: Color, weight: number = 50): Color
+color.mix(color: Color, weight: number = 50) => Color
 ```
 
 Example 1: rgb(30, 177, 250) mixed with 60% hsl(0, 100%, 20%)
@@ -630,7 +630,7 @@ Increase opacity
    * @param method If you fill in 'relative', it means that the parameter amount is a relative value
    * @returns new Color
    */
-color.fadeIn(amount: number = 10, method?: string): Color
+color.fadeIn(amount: number = 10, method?: string) => Color
 ```
 
 Example: 
@@ -652,7 +652,7 @@ Reduce opacity
    * @param method If you fill in 'relative', it means that the parameter amount is a relative value
    * @returns new Color
    */
-color.fadeOut(amount: number = 10, method?: string): Color
+color.fadeOut(amount: number = 10, method?: string) => Color
 ```
 
 Example: 
@@ -676,8 +676,8 @@ colorsea('#ff0000', 100).fadeOut(50) // #ff000080
 ### color.red()
 
 ```typescript
-color.red(): number
-color.red(amount: number): Color
+color.red() => number
+color.red(amount: number) => Color
 ```
 
 - parameter amount?: number
@@ -701,8 +701,8 @@ colorsea('#ffcc22').red(200) // Color #c8cc22
 ### color.green()
 
 ```typescript
-color.green(): number
-color.green(amount: number): Color
+color.green() => number
+color.green(amount: number) => Color
 ```
 
 - parameter amount?: number
@@ -726,8 +726,8 @@ colorsea('#ffcc22').green(100) // Color #ff6422
 ### color.blue()
 
 ```typescript
-color.blue(): number
-color.blue(amount: number): Color
+color.blue() => number
+color.blue(amount: number) => Color
 ```
 
 - parameter amount?: number
@@ -751,8 +751,8 @@ colorsea('#ffcc22').blue(255) // Color #ffccff
 ### color.hue()
 
 ```typescript
-color.hue(): number
-color.hue(amount: number): Color
+color.hue() => number
+color.hue(amount: number) => Color
 ```
 
 - parameter amount?: number
@@ -776,8 +776,8 @@ colorsea('#ffcc22').hue(120) // Color #24ff24
 ### color.saturation()
 
 ```typescript
-color.saturation(): number
-color.saturation(amount: number): Color
+color.saturation() => number
+color.saturation(amount: number) => Color
 ```
 
 - parameter amount?: number
@@ -801,8 +801,8 @@ colorsea('#ffcc22').saturation(20) // Color #a79d7b
 ### color.lightness()
 
 ```typescript
-color.lightness(): number
-color.lightness(amount: number): Color
+color.lightness() => number
+color.lightness(amount: number) => Color
 ```
 
 - parameter amount?: number
@@ -826,8 +826,8 @@ colorsea('#ffcc22').lightness(30) // Color #664e00
 ### color.alpha()
 
 ```typescript
-color.alpha(): number
-color.alpha(amount: number): Color
+color.alpha() => number
+color.alpha(amount: number) => Color
 ```
 
 - parameter amount?: number
@@ -853,7 +853,7 @@ colorsea('#22994a', 90).alpha(30) // Color #22994a33
 get luma
 
 ```typescript
-color.luma(): number
+color.luma() => number
 ```
 
 Example:
@@ -862,6 +862,102 @@ Example:
 colorsea('#22994a').luma() // 0.23616959154733871
 ```
 
-:::tips
+:::tip
 For methods such as `color.red()`,`color.green()`,`color.blue()`,`color.hue()`,`color.saturation()`,`color.lightness()`, `color.alpha()`,`color.luma()`, if the calculation result is a decimal, all decimal places will be returned, and the result will not be rounded or how many decimal places will be truncated.
 :::
+
+## 7. color difference （deltaE）
+
+cThe color instance contains a deltaE method. Can be used to query color difference, it supports `CMC`, `CIE2000`, `CIE1994`, `CIE1976` color difference formula query
+
+```typescript
+color.deltaE(sampleColor: Color, mode?: DeltaEMode, setting?: DeltaESetting) => number
+```
+
+Note: The current color instance object `color` is **standard color**, the first parameter `sampleColor` is **sample color**
+
+Parameter Description:
+
+- @param **sampleColor** sample color
+- @param **mode** Color difference mode, which formula to use to calculate color difference, the default value is `CMC`, there are the following options: `CMC` | `CIE2000` | `CIE1994` | `CIE1976`
+- @param **setting** Different color difference formulas have different coefficients that can be set
+  - **CMC**: `{ l: number, c: number }` The default value is `{ l: 1, c: 1 }`
+  - **CIE2000**: `{ kL: number; kC: number; kH: number }` The default value is `{ kL: 1; kC: 1; kH: 1 }`
+  - **CIE1994**:` { kL: number; kC: number; kH: number; cate: 'graphic' | 'textiles' } ` The default value is `{ kL: 1; kC: 1; kH: 1, cate: 'graphic' }`, When cate is `textiles`, the value of kL will become 2, regardless of the setting
+
+### CMC(l:c)
+
+Example：
+
+```typescript
+const color1 = colorsea.lab(80, 30, 120) // Standard color (reference color)
+const color2 = colorsea.lab(79, 28, 100) // Sample color
+
+// Use the CMC(1:1) formula
+color1.deltaE(color2, 'CMC') // 5.754...
+// The second parameter defaults to 'CMC', so the second parameter can be omitted
+color1.deltaE(color2)
+
+// CMC(2:1) formula, just set 'l' to 2 ('c' defaults to 1)
+color1.deltaE(color2, 'CMC', { l: 2 }) // 5.719...
+
+```
+
+:::tip
+In the CMC (l:c) color difference formula, `l` represents the weighted value of lightness, which adjusts the relative width of lightness; `c` represents the weighted value of chroma, which adjusts the relative width of chroma. Depending on the industry, you can adjust the influence of lightness and saturation on the total color difference by adjusting the value of `l` or `c`.
+
+- When evaluating the perception of color difference, it is recommended to use `l:c = 1:1`, such as paint, plastic industry.
+- When evaluating the acceptability of color difference, it is recommended to use `l:c = 2: 1`, and it is recommended to use `l:c = 2: 1` to control product quality in textile printing and dyeing industries
+:::
+
+### CIE2000
+
+Example：
+
+```typescript
+const color1 = colorsea.lab(80, 30, 120) // Standard color (reference color)
+const color2 = colorsea.lab(79, 28, 100) // Sample color
+
+// Using the CIE2000 formula
+color1.deltaE(color2, 'CIE2000') // 3.6815...
+
+// Efficacy coefficient, kL, kC, kH default value is 1
+color1.deltaE(color2, 'CIE2000', { kL：1, kC: 1: kH: 1})
+```
+
+### CIE1994
+
+Example：
+
+```typescript
+const color1 = colorsea.lab(80, 30, 120) // Standard color (reference color)
+const color2 = colorsea.lab(79, 28, 100) // Sample color
+
+// Using the CIE1994 formula
+color1.deltaE(color2, 'CIE1994') // 3.3725...
+
+// Effect coefficient, kL, kC, kH default value is 1
+color1.deltaE(color2, 'CIE1994', { kL：1, kC: 1: kH: 1})
+
+// Note: The default value of cate is 'graphic', that is, graphic arts
+// If used for fabric evaluation, set cate to 'textiles'.
+color1.deltaE(color2, 'CIE1994', { cate: 'textiles'})
+
+```
+
+:::tip
+When `{ cate: 'textiles' }`, the coefficient `kL` will ignore the custom setting and automatically become 2.
+:::
+
+### CIE1976
+
+Example：
+
+```typescript
+const color1 = colorsea.lab(80, 30, 120) // Standard color (reference color)
+const color2 = colorsea.lab(79, 28, 100) // Sample color
+
+// Using the CIE1976 formula
+color1.deltaE(color2, 'CIE1976') // 20.1246...
+
+```
