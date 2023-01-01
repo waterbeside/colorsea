@@ -6,7 +6,7 @@ sidebar: auto
 
 ## 一. 关于
 
-这是一个使用Typescript编写的颜色工具库，你可以使用此进行颜色空间的转换(RGB, HSL, HSV, HSI, HWB, XYZ, LAB, LCH, xyY)，又或者像LESS/SASS那样对颜色进行操作（darken/lighten, saturate/desaturate, spin, mix)
+这是一个使用Typescript编写的颜色工具库; 你可以使用此进行颜色空间的转换(`RGB`, `HSL`, `HSV`, `HSI`, `HWB`, `XYZ`, `LAB`, `LCH`, `xyY`); 又或者像LESS/SASS那样对颜色进行操作（`darken`/`lighten`, `saturate`/`desaturate`, `spin`, `mix`); 支持`CMC(l:c)`、 `CIE2000、` `CIE1994、` `CIE1976`等色差查询。
 
 ## 二. 快速开始
 
@@ -183,7 +183,7 @@ colorsea.hwb(h: number, w: number, b: number, alpha?: number)
 colorsea.hwb(200, 30, 47)
 ```
 
-<ColorBox box-color="hwb(200 30% 47%)">colorsea.hwb(200, 30, 47)</ColorBox>
+<ColorBox box-color="#4d7487">colorsea.hwb(200, 30, 47)</ColorBox>
 
 ---
 
@@ -445,7 +445,7 @@ colorsea('#ff0000').spin(180).darken(30).desaturate(10) // Color: #0ac2c2
   * @param method 如果填入relative则表示参数amount为相对值
   * @returns Color
   */
-color.lighten(amount: number = 5, method?: string): Color
+color.lighten(amount: number = 5, method?: string) => Color
 ```
 
 例：增加亮度10%
@@ -468,7 +468,7 @@ colorsea('#338800').lighten(10) // Color: #46bb00
    * @param method 如果填入relative则表示参数amount为相对值
    * @returns Color
    */
-color.darken(amount: number = 5, method?: string): Color
+color.darken(amount: number = 5, method?: string) => Color
 ```
 
 例：减少光亮度10%
@@ -491,7 +491,7 @@ colorsea('#338800').darken(10) // Color: #205500
    * @param method 如果填入relative则表示参数amount为相对值
    * @returns new Color
    */
-color.saturate(amount: number = 5, method?: string): Color
+color.saturate(amount: number = 5, method?: string) => Color
 ```
 
 例：增加饱和度30%
@@ -514,7 +514,7 @@ colorsea('#E5B7A1').saturate(30) // Color: #f7b18f
    * @param method 如果填入relative则表示参数amount为相对值
    * @returns new Color
    */
-color.desaturate(amount: number = 5, method?: string): Color
+color.desaturate(amount: number = 5, method?: string) => Color
 ```
 
 例：降低饱和度50%
@@ -535,7 +535,7 @@ colorsea('#00ff00').desaturate(50) // Color: #40bf40
   * 旋转色相
   * @param angle rotation angle 旋转角度
   */
-color.spin(angle: number): Color
+color.spin(angle: number) => Color
 ```
 
 例：顺时针旋转色相90度
@@ -592,7 +592,7 @@ colorsea('#cccccc').invert() // Color: #333333
   * @param weight 另一颜色的混合比例，默认值为50即50%
   * @returns Color
   */
-color.mix(color: Color, weight: number = 50): Color
+color.mix(color: Color, weight: number = 50) => Color
 ```
 
 例1：rgb(30, 177, 250)混合60%的hsl(0, 100%, 20%)
@@ -637,7 +637,7 @@ colorsea('#0396FF').mix('#7367F0', 33).mix('#EA5455', 50) // #896da8
    * @param method 如果填入relative则表示参数amount为相对值
    * @returns new Color
    */
-color.fadeIn(amount: number = 10, method?: string): Color
+color.fadeIn(amount: number = 10, method?: string) => Color
 ```
 
 例：
@@ -660,7 +660,7 @@ colorsea('#ff0000', 10).fadeIn(30) // #ff000066
    * @param method 如果填入relative则表示参数amount为相对值
    * @returns new Color
    */
-color.fadeOut(amount: number = 10, method?: string): Color
+color.fadeOut(amount: number = 10, method?: string) => Color
 ```
 
 例：
@@ -684,8 +684,8 @@ colorsea('#ff0000', 100).fadeOut(50) // #ff000080
 ### color.red()
 
 ```typescript
-color.red(): number
-color.red(amount: number): Color
+color.red() => number
+color.red(amount: number) => Color
 ```
 
 - 参数 amount?: number
@@ -709,8 +709,8 @@ colorsea('#ffcc22').red(200) // Color #c8cc22
 ### color.green()
 
 ```typescript
-color.green(): number
-color.green(amount: number): Color
+color.green() => number
+color.green(amount: number) => Color
 ```
 
 - 参数 amount?: number
@@ -734,8 +734,8 @@ colorsea('#ffcc22').green(100) // Color #ff6422
 ### color.blue()
 
 ```typescript
-color.blue(): number
-color.blue(amount: number): Color
+color.blue() => number
+color.blue(amount: number) => Color
 ```
 
 - 参数 amount?: number
@@ -759,8 +759,8 @@ colorsea('#ffcc22').blue(255) // Color #ffccff
 ### color.hue()
 
 ```typescript
-color.hue(): number
-color.hue(amount: number): Color
+color.hue() => number
+color.hue(amount: number) => Color
 ```
 
 - 参数 amount?: number
@@ -784,8 +784,8 @@ colorsea('#ffcc22').hue(120) // Color #24ff24
 ### color.saturation()
 
 ```typescript
-color.saturation(): number
-color.saturation(amount: number): Color
+color.saturation() => number
+color.saturation(amount: number) => Color
 ```
 
 - 参数 amount?: number
@@ -809,8 +809,8 @@ colorsea('#ffcc22').saturation(20) // Color #a79d7b
 ### color.lightness()
 
 ```typescript
-color.lightness(): number
-color.lightness(amount: number): Color
+color.lightness() => number
+color.lightness(amount: number) => Color
 ```
 
 - 参数 amount?: number
@@ -834,8 +834,8 @@ colorsea('#ffcc22').lightness(30) // Color #664e00
 ### color.alpha()
 
 ```typescript
-color.alpha(): number
-color.alpha(amount: number): Color
+color.alpha() => number
+color.alpha(amount: number) => Color
 ```
 
 - 参数 amount?: number
@@ -861,7 +861,7 @@ colorsea('#22994a', 90).alpha(30) // Color #22994a33
 取得感知亮度
 
 ```typescript
-color.luma(): number
+color.luma() => number
 ```
 
 例
@@ -870,6 +870,102 @@ color.luma(): number
 colorsea('#22994a').luma() // 0.23616959154733871
 ```
 
-:::tips
+:::tip
 `color.red()`,`color.green()`,`color.blue()`,`color.hue()`,`color.saturation()`,`color.lightness()`, `color.alpha()`,`color.luma()`等方法的取值，如果其计算结果为小数，将会返会所有小数位数，并不会将结果进行取整或截取多少位小数。
 :::
+
+## 七. 色差 （deltaE）
+
+color实例包含一个deltaE方法。可用于查询色差，其支持 `CMC(l:c)`, `CIE2000`, `CIE1994`, `CIE1976` 多种色差公式查询
+
+```typescript
+color.deltaE(sampleColor: Color, mode?: DeltaEMode, setting?: DeltaESetting) => number
+```
+
+注：当前颜色实例对象`color`为**标准色**，第一个参数`sampleColor`为**样品色**
+
+参数说明：
+
+- @param **sampleColor** 样品颜色
+- @param **mode** 色差模式，即选用哪种公式计算色差，默认值为 `CMC`, 有以下几种可选： `CMC` | `CIE2000` | `CIE1994` | `CIE1976`
+- @param **setting** 不同的色差公式有不同的系数可设置
+  - **CMC**: `{ l: number, c: number }` 默认值为 `{ l: 1, c: 1 }`
+  - **CIE2000**: `{ kL: number; kC: number; kH: number }` 默认值为 `{ kL: 1; kC: 1; kH: 1 }`
+  - **CIE1994**:` { kL: number; kC: number; kH: number; cate: 'graphic' | 'textiles' } `默认值为 `{ kL: 1; kC: 1; kH: 1, cate: 'graphic' }`, 当 cate为`textiles`时，kL的值会变为2，无视设置
+
+### CMC(l:c)色差查询
+
+示例
+
+```typescript
+const color1 = colorsea.lab(80, 30, 120) // 标准色（参考色）
+const color2 = colorsea.lab(79, 28, 100) // 样品色
+
+// 使用CMC(1:1)公式
+color1.deltaE(color2, 'CMC') // 5.754...
+// 参数二默认为'CMC' 故可省略参数二
+color1.deltaE(color2)
+
+// CMC(2:1)公式, 只需把权重因子l设为2即可 (c默认为1)
+color1.deltaE(color2, 'CMC', { l: 2 }) // 5.719...
+
+```
+
+:::tip
+CMC（l:c）色差公式中，l表示明度加权值，调节明度的相对宽容量；c表示彩度加权值，调节彩度的相对宽容量。行业不同，可以通过调节l或c的值，调整明度和饱和度对总色差的影响程度。
+
+- 在对色差的感知性进行评价时，推荐采用l:c  = 1: 1 ，如涂料、塑料行业。
+- 在对色差的可接受性进行评价时，推荐采用l:c  = 2: 1 ，在纺织印染等行业对产品质量进行控制大多推荐采用 l:c  = 2: 1
+:::
+
+### CIE2000色差查询
+
+示例
+
+```typescript
+const color1 = colorsea.lab(80, 30, 120) // 标准色（参考色）
+const color2 = colorsea.lab(79, 28, 100) // 样品色
+
+// 使用CIE2000公式
+color1.deltaE(color2, 'CIE2000') // 3.6815...
+
+// （效正系数，kL, kC, kH 默认值都为1）
+color1.deltaE(color2, 'CIE2000', { kL：1, kC: 1: kH: 1})
+```
+
+### CIE1994色差查询
+
+示例
+
+```typescript
+const color1 = colorsea.lab(80, 30, 120) // 标准色（参考色）
+const color2 = colorsea.lab(79, 28, 100) // 样品色
+
+// 使用CIE1994公式
+color1.deltaE(color2, 'CIE1994') // 3.3725...
+
+// （效正系数，kL, kC, kH 默认值都为1）
+color1.deltaE(color2, 'CIE1994', { kL：1, kC: 1: kH: 1})
+
+// 注：cate默认值为 'graphic'，即图像艺术（graphic arts）
+// 如果用于进行织物评价，设置cate为'textiles'。
+color1.deltaE(color2, 'CIE1994', { cate: 'textiles'})
+
+```
+
+:::tip
+当 `{ cate: 'textiles' }` 时，系数 `kL`将无视自定义设置，自动变为2。
+:::
+
+### CIE1976色差查询
+
+示例
+
+```typescript
+const color1 = colorsea.lab(80, 30, 120) // 标准色（参考色）
+const color2 = colorsea.lab(79, 28, 100) // 样品色
+
+// 使用CIE1976公式
+color1.deltaE(color2, 'CIE1976') // 20.1246...
+
+```

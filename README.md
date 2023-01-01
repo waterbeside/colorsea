@@ -6,7 +6,7 @@
 
 ## About
 
-A color tool library written in Typescript, you can use it to convert color spaces (RGB, HSL, HSV, HSI, HWB, XYZ, LAB, LCH, xyY), or operate on colors like LESS/SASS ( darken/lighten, saturate/desaturate, spin, mix)
+This is a color tool library written in Typescript. You can use it to convert color spaces (`RGB`, `HSL`, `HSV`, `HSI`, `HWB`, `XYZ`, `LAB`, `LCH`, `xyY`), or to convert colors like LESS/SASS Operation (`darken`/`lighten`, `saturate`/`desaturate`, `spin`, `mix`). Support `CMC(l:c)`, `CIE2000`, `CIE1994`, `CIE1976` color difference queries.
 
 ## Quick Start
 
