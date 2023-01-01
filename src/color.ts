@@ -317,15 +317,15 @@ export class Color {
   /**
    * deltaE
    * 色差
-   * @param color2 用于比较的颜色
+   * @param sampleColor 样品颜色
    * @param mode The default is CMC, Choose one from CMC | CIE2000 | CIE1994 | CIE1976
    * @param setting Mode Setting
     - CMC: { l: number, c: number }
     - CIE2000: { kL: number; kC: number; kH: number }
     - CIE1994: { kL: number; kC: number; kH: number; cate: 'graphic' | 'textiles' }
      */
-  deltaE(color2: Color, mode: DeltaEMode = 'CMC', setting?: DeltaESetting): number {
-    return deltaE(this, color2, mode, setting)
+  deltaE(sampleColor: Color, mode: DeltaEMode = 'CMC', setting?: DeltaESetting): number {
+    return deltaE(this, sampleColor, mode, setting)
   }
 }
 
