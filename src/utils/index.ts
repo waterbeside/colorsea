@@ -6,7 +6,7 @@
  * @param max 上边界
  * @returns 处理后的值
  */
-export const clamp = function (num: number, min: number, max: number): number {
+export const clamp = (num: number, min: number, max: number): number => {
   return Math.min(Math.max(num, min), max)
 }
 
@@ -16,7 +16,7 @@ export const clamp = function (num: number, min: number, max: number): number {
  * @param hexString 十六进制颜色字符串
  * @returns 处理后的颜色字符串
  */
-export const colorHex = function (hexString: string): string {
+export const colorHex = (hexString: string): string => {
   hexString = /^#/.test(hexString) ? hexString.slice(1) : hexString
   const len = hexString.length
   if (![3, 4, 6, 8].includes(len)) return '000000'
@@ -32,8 +32,13 @@ export const colorHex = function (hexString: string): string {
   return '000000'
 }
 
-export const roundDecimal = function (n: number, fractionDigits: number): number {
+export const roundDecimal = (n: number, fractionDigits: number): number => {
   return (
     Math.round((n + Number.EPSILON) * Math.pow(10, fractionDigits)) / Math.pow(10, fractionDigits)
   )
+}
+
+export const checkHex = (hex: string): boolean => {
+  const re = /^#(([a-fA-F\d]{3}){1,2}|[a-fA-F\d]{8})$/
+  return re.test(hex)
 }
