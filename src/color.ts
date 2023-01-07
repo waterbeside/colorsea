@@ -12,10 +12,11 @@ import {
   xyz2xyY,
   rgb2cmyk
 } from './convertor'
-import { clamp } from './utils'
+import { clamp, checkHex } from './utils'
 import { cache } from './decorators/cache'
 import { roundRes } from './decorators/roundRes'
 import { mix } from './utils/mix'
+import { getValueByColorName } from './utils/colorNames'
 import type {
   ColorBaseProp,
   CommonColorTuple,
@@ -42,6 +43,9 @@ export class Color {
         else break
       }
     } else {
+      if (!checkHex(rgb)) {
+        rgb = getValueByColorName(rgb, true)
+      }
       rgb = hex2rgb(rgb)
       return new Color(rgb, a)
     }
