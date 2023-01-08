@@ -26,8 +26,11 @@ colorsea.deltaE = deltaE
 colorsea.utils = {
   roundDecimal
 }
-colorsea.useNames = (keywords: { [key: string]: string }) => {
-  useColorNames(keywords)
+colorsea.useNames = (
+  keywords: { [key: string]: string },
+  formatFn?: (key: string, value: string) => [string, string]
+) => {
+  useColorNames(keywords, formatFn)
   return colorsea
 }
 
