@@ -17,7 +17,6 @@ const props = defineProps({
 })
 
 const isShowName2 = props?.name2 !== void 0
-console.log('props', props)
 
 const widthStyle: {[key: string]: string} = {}
 for (let i = 0; i < props.widths.length; i++) {
@@ -60,8 +59,8 @@ for (let i = 0; i < props.widths.length; i++) {
 
   &.head {
     dt, dd {
-      background-color: #f0f0f0;
-      border-bottom: 3px solid #ccc;
+      background-color: #333;
+      color: #fff;
     }
   }
   
