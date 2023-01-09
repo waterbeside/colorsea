@@ -160,4 +160,4 @@ export default {
   whitesmoke: '#f5f5f5',
   yellow: '#ffff00',
   yellowgreen: '#9acd32'
-}
+} as const

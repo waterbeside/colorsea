@@ -253,4 +253,4 @@ export default {
   sumi: '#1C1C1C',
   kuro: '#080808',
   ro: '#0C0C0C'
-}
+} as const
