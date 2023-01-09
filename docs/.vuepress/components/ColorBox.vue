@@ -12,7 +12,7 @@ const props = defineProps({
   },
   minWidth: {
     type: Number,
-    default: '#fff'
+    default: 100
   }
 })
 
