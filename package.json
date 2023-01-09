@@ -1,7 +1,7 @@
 {
   "name": "colorsea",
-  "version": "0.2.0",
-  "description": "A color tool library written in Typescript, you can use it to convert color spaces, and operate on colors like LESS/SASS ( darken/lighten, saturate/desaturate, spin, mix), and color difference query. 一个使用Typescript编写的颜色工具库，你可以使用此进行颜色空间的转换、颜色操作、以及色差查询",
+  "version": "0.3.1",
+  "description": "A color tool library written in Typescript, you can use it to convert color spaces, and operate on colors like LESS/SASS ( darken/lighten, saturate/desaturate, spin, mix), and color difference query. 一个使用Typescript编写的颜色工具库，你可以使用此进行颜色空间的转换、颜色操作、以及色差查询, 支持中国色、日本色的查询",
   "main": "dist/index.js",
   "types": "dist/typings/index.d.ts",
   "scripts": {
@@ -32,7 +32,9 @@
     "@types/jest": "^29.2.3",
     "@types/node": "^18.11.11",
     "@typescript-eslint/parser": "^5.46.0",
-    "@vuepress/plugin-back-to-top": "^1.9.7",
+    "@vuepress/client": "2.0.0-beta.60",
+    "@vuepress/plugin-back-to-top": "2.0.0-beta.60",
+    "@vuepress/plugin-register-components": "2.0.0-beta.60",
     "babel-jest": "^29.3.1",
     "eslint": "^8.29.0",
     "eslint-config-prettier": "^8.5.0",
@@ -48,7 +50,8 @@
     "ts-node": "^10.9.1",
     "tslib": "^2.4.1",
     "typescript": "^4.9.4",
-    "vuepress": "^1.9.7",
-    "vuepress-plugin-fulltext-search": "^2.2.1"
+    "vue": "^3.2.45",
+    "vuepress": "2.0.0-beta.60",
+    "vuepress-plugin-full-text-search2": "^0.4.0"
   }
 }

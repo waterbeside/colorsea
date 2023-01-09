@@ -3,8 +3,12 @@ const clean = require('gulp-clean')
 const path = require('path')
 const { exec } = require('child_process')
 
-const taskClean = () => {
+const taskCleanDist = () => {
   return gulp.src('./dist/**/*').pipe(clean())
+}
+
+const taskCleanColors = () => {
+  return gulp.src('./colors/**/*').pipe(clean())
 }
 
 const taskScript = async done => {
@@ -21,5 +25,5 @@ const taskScript = async done => {
   done()
 }
 
-exports.clean = taskClean
-exports.default = gulp.series(taskClean, taskScript)
+exports.clean = gulp.series(taskCleanDist, taskCleanColors)
+exports.default = gulp.series(taskCleanDist, taskCleanColors, taskScript)

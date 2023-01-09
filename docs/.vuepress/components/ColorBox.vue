@@ -1,27 +1,30 @@
+<script setup lang="ts">
+import { defineProps } from 'vue'
+
+const props = defineProps({
+  boxColor: {
+    type: String,
+    default: '#000'
+  },
+  textColor: {
+    type: String,
+    default: '#fff'
+  },
+  minWidth: {
+    type: Number,
+    default: 100
+  }
+})
+
+</script>
+
 <template>
-  <div class="colorbox" :style="{backgroundColor: boxColor, color: textColor}">
+  <div class="colorbox" :style="{backgroundColor: boxColor, color: textColor, minWidth: minWidth + 'px'}">
     <slot></slot>
   </div>
 </template>
 
-
-<script>
-export default {
-  props: {
-    boxColor: {
-      type: String,
-      default: '#000'
-    },
-    textColor: {
-      type: String,
-      default: '#fff'
-    }
-  }
-}
-
-</script>
-
-<style>
+<style scoped>
 .colorbox {
   display: inline-block;
   min-height: 20px;

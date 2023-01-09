@@ -1,0 +1,11 @@
+:root {
+  --search-input-width: 8rem !important;
+  --search-result-width: 90% !important;
+}
+
+.suggestions {
+  position: fixed !important;
+  left: 18vw !important;
+  top: calc(var(--navbar-line-height) + 7px) !important;
+  max-width: 100% !important;
+}

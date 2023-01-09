@@ -1,5 +1,12 @@
 import colorsea from '../src/index'
-describe('Class Color', () => {
+import x11 from '../src/colors/x11'
+import chinese from '../src/colors/chinese'
+import nippon from '../src/colors/nippon'
+import nipponRm from '../src/colors/nipponRm'
+
+colorsea.useNames(x11).useNames(chinese)
+
+describe('test colorsea', () => {
   it('test color operations', () => {
     expect(colorsea('#ffffff').darken(10).hex()).toBe('#e6e6e6')
     expect(colorsea('#000').lighten(10).hex()).toBe('#1a1a1a')
@@ -7,5 +14,28 @@ describe('Class Color', () => {
     expect(colorsea.hsl(80, 90, 20).saturate(10).hsl()).toEqual([80, 100, 20])
     expect(colorsea.hsl(80, 90, 20).desaturate(10).hsl()).toEqual([80, 80, 20])
     expect(colorsea('#776600').fadeOut(10).rgba()).toEqual([119, 102, 0, 90])
+  })
+
+  it('test x11 color names', () => {
+    expect(colorsea('Aqua').hex()).toBe('#00ffff')
+    expect(colorsea('Aquamarine').hex()).toBe('#7fffd4')
+    expect(colorsea('Beige').hex().toUpperCase()).toBe('#F5F5DC')
+    expect(colorsea('DarkCyan').hex().toUpperCase()).toBe('#008B8B')
+    expect(colorsea('DimGray').hex().toUpperCase()).toBe('#696969')
+    expect(colorsea('LightCoral').hex().toUpperCase()).toBe('#F08080')
+  })
+
+  it('test chinese color names', () => {
+    expect(colorsea('水绿').hex()).toBe('#8cc269')
+    expect(colorsea('潮蓝').hex()).toBe('#2983bb')
+    expect(colorsea('山梗紫').hex()).toBe('#61649f')
+  })
+
+  it('test Nippon color names use a prefix', () => {
+    colorsea.useNames(nippon, (key, value) => [`np:${key}`, value]).useNames(nipponRm)
+    expect(colorsea('np:紅消鼠').hex().toUpperCase()).toBe('#52433D')
+    expect(colorsea('np:檳榔子染').hex().toUpperCase()).toBe('#3A3226')
+    expect(colorsea('FUTAAI').hex().toUpperCase()).toBe('#70649A')
+    expect(colorsea('momo').hex().toUpperCase()).toBe('#F596AA')
   })
 })
