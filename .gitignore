@@ -3,4 +3,5 @@ node_modules
 dist
 /colors
 *.local
-
+.cache
+.temp
