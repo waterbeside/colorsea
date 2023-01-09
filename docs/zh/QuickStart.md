@@ -1,53 +1,69 @@
-# ColorSea
 
-[For detailed documents, please click here](https://waterbeside.github.io/colorsea/)
+# 快速上手
 
-[English](./README.md) | [简体中文](./README.zh-CN.md)
+## 安装
 
-## About
+<CodeGroup>
+  <CodeGroupItem title="PNPM">
 
-This is a tiny color tool library written in Typescript.
+```bash:no-line-numbers
+pnpm install colorsea 
+```
 
-- You can use it to convert color spaces (`RGB`, `HSL`, `HSV`, `HSI`, `HWB`, `XYZ`, `LAB`, `LCH`, `xyY`),
-- Operate on colors like LESS/SASS (`darken`/`lighten`, `saturate`/`desaturate`, `spin`, `fadeIn`/`fadeOut`, `mix`).
-- Support `CMC(l:c)`, `CIE2000`, `CIE1994`, `CIE1976` color difference queries.
-- Support to use `X11`, `Chinese Traditional Color`, `Japanese Traditional Color` types of color names to get the color
+  </CodeGroupItem>
+  <CodeGroupItem title="YARN">
 
-## Quick Start
+```bash:no-line-numbers
+yarn add colorsea 
+```
 
-### Installation
+  </CodeGroupItem>
 
-```bash
+  <CodeGroupItem title="NPM" active>
+
+```bash:no-line-numbers
 npm install colorsea 
 ```
 
-### Import & Use
+  </CodeGroupItem>
+</CodeGroup>
 
-#### Import
+## 导入和使用
 
-ES Module
+### 导入
 
-```typescript
+<CodeGroup>
+  <CodeGroupItem title="ES Module" active>
+
+```typescript:no-line-numbers
 import colorsea from 'colorsea'
 ```
 
-CommonJs
+  </CodeGroupItem>
+  <CodeGroupItem title="CommonJs">
 
-```javascript
+```javascript:no-line-numbers
 const colorsea = require('colorsea')
 ```
+
+  </CodeGroupItem>
+
+  <CodeGroupItem title="Browser">
 
 ```html:no-line-numbers
 <script src="path/to/colorsea.js"></script>
 ```
 
-#### Color space conversion
+  </CodeGroupItem>
+</CodeGroup>
+
+### 颜色空间转换
 
 ```typescript
 // ----- color conversion
 colorsea('#ff0000').rgb() // [255, 0, 0]
 colorsea('#ff0000', 50).rgba() // [255, 0, 0, 50]
-// The colorsea() function can create a Color instance
+// colorsea() 函数可以创建一个Color实例
 const color = colorsea('#405060')
 color.rgba() // [255, 0, 0, 50]
 color.xyz() // [7.09, 7.67, 12.17]
@@ -58,7 +74,7 @@ colorsea.hsl(210, 20, 31.37).rgb() // [64, 80, 96]
 // ... Other color spaces are similar
 ```
 
-#### Color operations
+### 颜色操作
 
 ```typescript
 // ---- Color operations
@@ -77,51 +93,51 @@ const color = color1.mix(color2, 20)
 color.hex() // #cc0033
 ```
 
-#### Color difference calculation
+### 色差计算
 
 ```typescript
-const color1 = colorsea.lab(80, 30, 120) // Standard color (reference color)
-const color2 = colorsea.lab(79, 28, 100) // Sample color
+const color1 = colorsea.lab(80, 30, 120) // 标准色（参考色）
+const color2 = colorsea.lab(79, 28, 100) // 样品色
 
-// CMC(1:1)
+// 使用CMC(1:1)公式
 color1.deltaE(color2, 'CMC') // 5.754...
+// 参数二默认为'CMC' 故可省略参数二
+color1.deltaE(color2)
 
-// CMC(2:1) formula, just set the weight factor l to 2 (c defaults to 1)
+// CMC(2:1)公式, 只需把权重因子l设为2即可 (c默认为1)
 color1.deltaE(color2, 'CMC', { l: 2 }) // 5.719...
 
-// CIE2000
+// 使用CIE2000公式
 color1.deltaE(color2, 'CIE2000') // 3.6815...
 
-// CIE1994
+// 使用CIE1994公式
 color1.deltaE(color2, 'CIE1994') // 3.3725...
 
-// CIE1976
+// 使用CIE1976公式
 color1.deltaE(color2, 'CIE1976') // 20.1246...
 
 ```
 
-### Use color names
+### 使用颜色名称
 
 ```typescript
 import colorsea from 'colorsea'
 import x11 from 'colorsea/colors/x11'
-// Load X11 color names
+// 载入X11颜色名
 colorsea.useNames(x11)
 
-// At this point you can directly use the X11 color name to create the color instance
+// 此时你可以直接使用X11颜色名称来创建颜色
 colorsea('Aqua') // color: #00ffff
 colorsea('Aquamarine') // color: #7fffd4
 ```
 
 ```typescript
-import chinese from 'colorsea/colors/chinese' // Chinese traditional color
-import nippon from 'colorsea/colors/nippon' // Japanese traditional color
-// load both
+import chinese from 'colorsea/colors/chinese' //中国传统色
+import nippon from 'colorsea/colors/nippon' //日本传统色
+// 同时载入两者
 colorsea.useNames(chinese).useNames(nippon)
 
-// use
+// 使用
 colorsea('山梗紫') // color: #61649F
 colorsea('水がき') // color: #B9887D
 ```
-
-For more detailed usage, please refer to the documentation: [https://waterbeside.github.io/colorsea/](https://waterbeside.github.io/colorsea/)

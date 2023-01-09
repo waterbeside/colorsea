@@ -1,47 +1,63 @@
-# ColorSea
 
-[For detailed documents, please click here](https://waterbeside.github.io/colorsea/)
+# Quick Start
 
-[English](./README.md) | [简体中文](./README.zh-CN.md)
+## Installation
 
-## About
+<CodeGroup>
+  <CodeGroupItem title="PNPM">
 
-This is a tiny color tool library written in Typescript.
+```bash:no-line-numbers
+pnpm install colorsea 
+```
 
-- You can use it to convert color spaces (`RGB`, `HSL`, `HSV`, `HSI`, `HWB`, `XYZ`, `LAB`, `LCH`, `xyY`),
-- Operate on colors like LESS/SASS (`darken`/`lighten`, `saturate`/`desaturate`, `spin`, `fadeIn`/`fadeOut`, `mix`).
-- Support `CMC(l:c)`, `CIE2000`, `CIE1994`, `CIE1976` color difference queries.
-- Support to use `X11`, `Chinese Traditional Color`, `Japanese Traditional Color` types of color names to get the color
+  </CodeGroupItem>
+  <CodeGroupItem title="YARN">
 
-## Quick Start
+```bash:no-line-numbers
+yarn add colorsea 
+```
 
-### Installation
+  </CodeGroupItem>
 
-```bash
+  <CodeGroupItem title="NPM" active>
+
+```bash:no-line-numbers
 npm install colorsea 
 ```
 
-### Import & Use
+  </CodeGroupItem>
+</CodeGroup>
 
-#### Import
+## Import & Use
 
-ES Module
+### Import
 
-```typescript
+<CodeGroup>
+  <CodeGroupItem title="ES Module" active>
+
+```typescript:no-line-numbers
 import colorsea from 'colorsea'
 ```
 
-CommonJs
+  </CodeGroupItem>
+  <CodeGroupItem title="CommonJs">
 
-```javascript
+```javascript:no-line-numbers
 const colorsea = require('colorsea')
 ```
+
+  </CodeGroupItem>
+
+  <CodeGroupItem title="Browser">
 
 ```html:no-line-numbers
 <script src="path/to/colorsea.js"></script>
 ```
 
-#### Color space conversion
+  </CodeGroupItem>
+</CodeGroup>
+
+### Color space conversion
 
 ```typescript
 // ----- color conversion
@@ -58,7 +74,7 @@ colorsea.hsl(210, 20, 31.37).rgb() // [64, 80, 96]
 // ... Other color spaces are similar
 ```
 
-#### Color operations
+### Color operations
 
 ```typescript
 // ---- Color operations
@@ -77,7 +93,7 @@ const color = color1.mix(color2, 20)
 color.hex() // #cc0033
 ```
 
-#### Color difference calculation
+### Color difference calculation
 
 ```typescript
 const color1 = colorsea.lab(80, 30, 120) // Standard color (reference color)
@@ -123,5 +139,3 @@ colorsea.useNames(chinese).useNames(nippon)
 colorsea('山梗紫') // color: #61649F
 colorsea('水がき') // color: #B9887D
 ```
-
-For more detailed usage, please refer to the documentation: [https://waterbeside.github.io/colorsea/](https://waterbeside.github.io/colorsea/)

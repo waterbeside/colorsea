@@ -32,7 +32,7 @@ export default defineUserConfig({
     '/zh/': {
       lang: 'zh-CN',
       title: 'ColorSea',
-      description: '简单的颜色空间转换和颜色操作库'
+      description: '简单轻量的颜色空间转换和颜色操作查询库'
     }
   },
   theme: defaultTheme({
@@ -40,21 +40,30 @@ export default defineUserConfig({
     // smoothScroll: true,
     locales: {
       '/': {
-        // selectText: 'Languages',
         selectLanguageName: 'English',
-        // label: 'English',
-        // ariaLabel: 'Languages',
-        // 显示所有（非活动页面）标题组成的链接
-        // displayAllHeaders: false, // 默认值：false
-        // 滚动操作是否改变标题链接的显示
-        // activeHeaderLinks: true // 默认值：true
+        sidebar: [
+          '/pages/About.md',
+          '/pages/QuickStart.md',
+          '/pages/CreateInstance.md',
+          '/pages/Converting.md',
+          '/pages/ColorOperation.md',
+          '/pages/Value.md',
+          '/pages/Diff.md',
+          '/pages/Names.md',
+        ]
       },
       '/zh/': {
         selectLanguageName: '简体中文',
-        // // 多语言下拉菜单的标题
-        // selectText: 'Languages',
-        // // 该语言在下拉菜单中的标签
-        // label: '简体中文'
+        sidebar: [
+          '/zh/About.md',
+          '/zh/QuickStart.md',
+          '/zh/CreateInstance.md',
+          '/zh/Converting.md',
+          '/zh/ColorOperation.md',
+          '/zh/Value.md',
+          '/zh/Diff.md',
+          '/zh/Names.md',
+        ]
       },
 
     }
