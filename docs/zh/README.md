@@ -10,7 +10,7 @@ actions:
     type: secondary
 features:
   - title: 轻量
-    details: 通过GZIP压缩后只有96B, 解压后也只15K左右
+    details: 通过GZIP压缩后只有5.7K, 解压后也只15K左右
   - title: 颜色操作
     details: 像LESS/SASS那样对颜色进行操作`darken`/`lighten`, `saturate`/`desaturate`, `spin`, `fadeIn`/`fadeOut`, `mix`，单简易上手
   - title: 颜色空间

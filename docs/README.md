@@ -10,7 +10,7 @@ actions:
     type: secondary
 features:
   - title: Tiny
-    details: After being compressed by GZIP, it is only 96B, and after decompression, it is only about 15K
+    details: After being compressed by GZIP, it is only 5.7K, and after decompression, it is only about 15K
   - title: Color operation
     details: You can use it to convert color spaces (`RGB`, `HSL`, `HSV`, `HSI`, `HWB`, `XYZ`, `LAB`, `LCH`, `xyY`). Easy to use.
   - title: Color space

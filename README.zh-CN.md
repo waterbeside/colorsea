@@ -3,6 +3,11 @@
 
 [详细文档请点这里](https://waterbeside.github.io/colorsea/zh/)
 
+![](https://img.shields.io/bundlephobia/minzip/colorsea)
+![](https://img.shields.io/github/languages/top/waterbeside/colorsea)
+![](https://img.shields.io/npm/l/colorsea)
+![](https://img.shields.io/github/last-commit/waterbeside/colorsea)
+
 [English](./README.md) | **简体中文**
 
 ## 🧐 关于
