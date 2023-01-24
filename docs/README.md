@@ -12,7 +12,7 @@ features:
   - title: Tiny
     details: After being compressed by GZIP, it is only 5.7K, and after decompression, it is only about 15K
   - title: Color operation
-    details: Operate colors like LESS/SASS `darken`/`lighten`, `saturate`/`desaturate`, `spin`, `fadeIn`/`fadeOut`, `mix`, easy to use
+    details: Adjust the color like LESS/SASS, such as `darken`/`lighten`, `saturate`/`desaturate`, `spin`, `fadeIn`/`fadeOut`, `mix` and other methods, easy to use.
   - title: Color space
     details: You can use it to convert color spaces (`RGB`, `HSL`, `HSV`, `HSI`, `HWB`, `XYZ`, `LAB`, `LCH`, `xyY`).
   - title: Color difference (⊿E)
