@@ -8,7 +8,6 @@ import { registerComponentsPlugin } from '@vuepress/plugin-register-components'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export default defineUserConfig({
-  // evergreen: true,
   base: '/colorsea/',
   plugins: [
     fullTextSearchPlugin,
@@ -26,12 +25,12 @@ export default defineUserConfig({
   locales: {
     '/': {
       lang: 'en-US', // 将会被设置为 <html> 的 lang 属性
-      title: 'ColorSea',
+      title: 'COLORSEA',
       description: 'A simple color space conversion and color manipulation library'
     },
     '/zh/': {
       lang: 'zh-CN',
-      title: 'ColorSea',
+      title: 'COLORSEA',
       description: '简单轻量的颜色空间转换和颜色操作查询库'
     }
   },

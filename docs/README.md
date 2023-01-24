@@ -12,9 +12,9 @@ features:
   - title: Tiny
     details: After being compressed by GZIP, it is only 5.7K, and after decompression, it is only about 15K
   - title: Color operation
-    details: You can use it to convert color spaces (`RGB`, `HSL`, `HSV`, `HSI`, `HWB`, `XYZ`, `LAB`, `LCH`, `xyY`). Easy to use.
+    details: Operate colors like LESS/SASS `darken`/`lighten`, `saturate`/`desaturate`, `spin`, `fadeIn`/`fadeOut`, `mix`, easy to use
   - title: Color space
-    details: Support query and conversion of multiple color spaces `RGB`, `HSL`, `HSV`, `HSI`, `HWB`, `XYZ`, `LAB`, `LCH`, `xyY`
+    details: You can use it to convert color spaces (`RGB`, `HSL`, `HSV`, `HSI`, `HWB`, `XYZ`, `LAB`, `LCH`, `xyY`).
   - title: Color difference (⊿E)
     details: Support CMC(l:c), CIE2000, CIE1994, CIE1976 and other color difference query
   - title: Color names

@@ -1,4 +1,4 @@
-# ColorSea
+# COLORSEA
 
 [For detailed documents, please click here](https://waterbeside.github.io/colorsea/)
 
