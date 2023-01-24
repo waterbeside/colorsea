@@ -1,10 +1,10 @@
 
 # COLORSEA
 
-<h1 style="background-image: linear-gradient(80deg, #1BA784, #7091a6, #158BB8,#A35C8F, #1BA784); text-align: center; background-repeat: repeat;
+<div style="background-image: linear-gradient(80deg, #1BA784, #7091a6, #158BB8,#A35C8F, #1BA784); text-align: center; background-repeat: repeat;
   background-clip: text;
-  color: transparent;">COLORSEA</h1>
-  
+  color: transparent;">COLORSEA</div>
+
 ------
 
 [详细文档请点这里](https://waterbeside.github.io/colorsea/zh/)
