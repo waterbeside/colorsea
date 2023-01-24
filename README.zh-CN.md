@@ -1,5 +1,5 @@
 
-# COLORSEA
+# <span style="color: #1BA784">CO</span><span style="color:#1ba2a7">L</span><span style="color:#158BB8">OR</span><span style="color: #6f4faf">S</span><span style="color: #A35C8F">E</span><span style="color: #af4f4f">A</span>
 
 [详细文档请点这里](https://waterbeside.github.io/colorsea/zh/)
 
@@ -12,10 +12,10 @@
 
 ## 🧐 关于
 
-**colorsea**是一个轻量的使用`Typescript`编写的颜色工具库
+**colorsea.js**是一个轻量的使用`Typescript`编写的颜色工具库
 
 - 你可以使用此进行颜色空间的转换(`RGB`, `HSL`, `HSV`, `HSI`, `HWB`, `XYZ`, `LAB`, `LCH`, `xyY`)。
-- 又或者像LESS/SASS那样对颜色进行操作（`darken`/`lighten`, `saturate`/`desaturate`, `spin`, `fadeIn`/`fadeOut`, `mix`)。
+- 像LESS/SASS那样对颜色进行调整，如`darken`/`lighten`, `saturate`/`desaturate`, `spin`, `fadeIn`/`fadeOut`, `mix`等方法，单简易上手。
 - 支持`CMC(l:c)`、 `CIE2000、` `CIE1994、` `CIE1976`等色差查询。
 - 还可以使用`X11`、`中国传统色`、`日本传统色`等颜色名称来取得颜色。
 

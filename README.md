@@ -1,4 +1,4 @@
-# ColorSea
+# <span style="color: #1BA784">CO</span><span style="color:#1ba2a7">L</span><span style="color:#158BB8">OR</span><span style="color: #6f4faf">S</span><span style="color: #A35C8F">E</span><span style="color: #af4f4f">A</span>
 
 [For detailed documents, please click here](https://waterbeside.github.io/colorsea/)
 
@@ -11,10 +11,10 @@
 
 ## About
 
-This is a tiny color tool library written in Typescript.
+**colorsea.js** is a tiny color tool library written in `Typescript`.
 
 - You can use it to convert color spaces (`RGB`, `HSL`, `HSV`, `HSI`, `HWB`, `XYZ`, `LAB`, `LCH`, `xyY`),
-- Operate on colors like LESS/SASS (`darken`/`lighten`, `saturate`/`desaturate`, `spin`, `fadeIn`/`fadeOut`, `mix`).
+- Adjust the color like LESS/SASS, such as `darken`/`lighten`, `saturate`/`desaturate`, `spin`, `fadeIn`/`fadeOut`, `mix` and other methods, easy to use.
 - Support `CMC(l:c)`, `CIE2000`, `CIE1994`, `CIE1976` color difference queries.
 - Support to use `X11`, `Chinese Traditional Color`, `Japanese Traditional Color` types of color names to get the color
 

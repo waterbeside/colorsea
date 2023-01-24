@@ -1,11 +1,62 @@
+$primary-color: #2ebabc;
+$primary-color-light: lighten($primary-color, 5%);
+
 :root {
+  --c-brand: #{$primary-color};
+  --c-brand-light: #{$primary-color-light};
+  scroll-behavior: smooth;
   --search-input-width: 8rem !important;
   --search-result-width: 90% !important;
 }
+
+$rainbow-color: linear-gradient(80deg, #1BA784, #7091a6, #158BB8,#A35C8F, #1BA784);
+
+@mixin rainbow {
+  background-image: $rainbow-color;
+  background-repeat: repeat;
+  background-clip: text;
+  color: transparent;
+}
+
+
+@keyframes scroll_background {
+  0% { background-position: 0 0}
+  50% { background-position: 400px 10px}
+  100% { background-position: 100% 0}
+}
+
+.back-to-top {
+  background-image: $rainbow-color;
+}
+
 
 .suggestions {
   position: fixed !important;
   left: 18vw !important;
   top: calc(var(--navbar-line-height) + 7px) !important;
   max-width: 100% !important;
+}
+
+
+
+.navbar {
+  border-top:2px solid #ddd;
+  border-image: $rainbow-color 30;
+  border-bottom: 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  .site-name {
+    display: inline-block;
+    @include rainbow();
+    animation: scroll_background 100s linear infinite;
+
+  }
+}
+
+
+#main-title {
+  display: inline-block;
+  @include rainbow();
+  animation: scroll_background 30s linear infinite;
+  // background-position: -200px 0;
+
 }
