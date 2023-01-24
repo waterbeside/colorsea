@@ -23,7 +23,7 @@ colorsea([204, 0, 32], 90)
 
 ---
 
-The first parameter of `colorsea()` also supports passing in color names. When using these color names, you need to load the name mapping relationship table separately. The currently supported color names are **X11 color names**, **Chinese traditional colors**, **Japanese Traditional Colors**. You can also customize the color name. For specific usage, please refer to the document [Using Color Names](/colorsea/zh/Names.html)
+The first parameter of `colorsea()` also supports passing in color names. When using these color names, you need to load the name mapping relationship table separately. The currently supported color names are **X11 color names**, **Chinese traditional colors**, **Japanese Traditional Colors**. You can also customize the color name. For specific usage, please refer to the document [Using Color Names](/colorsea/pages/Names.html)
 
 ---
 
