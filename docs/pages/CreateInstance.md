@@ -212,3 +212,11 @@ colorsea.lch(50, 120, 20)
 ```
 
 <ColorBox box-color="#ff003b">colorsea.lch(50, 120, 20)</ColorBox>
+
+## colorsea.random
+
+Generate random color
+
+```typescript
+colorsea.random()
+```
