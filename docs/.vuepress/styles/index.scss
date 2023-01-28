@@ -62,7 +62,9 @@ $rainbow-color: linear-gradient(80deg, #1BA784, #7091a6, #158BB8,#A35C8F, #1BA78
   animation: scroll_background 8s linear infinite;
   font-weight: 700;
   font-size: 76px;
-  // background-position: -200px 0;
+  @media screen and (max-width: 768px) {
+    font-size: 50px;
+  }
 
 }
 
