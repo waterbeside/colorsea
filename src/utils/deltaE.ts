@@ -164,6 +164,15 @@ const prettyMode = (mode: DeltaEMode): DeltaEModeUpper => {
   }
 }
 
+/**
+ * Color difference calculation
+ * 色差计算
+ * @param color1 color1
+ * @param color2 color2
+ * @param mode Formula selection, there are 'CMC', 'CIE', 'CIE2000', 'CIE1994', 'CIE1976' optional
+ * @param setting The settable value of the corresponding formula
+ * @returns {number} return color difference value
+ */
 export function deltaE(
   color1: Color,
   color2: Color,

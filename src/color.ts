@@ -284,6 +284,7 @@ export class Color {
   }
 
   /**
+   * complementary color
    * 取得补色
    */
   complement(): Color {
@@ -291,6 +292,7 @@ export class Color {
   }
 
   /**
+   * Invert color
    * 取得反色
    */
   invert(): Color {
@@ -299,7 +301,7 @@ export class Color {
   }
 
   /**
-   * mix color
+   * color mixing
    * 颜色混合
    * @param color 另一个颜色
    * @param weight 另一颜色的混合比例，默认值为50即50%
