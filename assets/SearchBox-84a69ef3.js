@@ -1,4 +1,4 @@
-import{u as M}from"./app-fe8ada91.js";import{r as g,h as w,C as N,c as P,S as A,u as F,_ as B,p as h,q as p,Z as H,a8 as j,Q as b,w as C,a2 as v,O as T,P as S,v as y,R as z,a9 as X}from"./framework-cbc93935.js";const W=[{path:"/",title:"Home",pathLocale:"/",contents:[]},{path:"/pages/About.html",title:"About",pathLocale:"/",contents:[{header:"About",slug:"about",content:`This is a tiny color tool library written in Typescript. You can use it to convert color spaces (RGB, HSL, HSV, HSI, HWB, XYZ, LAB, LCH, xyY),
+import{u as M}from"./app-791bc883.js";import{r as g,h as w,C as N,c as P,S as A,u as F,_ as B,p as h,q as p,Z as H,a8 as j,Q as b,w as C,a2 as v,O as T,P as S,v as y,R as z,a9 as X}from"./framework-cbc93935.js";const W=[{path:"/",title:"Home",pathLocale:"/",contents:[]},{path:"/pages/About.html",title:"About",pathLocale:"/",contents:[{header:"About",slug:"about",content:`This is a tiny color tool library written in Typescript. You can use it to convert color spaces (RGB, HSL, HSV, HSI, HWB, XYZ, LAB, LCH, xyY),
 Operate on colors like LESS/SASS (darken/lighten, saturate/desaturate, spin, fadeIn/fadeOut, mix).
 Support CMC(l:c), CIE2000, CIE1994, CIE1976 color difference queries.
 Support to use X11, Chinese Traditional Color, Japanese Traditional Color types of color names to get the color`}]},{path:"/pages/ColorOperation.html",title:"Color operation",pathLocale:"/",contents:[{header:"Color operation",slug:"color-operation",content:""},{header:"Example",slug:"example",content:`Example1：Darken the color by 20%
@@ -162,7 +162,8 @@ colorsea.lab(50.57, 8.77, -46.64)`},{header:"colorsea.lch",slug:"colorsea-lch",c
 */
 colorsea.lch(l: number, c: number, h: number, alpha?: number) // Example
 colorsea.lch(50, 120, 20)
-colorsea.lch(50, 120, 20)`}]},{path:"/pages/Diff.html",title:"color difference （deltaE）",pathLocale:"/",contents:[{header:"color difference （deltaE）",slug:"color-difference-deltae",content:`cThe color instance contains a deltaE method. Can be used to query color difference, it supports CMC, CIE2000, CIE1994, CIE1976 color difference formula query
+colorsea.lch(50, 120, 20)`},{header:"colorsea.random",slug:"colorsea-random",content:`Generate random color
+colorsea.random()`}]},{path:"/pages/Diff.html",title:"color difference （deltaE）",pathLocale:"/",contents:[{header:"color difference （deltaE）",slug:"color-difference-deltae",content:`cThe color instance contains a deltaE method. Can be used to query color difference, it supports CMC, CIE2000, CIE1994, CIE1976 color difference formula query
 color.deltaE(sampleColor: Color, mode?: DeltaEMode, setting?: DeltaESetting) => number
 Note: The current color instance object color is standard color, the first parameter sampleColor is sample color
 Parameter Description: @param sampleColor sample color
@@ -526,7 +527,8 @@ colorsea.lab(50.57, 8.77, -46.64)`},{header:"colorsea.lch",slug:"colorsea-lch",c
 */
 colorsea.lch(l: number, c: number, h: number, alpha?: number) // 示例
 colorsea.lch(50, 120, 20)
-colorsea.lch(50, 120, 20)`}]},{path:"/zh/Diff.html",title:"色差 （deltaE）",pathLocale:"/zh/",contents:[{header:"色差 （deltaE）",slug:"色差-deltae",content:`color实例包含一个deltaE方法。可用于查询色差，其支持 CMC(l:c), CIE2000, CIE1994, CIE1976 多种色差公式查询
+colorsea.lch(50, 120, 20)`},{header:"colorsea.random",slug:"colorsea-random",content:`生成随机颜色
+colorsea.random()`}]},{path:"/zh/Diff.html",title:"色差 （deltaE）",pathLocale:"/zh/",contents:[{header:"色差 （deltaE）",slug:"色差-deltae",content:`color实例包含一个deltaE方法。可用于查询色差，其支持 CMC(l:c), CIE2000, CIE1994, CIE1976 多种色差公式查询
 color.deltaE(sampleColor: Color, mode?: DeltaEMode, setting?: DeltaESetting) => number
 注：当前颜色实例对象color为标准色，第一个参数sampleColor为样品色
 参数说明： @param sampleColor 样品颜色
