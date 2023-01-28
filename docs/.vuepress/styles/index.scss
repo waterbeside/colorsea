@@ -9,6 +9,10 @@ $primary-color-light: lighten($primary-color, 5%);
   --search-result-width: 90% !important;
 }
 
+html.dark {
+  --c-brand: #{$primary-color};
+}
+
 $rainbow-color: linear-gradient(80deg, #1BA784, #7091a6, #158BB8,#A35C8F, #1BA784);
 
 @mixin rainbow {
@@ -21,7 +25,7 @@ $rainbow-color: linear-gradient(80deg, #1BA784, #7091a6, #158BB8,#A35C8F, #1BA78
 
 @keyframes scroll_background {
   0% { background-position: 0 0}
-  50% { background-position: 400px 10px}
+  50% { background-position: 400px 0}
   100% { background-position: 100% 0}
 }
 
@@ -40,9 +44,8 @@ $rainbow-color: linear-gradient(80deg, #1BA784, #7091a6, #158BB8,#A35C8F, #1BA78
 
 
 .navbar {
-  border-top:2px solid #ddd;
+  border-bottom:2px solid #ddd;
   border-image: $rainbow-color 30;
-  border-bottom: 0;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   .site-name {
     display: inline-block;
@@ -56,7 +59,20 @@ $rainbow-color: linear-gradient(80deg, #1BA784, #7091a6, #158BB8,#A35C8F, #1BA78
 #main-title {
   display: inline-block;
   @include rainbow();
-  animation: scroll_background 30s linear infinite;
+  animation: scroll_background 8s linear infinite;
+  font-weight: 700;
+  font-size: 76px;
   // background-position: -200px 0;
+
+}
+
+.home {
+  .action-button.primary {
+    background-image: linear-gradient(130deg, #1BA784, #158BB8,#43d6b1);
+    transition: 2s linear;
+  }
+  .action-button.primary:hover {
+    background-image: repeating-linear-gradient(130deg, #25b1d0, #24b582);
+  }
 
 }
