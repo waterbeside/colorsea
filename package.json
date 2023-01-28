@@ -1,6 +1,6 @@
 {
   "name": "colorsea",
-  "version": "0.3.3",
+  "version": "1.0.1",
   "description": "A color tool library written in Typescript, you can use it to convert color spaces, and operate on colors like LESS/SASS ( darken/lighten, saturate/desaturate, spin, mix), and color difference query. 一个使用Typescript编写的颜色工具库，你可以使用此进行颜色空间的转换、颜色操作、以及色差查询, 支持中国色、日本色的查询",
   "main": "dist/index.js",
   "types": "dist/typings/index.d.ts",
@@ -13,7 +13,7 @@
     "docs:build": "vuepress build docs",
     "test": "jest"
   },
-  "keywords": ["color", "rgb", "deltaE", "hue", "lightness", "saturation", "hsl", "color difference", "color space", "color operation", "色差", "X11 color names", "中国传统色", "nippon colors"],
+  "keywords": ["color", "convert", "diff", "rgb", "deltaE", "hue", "lightness", "saturation", "hsl", "color-diff", "color-space", "color-names", "X11", "CIE", "CMC", "色差", "中国传统色", "nippon colors"],
   "author": "Natron Kan (waterbeside)",
   "homepage": "https://waterbeside.github.io/colorsea/",
   "repository": {
