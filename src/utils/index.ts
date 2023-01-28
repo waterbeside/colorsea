@@ -42,3 +42,12 @@ export const checkHex = (hex: string): boolean => {
   const re = /^#(([a-fA-F\d]{3}){1,2}|[a-fA-F\d]{8})$/
   return re.test(hex)
 }
+
+/**
+ * Generates a random number for a specified range
+ * @param min minimum
+ * @param max maximum
+ */
+export const randomRange = (min: number, max: number): number => {
+  return Math.floor(Math.random() * (max - min + 1) - min)
+}
