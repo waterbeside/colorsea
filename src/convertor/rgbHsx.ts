@@ -1,3 +1,7 @@
+/* ------
+ * https://en.wikipedia.org/wiki/HSL_and_HSV
+----- */
+
 import { clamp } from '../utils'
 import type { CommonColorTuple } from '../../typings/colorType'
 
@@ -30,6 +34,16 @@ export function rgb2hue(r: number, g: number, b: number, isHsiHue: boolean = fal
   return h
 }
 
+/**
+ * https://en.wikipedia.org/wiki/HSL_and_HSV
+ ```
+ M = max(R, G, B)
+ m = min(R, G, B)
+ I = avg(R, G, B) =  (R + G + B)/ 3
+ V = max(R, G, B) = M
+ L = mid(R, G, B) = (M + m) / 2
+ ```
+ */
 function rgb2hsx(r: number, g: number, b: number, vl: 'l' | 'v' | 'i' = 'l'): CommonColorTuple {
   ;[r, g, b] = [r, g, b].map(item => item / 255)
   const max = Math.max(r, g, b),
