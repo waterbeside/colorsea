@@ -389,8 +389,8 @@ export class Color {
   }
 
   /**
-   * ## Checks if one color is easily visible over another
-   * （zh）检查一个颜色在别一个颜色上是否易于可见
+   * ## Check that one color is easily visible on another color
+   * （zh）检查一个颜色在另一个颜色上是否易于可见
    * > https://www.w3.org/TR/AERT/#color-contrast
    *
    * @param anotherColor color for contrast
