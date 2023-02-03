@@ -1,5 +1,5 @@
 
-# Color value and change value
+# Get and set value
 
 ## color.red()
 
@@ -189,6 +189,53 @@ Example:
 ```typescript
 colorsea('#22994a').luma() // 0.23616959154733871
 ```
+
+## color.brightness()
+
+get Brightness
+
+range: [0, 100]
+
+```typescript
+color.brightness() => number
+```
+
+Example:
+
+```typescript
+colorsea('#FFFFFF').brightness() // 100
+```
+
+## color.visibility()
+
+Check that one color is easily visible on another color,
+If false is returned, visibility is poor.
+
+> refer to: https://www.w3.org/TR/AERT/#color-contrast
+
+```typescript
+/**
+   * @param anotherColor color for contrast
+   * @param setting Setting value judged as poor visibility,{b, c}. 
+   * * b: brightness difference, the default value is 125, the range of brightness value is [0,255]
+   * * c: color difference, the default value is 500
+   */
+  color.visibility(
+    anotherColor: Color | string | CommonColoraTuple | CommonColorTuple,
+    setting?: { b: number; c: number }
+  ) => boolean
+```
+
+Example:
+
+```typescript
+colorsea('red').visibility(colorsea('#ee6666')) // false
+colorsea('#ffff00').visibility('#000000') // true
+```
+<ColorBox box-color="red" text-color="#ee6666">#ff0000, #ee6666, return false</ColorBox>, 
+<ColorBox box-color="#ffff00" text-color="#000000">#ffff00, #000000, return true</ColorBox>
+
+------
 
 :::tip
 For methods such as `color.red()`,`color.green()`,`color.blue()`,`color.hue()`,`color.saturation()`,`color.lightness()`, `color.alpha()`,`color.luma()`, if the calculation result is a decimal, all decimal places will be returned, and the result will not be rounded or how many decimal places will be truncated.

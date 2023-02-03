@@ -1,6 +1,6 @@
 ---
 home: true
-title: 首页
+title: colorsea.js
 actions:
   - text: 快速上手
     link: /zh/QuickStart

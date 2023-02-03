@@ -190,6 +190,53 @@ color.luma() => number
 colorsea('#22994a').luma() // 0.23616959154733871
 ```
 
+## color.brightness()
+
+取得明度Brightness
+
+range: [0, 100]
+
+```typescript
+color.brightness() => number
+```
+
+例:
+
+```typescript
+colorsea('#FFFFFF').brightness() // 100
+```
+
+## color.visibility()
+
+检查一个颜色在另一个颜色上是否易于可见,
+如果返回false, 则为可见性比较差。
+
+> refer to: [https://www.w3.org/TR/AERT/#color-contrast](https://www.w3.org/TR/AERT/#color-contrast)
+
+```typescript
+/**
+   * @param anotherColor 另一个用于对比的颜色
+   * @param setting 用于判定可见性好坏的阈值设置,{b, c}. 
+   * * b: brightness差值, 默认值为125, 小于或等于此值说明可见性差。颜色brightness值的范围取[0,255]
+   * * c: rgb差值, 默认值为500，小于或等于此值说明可见性差
+   */
+  color.visibility(
+    anotherColor: Color | string | CommonColoraTuple | CommonColorTuple,
+    setting?: { b: number; c: number }
+  ) => boolean
+```
+
+例:
+
+```typescript
+colorsea('red').visibility(colorsea('#ee6666')) // false
+colorsea('#ffff00').visibility('#000000') // true
+```
+<ColorBox box-color="red" text-color="#ee6666">#ff0000, #ee6666, return false</ColorBox>, 
+<ColorBox box-color="#ffff00" text-color="#000000">#ffff00, #000000, return true</ColorBox>
+
+------
+
 :::tip
 `color.red()`,`color.green()`,`color.blue()`,`color.hue()`,`color.saturation()`,`color.lightness()`, `color.alpha()`,`color.luma()`等方法的取值，如果其计算结果为小数，将会返会所有小数位数，并不会将结果进行取整或截取多少位小数。
 :::

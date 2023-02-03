@@ -1,7 +1,7 @@
 {
   "name": "colorsea",
-  "version": "1.0.1",
-  "description": "A color tool library written in Typescript, you can use it to convert color spaces, and operate on colors like LESS/SASS ( darken/lighten, saturate/desaturate, spin, mix), and color difference query. 一个使用Typescript编写的颜色工具库，你可以使用此进行颜色空间的转换、颜色操作、以及色差查询, 支持中国色、日本色的查询",
+  "version": "1.1.0",
+  "description": "A color tool library written in Typescript, you can use it to convert color spaces, and operate on colors like LESS/SASS ( darken/lighten, saturate/desaturate, spin, mix), and color difference query. 颜色工具库，支持颜色空间的转换、各种颜色操作、多种色差查询, 支持中国色、日本色的查询",
   "main": "dist/index.js",
   "types": "dist/typings/index.d.ts",
   "scripts": {
@@ -11,9 +11,29 @@
     "lint": "eslint --fix --ext .js,.ts src",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "test": "jest"
+    "test": "jest",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
-  "keywords": ["color", "convert", "diff", "rgb", "deltaE", "hue", "lightness", "saturation", "hsl", "color-diff", "color-space", "color-names", "X11", "CIE", "CMC", "色差", "中国传统色", "nippon colors"],
+  "keywords": [
+    "color",
+    "convert",
+    "diff",
+    "rgb",
+    "deltaE",
+    "hue",
+    "lightness",
+    "saturation",
+    "hsl",
+    "color-diff",
+    "color-space",
+    "color-names",
+    "X11",
+    "CIE",
+    "CMC",
+    "色差",
+    "中国传统色",
+    "nippon colors"
+  ],
   "author": "Natron Kan (waterbeside)",
   "homepage": "https://waterbeside.github.io/colorsea/",
   "repository": {
@@ -37,6 +57,7 @@
     "@vuepress/plugin-back-to-top": "2.0.0-beta.60",
     "@vuepress/plugin-register-components": "2.0.0-beta.60",
     "babel-jest": "^29.3.1",
+    "conventional-changelog-cli": "^2.2.2",
     "eslint": "^8.29.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",

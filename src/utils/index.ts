@@ -51,3 +51,15 @@ export const checkHex = (hex: string): boolean => {
 export const randomRange = (min: number, max: number): number => {
   return Math.floor(Math.random() * (max - min + 1) - min)
 }
+
+/**
+ * rgb to brightness [0, 100]
+ * 
+ * https://www.w3.org/TR/AERT/#color-contrast
+  > Color brightness is determined by the following formula:
+  >
+  > ((Red value X 299) + (Green value X 587) + (Blue value X 114)) / 1000
+ */
+export const getBrightness = (r: number, g: number, b: number) => {
+  return ((r * 299 + g * 587 + b * 114) / 1000 / 255) * 100
+}
