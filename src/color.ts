@@ -12,20 +12,16 @@ import {
   xyz2xyY,
   rgb2cmyk
 } from './convertor'
-import { clamp, checkHex } from './utils'
+import { clamp, checkHex, getBrightness } from './utils'
 import { cache } from './decorators/cache'
 import { roundRes } from './decorators/roundRes'
 import { mix } from './utils/mix'
 import { getValueByColorName } from './utils/colorNames'
-import type {
-  ColorBaseProp,
-  CommonColorTuple,
-  CommonColoraTuple,
-  CmykTuple
-} from '../typings/colorType'
-
+import type { CommonColorTuple, CommonColoraTuple, CmykTuple } from '../typings/colorType'
 import { deltaE } from './utils/deltaE'
 import type { DeltaEMode, DeltaESetting } from './utils/deltaE'
+import { visibility } from './utils/contrast'
+import { getOrSet } from './utils/getOrSet'
 
 export class Color {
   private cache = new Map<string, any>()
@@ -51,24 +47,36 @@ export class Color {
     }
   }
 
+  /**
+   * ## Get or set the value of the red channel
+   */
   red(): number
   red(amount: number): Color
   red(amount?: number): Color | number {
-    return getOrChange(this, 'r', amount)
+    return getOrSet(this, 'r', amount)
   }
 
+  /**
+   * ## Get or set the value of the green channel
+   */
   green(): number
   green(amount: number): Color
   green(amount?: number): Color | number {
-    return getOrChange(this, 'g', amount)
+    return getOrSet(this, 'g', amount)
   }
 
+  /**
+   * ## Get or set the value of the blue channel
+   */
   blue(): number
   blue(amount: number): Color
   blue(amount?: number): Color | number {
-    return getOrChange(this, 'b', amount)
+    return getOrSet(this, 'b', amount)
   }
 
+  /**
+   * ## Get or set the value of the alpha channel
+   */
   alpha(): number
   alpha(amount: number): Color
   alpha(amount?: number): Color | number {
@@ -77,11 +85,23 @@ export class Color {
     return new Color(this.rgb(), amount)
   }
 
+  /**
+   * ## Increase opacity
+   * @param amount The value of opacity increase, the default is 10, which means 10%
+   * @param method If you fill in 'relative', it means that the parameter amount is a relative value
+   * @returns new Color
+   */
   fadeIn(amount: number = 10, method?: string): Color {
     amount = method && method === 'relative' ? (this._alpha * amount) / 100 : amount
     return new Color(this.rgb(), clamp(this._alpha + amount, 0, 100))
   }
 
+  /**
+   * ## Increase transparency (Reduce opacity)
+   * @param amount The value of opacity reduction, the default is 10, which means 10%
+   * @param method  If you fill in 'relative', it means that the parameter amount is a relative value
+   * @returns Color instance
+   */
   fadeOut(amount: number = 10, method?: string): Color {
     amount = method && method === 'relative' ? (this._alpha * amount) / 100 : amount
     return new Color(this.rgb(), clamp(this._alpha - amount, 0, 100))
@@ -95,22 +115,31 @@ export class Color {
     return this.fadeOut(amount, method)
   }
 
+  /**
+   * ## get or set hue
+   */
   hue(): number
   hue(amount: number): Color
   hue(amount?: number): Color | number {
-    return getOrChange(this, 'h', amount)
+    return getOrSet(this, 'h', amount)
   }
 
+  /**
+   * ## get or set saturation
+   */
   saturation(): number
   saturation(amount: number): Color
   saturation(amount?: number): Color | number {
-    return getOrChange(this, 's', amount)
+    return getOrSet(this, 's', amount)
   }
 
+  /**
+   * ## get or set lightness
+   */
   lightness(): number
   lightness(amount: number): Color
   lightness(amount?: number): Color | number {
-    return getOrChange(this, 'l', amount)
+    return getOrSet(this, 'l', amount)
   }
 
   @roundRes(0, 1, true, 0)
@@ -184,14 +213,12 @@ export class Color {
   }
 
   /**
-   * to hex
-   * 转16进制色
-   * @param alphaFlag 
-    ```
-      0: alpha is not displayed. 不展示alpha值，
-      1：alpha is displayed. 展示alpha值，
-      2：alpha is displayed when alpha is not equal to 100%. 当alpha不等于100%才展示alpha
-    ```
+   * ## to hex
+   * (zh) 转16进制色
+   * @param alphaFlag alpha channel display switch
+   * - 0: alpha is not displayed. (zh) 不展示alpha值，
+   * - 1：alpha is displayed. (zh) 展示alpha值，
+   * - 2：alpha is displayed when alpha is not equal to 100%. (zh) 当alpha不等于100%才展示alpha
    * @returns like '#000000'
    */
   hex(alphaFlag: 0 | 1 | 2 = 2): string {
@@ -211,11 +238,13 @@ export class Color {
   }
 
   /**
-   * Increase lightness
-   * 增加光亮度
-   * @param amount 光亮度增加百分多少, 默认为5，代表5%
-   * @param method 如果填入relative则表示参数amount为相对值
-   * @returns Color
+   * ## Increase lightness
+   * (zh) 增加光亮度
+   * @param amount Lightness increase percentage, the default is 5, which means 5%。
+   * * (zh) 光亮度增加百分多少, 默认为5，代表5%
+   * @param method If you fill in 'relative', it means that the parameter amount is a relative value.
+   * * (zh) 如果填入relative则表示参数amount为相对值
+   * @returns Color Instance
    */
   lighten(amount: number = 5, method?: string): Color {
     let [h, s, l] = this.hsl(false)
@@ -229,10 +258,12 @@ export class Color {
   }
 
   /**
-   * Reduce lightness
-   * 减少光亮度
-   * @param amount 光亮度减少百分多少, 默认为5，代表5%
-   * @param method 如果填入relative则表示参数amount为相对值
+   * ## Reduce lightness
+   * (zh) 减少光亮度
+   * @param amount The percentage of lightness reduction, the default is 5, which means 5%.
+   * * (zh) 光亮度减少百分多少, 默认为5，代表5%
+   * @param method If you fill in 'relative', it means that the parameter amount is a relative value.
+   * * (zh) 如果填入relative则表示参数amount为相对值
    * @returns Color
    */
   darken(amount: number = 5, method?: string): Color {
@@ -240,10 +271,12 @@ export class Color {
   }
 
   /**
-   * Increase saturation
-   * 增加饱和度
-   * @param amount Between 0 and 100
+   * ## Increase saturation
+   * (zh) 增加饱和度
+   * @param amount  How much to increase the saturation, the default is 5, which means 5%.
+   * * (zh) 饱和度增加百分多少, 默认为5，代表5%
    * @param method Use the relative value when entering relative
+   * * (zh) 如果填入relative则表示参数amount为相对值
    * @returns new Color
    */
   saturate(amount: number = 5, method?: string): Color {
@@ -258,10 +291,12 @@ export class Color {
   }
 
   /**
-   * Reduce saturation
+   * ## Reduce saturation
    * 降低饱和度
-   * @param amount Between 0 and 100
-   * @param method Use the relative value when entering relative
+   * @param amount The percentage of saturation reduction, the default is 5, which means 5%
+   * * (zh) 饱和度减少百分多少, 默认为5，代表5%
+   * @param method If you fill in 'relative', it means that the parameter amount is a relative value
+   * * (zh) 如果填入relative则表示参数amount为相对值
    * @returns new Color
    */
   desaturate(amount: number = 5, method?: string): Color {
@@ -269,9 +304,10 @@ export class Color {
   }
 
   /**
-   * Rotating hue
-   * 旋转色相
-   * @param angle rotation angle 旋转角度
+   * ## Rotating hue
+   * (zh) 旋转色相
+   * @param angle Rotation angle
+   * * (zh) 旋转角度
    */
   spin(angle: number): Color {
     let [h, s, l] = this.hsl(false)
@@ -279,21 +315,29 @@ export class Color {
     return new Color(hsl2rgb(h, s, l), this._alpha)
   }
 
+  /**
+   * ## Rotating hue
+   * An alias for the spin method
+   *
+   * (zh) 旋转色相
+   * @param angle Rotation angle
+   * * (zh) 旋转角度
+   */
   adjustHue(angle: number): Color {
     return this.spin(angle)
   }
 
   /**
-   * complementary color
-   * 取得补色
+   * ## complementary color
+   * (zh) 取得补色
    */
   complement(): Color {
     return this.spin(180)
   }
 
   /**
-   * Invert color
-   * 取得反色
+   * ## Invert color
+   * (zh) 取得反色
    */
   invert(): Color {
     const [r, g, b] = this._rgb.map(v => 255 - v)
@@ -301,10 +345,12 @@ export class Color {
   }
 
   /**
-   * color mixing
-   * 颜色混合
-   * @param color 另一个颜色
-   * @param weight 另一颜色的混合比例，默认值为50即50%
+   * ## color mixing
+   * (zh) 颜色混合
+   * @param color Another color, which can be a Color instance, a hexadecimal
+   * * (zh) 另一个颜色
+   * @param weight The mixing ratio of another color, the default value is 50 or 50%
+   * * (zh) 另一颜色(参数1)的混合比例，默认值为50即50%
    * @returns Color
    */
   mix(color: Color | string | CommonColoraTuple | CommonColorTuple, weight: number = 50): Color {
@@ -321,9 +367,17 @@ export class Color {
   }
 
   /**
-   * deltaE
-   * 色差
-   * @param sampleColor 样品颜色
+   * ## get Brightness
+   * range: [0, 100]
+   */
+  brightness(): number {
+    const [r, g, b] = this._rgb
+    return getBrightness(r, g, b)
+  }
+  /**
+   * ## deltaE
+   * (zh) 色差
+   * @param sampleColor (zh) 样品颜色
    * @param mode The default is CMC, Choose one from CMC | CIE2000 | CIE1994 | CIE1976
    * @param setting Mode Setting
     - CMC: { l: number, c: number }
@@ -333,36 +387,22 @@ export class Color {
   deltaE(sampleColor: Color, mode: DeltaEMode = 'CMC', setting?: DeltaESetting): number {
     return deltaE(this, sampleColor, mode, setting)
   }
-}
 
-function getOrChange(
-  color: Color,
-  type: ColorBaseProp,
-  amount?: number | undefined
-): number | Color {
-  const clamp01 = (v: number) => clamp(v, 0, 100)
-  const clamp0255 = (v: number) => clamp(v, 0, 255)
-  const typeDict: { [key in ColorBaseProp]: [number, (v: number) => number] } = {
-    h: [0, (v: number) => v % 360],
-    s: [1, clamp01],
-    l: [2, clamp01],
-    r: [0, clamp0255],
-    g: [1, clamp0255],
-    b: [2, clamp0255]
+  /**
+   * ## Checks if one color is easily visible over another
+   * （zh）检查一个颜色在别一个颜色上是否易于可见
+   * > https://www.w3.org/TR/AERT/#color-contrast
+   *
+   * @param anotherColor color for contrast
+   * @param setting Setting value judged as poor visibility,{b, c}. （zh）判为差可见性的设置值 {b, c}
+   * * b: brightness difference, the default value is 125, the range of brightness value is [0,255]
+   * * c: color difference, the default value is 500
+   * @returns {boolean} false时则为可见性比较差
+   */
+  visibility(
+    anotherColor: Color | string | CommonColoraTuple | CommonColorTuple,
+    setting?: { b: number; c: number }
+  ): boolean {
+    return visibility(this, anotherColor, setting)
   }
-  let rgb: [number, number, number]
-  const idx = typeDict[type][0]
-  if (['h', 's', 'l'].includes(type)) {
-    const hsl = color.hsl()
-    if (amount === void 0) return hsl[idx]
-    amount = typeDict[type][1](amount)
-    hsl[idx] = amount
-    rgb = hsl2rgb(...hsl)
-  } else {
-    rgb = color.rgb()
-    if (amount === void 0) return rgb[idx]
-    amount = typeDict[type][1](amount)
-    rgb[idx] = amount
-  }
-  return new Color(rgb, color.alpha())
 }
