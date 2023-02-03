@@ -32,7 +32,7 @@ Increase lightness
 ```typescript
 /**
   * Increase lightness
-  * @param amount Brightness increase percentage, the default is 5, which means 5%
+  * @param amount Lightness increase percentage, the default is 5, which means 5%
   * @param method If you fill in 'relative', it means that the parameter amount is a relative value
   * @returns Color
   */
@@ -173,7 +173,7 @@ color mixing
 
 ```typescript
 /**
-  * mix color
+  * color mixing
   * @param color Another color, which can be a Color instance, a hexadecimal color string, or an [r, g, b] color tuple
   * @param weight The mixing ratio of another color, the default value is 50 or 50%
   * @returns Color
