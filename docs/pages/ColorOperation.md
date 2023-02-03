@@ -1,5 +1,5 @@
 
-# Color operation
+# Color manipulation
 
 ## Example
 

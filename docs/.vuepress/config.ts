@@ -26,12 +26,12 @@ export default defineUserConfig({
     '/': {
       lang: 'en-US', // 将会被设置为 <html> 的 lang 属性
       title: 'COLORSEA',
-      description: 'A simple color space conversion and color manipulation library'
+      description: 'Colorsea.js is a simple color space conversion and color manipulation library'
     },
     '/zh/': {
       lang: 'zh-CN',
       title: 'COLORSEA',
-      description: '简单轻量的颜色空间转换和颜色操作查询库'
+      description: 'colorsea.js - 简单轻量的颜色空间转换和颜色操作查询库'
     }
   },
   theme: defaultTheme({

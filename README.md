@@ -1,11 +1,12 @@
-# <span style="color: #1BA784">CO</span><span style="color:#1ba2a7">L</span><span style="color:#158BB8">OR</span><span style="color: #6f4faf">S</span><span style="color: #A35C8F">E</span><span style="color: #af4f4f">A</span>
+# COLORSEA
 
 [For detailed documents, please click here](https://waterbeside.github.io/colorsea/)
 
-![](https://img.shields.io/bundlephobia/minzip/colorsea)
-![](https://img.shields.io/github/languages/top/waterbeside/colorsea)
-![](https://img.shields.io/npm/l/colorsea)
-![](https://img.shields.io/github/last-commit/waterbeside/colorsea)
+![minzipped size](https://img.shields.io/bundlephobia/minzip/colorsea)
+![typescript](https://img.shields.io/github/languages/top/waterbeside/colorsea)
+![license](https://img.shields.io/npm/l/colorsea)
+![last commit](https://img.shields.io/github/last-commit/waterbeside/colorsea)
+![build](https://img.shields.io/github/actions/workflow/status/waterbeside/colorsea/build.yml)
 
 [English](./README.md) | [简体中文](./README.zh-CN.md)
 

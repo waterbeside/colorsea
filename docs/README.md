@@ -1,6 +1,6 @@
 ---
 home: true
-title: Home
+title: colorsea.js
 actions:
   - text: Get Started
     link: /pages/QuickStart
