@@ -43,6 +43,8 @@ CommonJs
 const colorsea = require('colorsea')
 ```
 
+Browser
+
 ```html:no-line-numbers
 <script src="path/to/colorsea.js"></script>
 ```
