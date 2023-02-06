@@ -8,7 +8,7 @@ import { registerComponentsPlugin } from '@vuepress/plugin-register-components'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export default defineUserConfig({
-  base: '/colorsea/',
+  // base: '/colorsea/',
   plugins: [
     fullTextSearchPlugin,
     backToTopPlugin(),

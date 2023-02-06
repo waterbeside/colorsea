@@ -1,6 +1,6 @@
 # COLORSEA
 
-[For detailed documents, please click here](https://waterbeside.github.io/colorsea/)
+[For detailed documents, please click here](https://colorsea.js.org)
 
 ![minzipped size](https://img.shields.io/bundlephobia/minzip/colorsea)
 ![typescript](https://img.shields.io/github/languages/top/waterbeside/colorsea)

@@ -1,7 +1,7 @@
 
 # COLORSEA
 
-[详细文档请点这里](https://waterbeside.github.io/colorsea/zh/)
+[详细文档请点这里](https://colorsea.js.org/zh/)
 
 ![minzipped size](https://img.shields.io/bundlephobia/minzip/colorsea)
 ![typescript](https://img.shields.io/github/languages/top/waterbeside/colorsea)
