@@ -6,10 +6,11 @@ import fs from 'fs'
 import path from 'path'
 
 const pkg = JSON.parse(fs.readFileSync('./package.json', { encoding: 'utf8' }))
+const input = 'src/index.ts'
 
 const config = [
   defineConfig({
-    input: 'src/index.ts',
+    input,
     output: {
       name: 'colorsea',
       file: pkg.main,
@@ -23,7 +24,15 @@ const config = [
     ]
   }),
   defineConfig({
-    input: 'src/index.ts',
+    input,
+    output: {
+      file: pkg.module,
+      format: 'es'
+    },
+    plugins: [ts(), terser()]
+  }),
+  defineConfig({
+    input,
     output: {
       file: pkg.types,
       format: 'es'
