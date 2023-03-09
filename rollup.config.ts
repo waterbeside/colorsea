@@ -1,5 +1,4 @@
 import { defineConfig } from 'rollup'
-// import clear from 'rollup-plugin-clear'
 import ts from 'rollup-plugin-typescript2'
 import terser from '@rollup/plugin-terser'
 import dts from 'rollup-plugin-dts'
@@ -33,7 +32,7 @@ const config = [
   })
 ]
 
-// 对指定dir打包的配置
+// rollup color names
 const rollColorNames = () => {
   const dirPath = path.join(path.resolve('./src'), 'colors')
   const outputDir = path.resolve('./colors')
