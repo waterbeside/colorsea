@@ -1,6 +1,5 @@
 import {
   rgb2hex,
-  hex2rgb,
   rgb2hsv,
   rgb2hsl,
   hsl2rgb,
@@ -12,38 +11,43 @@ import {
   xyz2xyY,
   rgb2cmyk
 } from './convertor'
-import { clamp, checkHex, getBrightness } from './utils'
+import { clamp, getBrightness } from './utils'
 import { cache } from './decorators/cache'
 import { roundRes } from './decorators/roundRes'
 import { mix } from './utils/mix'
-import { getValueByColorName } from './utils/colorNames'
 import type { CommonColorTuple, CommonColoraTuple, CmykTuple } from '../typings/colorType'
 import { deltaE } from './utils/deltaE'
 import type { DeltaEMode, DeltaESetting } from './utils/deltaE'
 import { visibility } from './utils/contrast'
 import { getOrSet } from './utils/getOrSet'
+import { parser } from './utils/parser'
+import { globalConfig, type ColorConfig } from './config'
 
 export class Color {
   private cache = new Map<string, any>()
   private _rgb: [number, number, number] = [0, 0, 0]
   private _alpha = 100
-  constructor(rgb: CommonColorTuple | CommonColoraTuple | string, a?: number) {
+  constructor(
+    colorInput: CommonColorTuple | CommonColoraTuple | string,
+    a?: number,
+    config?: ColorConfig
+  ) {
+    const defaultConfig = {
+      thowParseError: globalConfig.thowParseError
+    }
+    const opt = Object.assign({}, defaultConfig, config ?? {})
+    try {
+      const [rgbData, alpha] = parser(colorInput)
+      this._alpha = alpha
+      this._rgb = rgbData
+    } catch (error) {
+      if (opt.thowParseError) {
+        throw error
+      }
+    }
+
     if (a !== void 0) {
       this._alpha = clamp(a, 0, 100)
-    }
-    if (Array.isArray(rgb)) {
-      if (rgb.length < 3) throw new Error('Invalid Color')
-      for (let i = 0; i < rgb.length; i++) {
-        if (i < 3) this._rgb[i] = rgb[i]
-        else if (i === 3 && a === void 0) this._alpha = rgb[3] as number
-        else break
-      }
-    } else {
-      if (!checkHex(rgb)) {
-        rgb = getValueByColorName(rgb, true)
-      }
-      rgb = hex2rgb(rgb)
-      return new Color(rgb, a)
     }
   }
 
