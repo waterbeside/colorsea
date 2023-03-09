@@ -38,4 +38,25 @@ describe('test colorsea', () => {
     expect(colorsea('FUTAAI').hex().toUpperCase()).toBe('#70649A')
     expect(colorsea('momo').hex().toUpperCase()).toBe('#F596AA')
   })
+
+  it('test parse color', () => {
+    expect(colorsea('RGB(64, 80, 96)').rgb()).toEqual([64, 80, 96])
+    expect(colorsea('rgba(253,101,133, 0.9)').rgb()).toEqual([253, 101, 133])
+    expect(colorsea('hsv(339.10, 69.20%, 87.84%)').hex().toUpperCase()).toBe('#E0457B')
+    expect(colorsea('hsv(339.10, 69.20, 87.84)').hex().toUpperCase()).toBe('#E0457B')
+    // d65 光源 2度
+    expect(colorsea('#E0457B').xyz()).toEqual([36.45, 21.54, 20.97])
+    expect(colorsea('XYZ(36.45, 21.54, 20.97)').hex().toUpperCase()).toBe('#E0457B')
+    // test error color input
+    expect(colorsea('XYa(36.45, 21.54, 20.97)').hex().toUpperCase()).toBe('#000000')
+  })
+
+  it('test parse error', () => {
+    colorsea.config({ thowParseError: true })
+    try {
+      colorsea('XYa(36.45, 21.54, 20.97)')
+    } catch (error: any) {
+      expect(error.message).toBe('Invalid Color')
+    }
+  })
 })
