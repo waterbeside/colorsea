@@ -8,7 +8,7 @@
     "build": "gulp",
     "rollup": "rollup -c --configPlugin typescript",
     "clean": "gulp clean",
-    "lint": "eslint --fix --ext .js,.ts src",
+    "lint": "eslint --fix --ext .js,.ts src/ typings/ __tests__/",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "test": "jest",
