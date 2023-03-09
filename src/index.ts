@@ -6,15 +6,20 @@ import { mix } from './utils/mix'
 import { deltaE } from './utils/deltaE'
 import type { CommonColorTuple, CommonColoraTuple } from '..//typings/colorType'
 import { useColorNames } from './utils/colorNames'
+import { globalConfig, type ColorConfig } from './config'
 
 /**
  * Create a color instance
- * @param colorSetting color value 设置颜色值
- * @param alpha alpha 不透明度
+ * @param colorInput Input your color value 设置颜色值
+ * @param alpha Alpha range is [0, 100] 不透明度
  * @returns { Color } Color instance
  */
-function colorsea(colorSetting: CommonColorTuple | CommonColoraTuple | string, alpha?: number) {
-  return new Color(colorSetting, alpha)
+function colorsea(colorInput: CommonColorTuple | CommonColoraTuple | string, alpha?: number) {
+  return new Color(colorInput, alpha)
+}
+
+colorsea.config = function (config: ColorConfig): void {
+  Object.assign(globalConfig, config)
 }
 
 /**
