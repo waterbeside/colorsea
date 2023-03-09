@@ -14,14 +14,15 @@ export const rgb2hex = function (r: number, g: number, b: number, a?: number) {
 }
 
 export const hex2rgb = function (hexString: string): CommonColorTuple | CommonColoraTuple {
+  const hexStringLength = hexString.length
   hexString = colorHex(hexString).padEnd(8, 'ff')
   const matched = hexString.match(/.{2}/g)
   if (!matched) return [0, 0, 0, 1]
-  const rgb: [number, number, number] = [0, 0, 0]
+  const rgb: CommonColorTuple = [0, 0, 0]
   let a: boolean | number = false
   matched.forEach((c, i) => {
     if (i < 3) rgb[i] = parseInt(c, 16)
     else a = (parseInt(c, 16) * 100) / 255
   })
-  return a === false ? rgb : [...rgb, a]
+  return a === false || hexStringLength < 8 ? rgb : ([...rgb, a] as unknown as CommonColoraTuple)
 }
