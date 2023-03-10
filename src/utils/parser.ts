@@ -1,11 +1,12 @@
 import type { CommonColorTuple, CommonColoraTuple, CmykTuple } from '../../typings/colorType'
-import { checkHex } from './index'
+import { checkHex, clamp } from './index'
 import { getValueByColorName } from './colorNames'
 import {
   cmyk2rgb,
   lab2rgb,
   hsl2rgb,
   hsv2rgb,
+  hsi2rgb,
   xyz2rgb,
   lch2xyz,
   hex2rgb,
@@ -21,6 +22,8 @@ const spaceList = [
   'hsla',
   'hsv',
   'hsva',
+  'hsi',
+  'hsia',
   'xyz',
   'lch',
   'hwb',
@@ -80,12 +83,12 @@ export const parseColorInput = (
           if (gSplit[i] === void 0) continue
           if (
             (['lch', 'lab'].includes(space) && i === 0) ||
-            (['hsl', 'hsla', 'hsv', 'hsva', 'hwb', 'hwba'].includes(space) && i > 0)
+            (['hsl', 'hsla', 'hsv', 'hsva', 'hwb', 'hwba', 'hsi', 'hsia'].includes(space) && i > 0)
           ) {
             colorData[i] = parsePersentString(gSplit[i])
           } else colorData[i] = Number(gSplit[i].trim())
         }
-        if (space === 'rgba' || space === 'hsla') {
+        if (['rgba', 'hsla', 'hsva', 'hwba', 'hsia'].includes(space)) {
           space = space.slice(0, -1) as Space
           if (gSplit[3] !== void 0) alpha = parsePersentString(gSplit[3])
         } else if (space === 'cmyk') {
@@ -117,7 +120,8 @@ export const parser = (
     hsl2rgb,
     hsv2rgb,
     xyz2rgb,
-    hwb2rgb
+    hwb2rgb,
+    hsi2rgb
   }
   let [space, colorData, alpha] = parseColorInput(colorInput)
 
@@ -126,10 +130,14 @@ export const parser = (
     ;[space, colorData] = ['xyz', lch2xyz(colorData[0], colorData[1], colorData[2])]
   }
   const [a, b, c, d] = colorData
-  if (space === 'cmyk') return [cmyk2rgb(a, b, c, d as number), alpha]
+  if (space === 'cmyk')
+    return [cmyk2rgb(a, b, c, d as number).map(i => clamp(i, 0, 255)) as CommonColorTuple, alpha]
   const convertorName = `${space}2rgb` as keyof typeof convertors
   if (typeof convertors[convertorName] === 'function') {
-    return [convertors[convertorName](a, b, c), alpha]
+    return [
+      convertors[convertorName](a, b, c).map(i => clamp(i, 0, 255)) as CommonColorTuple,
+      alpha
+    ]
   }
   throw new Error(`Invalid color`)
 }
