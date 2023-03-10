@@ -1,3 +1,12 @@
+## [1.2.1](https://github.com/waterbeside/colorsea/compare/v1.2.0...v1.2.1) (2023-03-10)
+
+
+### Bug Fixes
+
+* **parser:** clamp rgb value between 0 and 255 ([1684568](https://github.com/waterbeside/colorsea/commit/1684568a08cbc2ae4ad3e1da56faab10c10fe6d8))
+
+
+
 # [1.2.0](https://github.com/waterbeside/colorsea/compare/v1.1.0...v1.2.0) (2023-03-10)
 
 
