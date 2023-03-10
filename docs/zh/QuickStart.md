@@ -7,7 +7,7 @@
   <CodeGroupItem title="PNPM">
 
 ```bash:no-line-numbers
-pnpm install colorsea 
+pnpm add colorsea 
 ```
 
   </CodeGroupItem>
