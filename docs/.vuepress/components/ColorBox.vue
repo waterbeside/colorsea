@@ -59,7 +59,7 @@ const borderColor = computed(() => {
       '--border-color': borderColor.hex()
     }"
   >
-    <slot></slot>
+    <slot :color="bgColor" :colorString="boxColor" ></slot>
   </div>
 </template>
 
