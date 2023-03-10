@@ -205,10 +205,10 @@ colorsea.hsv(100, 100, 50)
 colorsea.hsi(h: number, s: number, i: number, alpha?: number)
 
 // Example
-colorsea.hsi(55, 9, 31)
+colorsea.hsi(20, 100, 80)
 ```
 
-<ColorBox box-color="hsi(55, 9, 31)">colorsea.hsi(55, 9, 31)</ColorBox>
+<ColorBox box-color="hsi(20, 100, 80)">colorsea.hsi(20, 100, 80)</ColorBox>
 
 ---
 
@@ -291,18 +291,18 @@ colorsea.lab(50.57, 8.77, -46.64)
 
 ```typescript
 /**
-@param l number lightness
-@param c number chroma
+@param l number lightness [0, 100]
+@param c number chroma 
 @param h number hue [0, 360)
 @param alpha number alpha  range[0~100]
 */
 colorsea.lch(l: number, c: number, h: number, alpha?: number)
 
 // Example
-colorsea.lch(50, 120, 20)
+colorsea.lch(50, 100, 20)
 ```
 
-<ColorBox box-color="lch(50, 120, 20)">colorsea.lch(50, 120, 20)</ColorBox>
+<ColorBox box-color="lch(54, 100, 20)">colorsea.lch(50, 100, 20)</ColorBox>
 
 ## colorsea.random
 

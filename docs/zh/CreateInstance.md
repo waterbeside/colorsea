@@ -205,10 +205,10 @@ colorsea.hsv(100, 100, 50)
 colorsea.hsi(h: number, s: number, i: number, alpha?: number)
 
 // 示例
-colorsea.hsi(55, 9, 31)
+colorsea.hsi(20, 100, 80)
 ```
 
-<ColorBox box-color="hsi(55, 9, 31)">colorsea.hsi(55, 9, 31)</ColorBox>
+<ColorBox box-color="hsi(20, 100, 80)">colorsea.hsi(20, 100, 80)</ColorBox>
 
 ---
 
@@ -299,10 +299,10 @@ colorsea.lab(50.57, 8.77, -46.64)
 colorsea.lch(l: number, c: number, h: number, alpha?: number)
 
 // 示例
-colorsea.lch(50, 120, 20)
+colorsea.lch(50, 100, 20)
 ```
 
-<ColorBox box-color="#ff003b">colorsea.lch(50, 120, 20)</ColorBox>
+<ColorBox box-color="lch(50, 100, 20)">colorsea.lch(50, 100, 20)</ColorBox>
 
 ## colorsea.random
 
