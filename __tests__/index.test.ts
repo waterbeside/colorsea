@@ -52,11 +52,16 @@ describe('test colorsea', () => {
   })
 
   it('test parse error', () => {
-    colorsea.config({ thowParseError: true })
     try {
-      colorsea('XYa(36.45, 21.54, 20.97)')
+      colorsea('XYa(36.45, 21.54, 20.97)', undefined, { thowParseError: true })
     } catch (error: any) {
       expect(error.message).toBe('Invalid Color')
     }
+  })
+
+  it('test mix color', () => {
+    expect(colorsea('rgb(30, 177, 250)').mix('hsl(0 100% 20%)', 60).hex()).toBe('#494764')
+    expect(colorsea('#CE9FFC').mix('#EA5455', 50).hex()).toBe('#dc7aa9')
+    expect(colorsea('#0396FF').mix('#7367F0', 33).mix('#EA5455', 50).hex()).toBe('#896da8')
   })
 })
