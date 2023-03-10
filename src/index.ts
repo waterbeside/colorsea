@@ -14,8 +14,12 @@ import { globalConfig, type ColorConfig } from './config'
  * @param alpha Alpha range is [0, 100] 不透明度
  * @returns { Color } Color instance
  */
-function colorsea(colorInput: CommonColorTuple | CommonColoraTuple | string, alpha?: number) {
-  return new Color(colorInput, alpha)
+function colorsea(
+  colorInput: CommonColorTuple | CommonColoraTuple | string,
+  alpha?: number,
+  config?: ColorConfig
+) {
+  return new Color(colorInput, alpha, config)
 }
 
 colorsea.config = function (config: ColorConfig): void {
