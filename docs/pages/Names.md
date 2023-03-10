@@ -16,8 +16,8 @@ colorsea('Aqua') // color: #00ffff
 colorsea('Aquamarine') // color: #7fffd4
 ```
 
-<ColorBox box-color="#00ffff" text-color="#000">Aqua: #00ffff</ColorBox> - 
-<ColorBox box-color="#7fffd4" text-color="#000">Aquamarine: #7fffd4</ColorBox>
+<ColorBox box-color="#00ffff">Aqua: #00ffff</ColorBox> - 
+<ColorBox box-color="#7fffd4">Aquamarine: #7fffd4</ColorBox>
 
 **Example 2:** Load multiple types of color names at the same time
 
@@ -32,8 +32,8 @@ colorsea('Beige') // color: #F5F5DC
 colorsea('山梗紫') // color: #61649f
 ```
 
-<ColorBox box-color="#F5F5DC" text-color="#000">Beige: #F5F5DC</ColorBox> - 
-<ColorBox box-color="#61649f" text-color="#fff">山梗紫: #61649f</ColorBox>
+<ColorBox box-color="#F5F5DC">Beige: #F5F5DC</ColorBox> - 
+<ColorBox box-color="#61649f">山梗紫: #61649f</ColorBox>
 
 **Example 3:** Prefixing color names
 
