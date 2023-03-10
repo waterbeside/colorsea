@@ -135,4 +135,14 @@ colorsea('山梗紫') // color: #61649F
 colorsea('水がき') // color: #B9887D
 ```
 
-更明细的使用方式请参考文档： [https://waterbeside.github.io/colorsea/zh/](https://waterbeside.github.io/colorsea/zh/)
+更明细的使用方式请参考文档： [https://colorsea.js.org/zh/](https://colorsea.js.org/zh/)
+
+## 参考
+
+- [ https://github.com/sass/dart-sass/](https://github.com/sass/dart-sass/)
+- [http://brucelindbloom.com/](http://brucelindbloom.com/)
+- [https://www.w3.org/TR/AERT/#color-contrast](https://www.w3.org/TR/AERT/#color-contrast)
+- [https://www.w3.org/TR/AERT/#color-contrast](https://www.w3.org/TR/AERT/#color-contrast)
+- [x11: https://www.w3.org/TR/css-color-3/#svg-color](https://www.w3.org/TR/css-color-3/#svg-color)
+- [中国传统色: http://zhongguose.com/](http://zhongguose.com/)
+- [Nippon color names: https://nipponcolors.com/](https://nipponcolors.com/)
