@@ -1,4 +1,4 @@
-import{u as F}from"./app-1714829c.js";import{r as g,h as E,C as P,c as M,S as A,u as N,_ as B,p as h,q as p,Z as H,a8 as W,Q as b,w as C,a2 as v,O as T,P as S,v as y,R as z,a9 as j}from"./framework-cbc93935.js";const q=[{path:"/",title:"colorsea.js",pathLocale:"/",contents:[]},{path:"/pages/About.html",title:"About",pathLocale:"/",contents:[{header:"About",slug:"about",content:`This is a tiny color tool library written in Typescript. You can use it to convert color spaces (RGB, HSL, HSV, HSI, HWB, XYZ, LAB, LCH, xyY),
+import{u as F}from"./app-602c13fb.js";import{r as g,h as E,C as P,c as M,S as A,u as N,_ as B,p as h,q as p,Z as H,a8 as W,Q as b,w as C,a2 as v,O as T,P as S,v as y,R as z,a9 as j}from"./framework-cbc93935.js";const q=[{path:"/",title:"colorsea.js",pathLocale:"/",contents:[]},{path:"/pages/About.html",title:"About",pathLocale:"/",contents:[{header:"About",slug:"about",content:`This is a tiny color tool library written in Typescript. You can use it to convert color spaces (RGB, HSL, HSV, HSI, HWB, XYZ, LAB, LCH, xyY),
 Operate on colors like LESS/SASS (darken/lighten, saturate/desaturate, spin, fadeIn/fadeOut, mix).
 Support CMC(l:c), CIE2000, CIE1994, CIE1976 color difference queries.
 Support to use X11, Chinese Traditional Color, Japanese Traditional Color types of color names to get the color`}]},{path:"/pages/ColorOperation.html",title:"Color manipulation",pathLocale:"/",contents:[{header:"Color manipulation",slug:"color-manipulation",content:""},{header:"Example",slug:"example",content:`Example1：Darken the color by 20%
@@ -146,8 +146,8 @@ colorsea.hsv(100, 100, 50)`},{header:"colorsea.hsi",slug:"colorsea-hsi",content:
 @param alpha number alpha range[0, 100]
 */
 colorsea.hsi(h: number, s: number, i: number, alpha?: number) // Example
-colorsea.hsi(55, 9, 31)
-colorsea.hsi(55, 9, 31)`},{header:"colorsea.hwb",slug:"colorsea-hwb",content:`/**
+colorsea.hsi(20, 100, 80)
+colorsea.hsi(20, 100, 80)`},{header:"colorsea.hwb",slug:"colorsea-hwb",content:`/**
 @param h number hue range[0, 360)
 @param w number whiteness range[0, 100]
 @param b number blackness range[0, 100]
@@ -178,14 +178,13 @@ colorsea.xyz(36.44, 21.54, 20.98)`},{header:"colorsea.lab",slug:"colorsea-lab",c
 colorsea.lab(l: number, a: number, b: number, alpha?: number) // Example
 colorsea.lab(50.57, 8.77, -46.64)
 colorsea.lab(50.57, 8.77, -46.64)`},{header:"colorsea.lch",slug:"colorsea-lch",content:`/**
-@param l number lightness
-@param c number chroma
-@param h number hue [0, 360)
+@param l number lightness [0, 100]
+@param c number chroma @param h number hue [0, 360)
 @param alpha number alpha range[0~100]
 */
 colorsea.lch(l: number, c: number, h: number, alpha?: number) // Example
-colorsea.lch(50, 120, 20)
-colorsea.lch(50, 120, 20)`},{header:"colorsea.random",slug:"colorsea-random",content:`Generate random color
+colorsea.lch(50, 100, 20)
+colorsea.lch(50, 100, 20)`},{header:"colorsea.random",slug:"colorsea-random",content:`Generate random color
 colorsea.random()`}]},{path:"/pages/Diff.html",title:"color difference （deltaE）",pathLocale:"/",contents:[{header:"color difference （deltaE）",slug:"color-difference-deltae",content:`cThe color instance contains a deltaE method. Can be used to query color difference, it supports CMC, CIE2000, CIE1994, CIE1976 color difference formula query
 color.deltaE(sampleColor: Color, mode?: DeltaEMode, setting?: DeltaESetting) => number
 Note: The current color instance object color is standard color, the first parameter sampleColor is sample color
@@ -543,8 +542,8 @@ colorsea.hsv(100, 100, 50)`},{header:"colorsea.hsi",slug:"colorsea-hsi",content:
 @param alpha number alpha 范围[0, 100]
 */
 colorsea.hsi(h: number, s: number, i: number, alpha?: number) // 示例
-colorsea.hsi(55, 9, 31)
-colorsea.hsi(55, 9, 31)`},{header:"colorsea.hwb",slug:"colorsea-hwb",content:`/**
+colorsea.hsi(20, 100, 80)
+colorsea.hsi(20, 100, 80)`},{header:"colorsea.hwb",slug:"colorsea-hwb",content:`/**
 @param h number 色相 范围[0, 360)
 @param w number 白度 范围[0, 100]
 @param b number 黑度 范围[0, 100]
@@ -581,8 +580,8 @@ colorsea.lab(50.57, 8.77, -46.64)`},{header:"colorsea.lch",slug:"colorsea-lch",c
 @param alpha number alpha 范围[0, 100]
 */
 colorsea.lch(l: number, c: number, h: number, alpha?: number) // 示例
-colorsea.lch(50, 120, 20)
-colorsea.lch(50, 120, 20)`},{header:"colorsea.random",slug:"colorsea-random",content:`生成随机颜色
+colorsea.lch(50, 100, 20)
+colorsea.lch(50, 100, 20)`},{header:"colorsea.random",slug:"colorsea-random",content:`生成随机颜色
 colorsea.random()`}]},{path:"/zh/Diff.html",title:"色差 （deltaE）",pathLocale:"/zh/",contents:[{header:"色差 （deltaE）",slug:"色差-deltae",content:`color实例包含一个deltaE方法。可用于查询色差，其支持 CMC(l:c), CIE2000, CIE1994, CIE1976 多种色差公式查询
 color.deltaE(sampleColor: Color, mode?: DeltaEMode, setting?: DeltaESetting) => number
 注：当前颜色实例对象color为标准色，第一个参数sampleColor为样品色
