@@ -151,7 +151,7 @@ colorsea('#00ff00').spin(90) // Color: #007fff
 colorsea('#00ff00').complement() // Color: #0f00ff
 ```
 
-<ColorBox box-color="#f0ff00" text-color="#000000">#00ff00</ColorBox> -> <ColorBox box-color="#0f00ff">#0f00ff</ColorBox>
+<ColorBox box-color="#f0ff00">#00ff00</ColorBox> -> <ColorBox box-color="#0f00ff">#0f00ff</ColorBox>
 
 ## color.invert()
 
@@ -169,7 +169,7 @@ colorsea('#ff3366').invert() // Color: #00cc99
 colorsea('#cccccc').invert() // Color: #333333
 ```
 
-<ColorBox box-color="#cccccc" text-color="#000000">#cccccc</ColorBox> -> <ColorBox box-color="#333333">#333333</ColorBox>
+<ColorBox box-color="#cccccc">#cccccc</ColorBox> -> <ColorBox box-color="#333333">#333333</ColorBox>
 
 ## color.mix()
 

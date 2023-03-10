@@ -2,30 +2,121 @@
 
 ## colorsea()
 
-Create a color instance object using the `colorsea(rgb, alpha)` function.
+Create a color instance object using the `colorsea(rgb, alpha, config)` function.
+
+
+### Parameters
+
+- **colorInput**: string | [number, number, number]
+  - Color data input (*Required*)
+  - When the type is string, a string can be passed in several forms
+    - 1 hex string such as  `'#ffffff'`，
+    - 2 Color space function string<Badge text="v1.2.0+" type="tip"/>：For example`'rgb(255, 255, 255)'`、 `'hsl(0, 20%, 50%)'`  etc.，This mode is supported only in **v1.2.0** and later versions. For details, see the following description[【简单示例-示例二】](#spaceFunctionSample) 
+    - 3 Color name: After the color name is loaded, you can directly use the color name as a parameter. For details, see[【 Use color names】](./Names.md)
+  - When the type is a [number, number, number] tuple, it is a rgb value: [r, b, b]
+
+- **alpha**: number | undefined
+  - alpha channel (opacity), accepts only values in range `[0, 100]`, (*Optional*)
+  - When the parameter is `undefined`, if the `colorInput` parameter with an `alpha` value set, then the `alpha` value is set by `colorInput`, otherwise the default value is `100`
+
+- **config**<Badge text="v1.2.0+" type="tip"/>: Config
+  - Settings (*Optional*)
+  - Note that this parameter is included after **v1.2.0**
+
+  ```typescript
+  type Config = {
+    throwParseError: boolean //  Whether to throw an error if parsing the color incorrectly. The default value is false. When false, enter the wrong color value and the default output is black.
+  }
+  ```
+
+### Simple Example
+
+**Example 1**: Basic usage
 
 ```typescript
-/**
-The colorsea function takes two arguments:
-@param rgb string | [number, number, number] 
- (Required) A hexadecimal rgb value, or an [r, g, b] tuple
-@param alpha number 
- (Optional) Opacity in the range of [0, 100]. The default value is 100, which is 100%
- */
 
 // You can pass in a HEX string
 colorsea('#cc0020', 90)
 // or [R, G, B]
 colorsea([204, 0, 32], 90)
+// Also equal to
+colorsea('rgb(204, 0, 32)', 90)
+// or
+colorsea('rgba(204, 0, 32, 90%)')
 ```
+
+<div id="spaceFunctionSample"></div>
 
 <ColorBox box-color="rgba(204, 0, 32, 90%)">colorsea('#cc0020', 90)</ColorBox>
 
+
+**Example 2**: Uses the color space function string
+
+The colorInput parameter can be entered as a string with the following color space values:
+
+ **rgb**, **rgba**, **cmyk**, **lab**, **hsl**, **hsla**, **hsv**, **hsva**,  **lch**, **hwb**, **hwba**, **xyz**,
+
+```typescript
+colorsea('hsl(150, 80%, 60%)')
+colorsea('hsl(150, 80, 60)')
+colorsea('hsl(150, 0.8, 0.6)')
+```
+
+<ColorBox box-color="hsl(150, 80%, 60%)">colorsea('hsl(150, 80%, 60%)')</ColorBox>
+
+
+```typescript
+colorsea('hsla(150, 80%, 60%, 20%)')
+// If the inputColor parameter has an alpha value and the alpha parameter is set separately, the value of the alpha parameter is preferred
+colorsea('hsla(150, 80%, 60%, 20%)', 40)
+```
+
+<ColorBox box-color="hsla(150, 80%, 60%, 20%)">colorsea('hsla(150, 80%, 60%, 20%)')</ColorBox> - 
+
+<ColorBox box-color="hsla(150, 80%, 60%, 20%)" :alpha="40">colorsea('hsla(150, 80%, 60%, 20%)', 40)</ColorBox>
+
+
+```typescript
+colorsea('cmyk(40, 80, 60, 20)')
+```
+
+<ColorBox box-color="cmyk(40, 80, 60, 20)">colorsea('cmyk(40, 80, 60, 20)')</ColorBox>
+
+```typescript
+colorsea('hwb(180, 50%, 10%)')
+// The other color space methods are similar and are not all shown here
+```
+
+<ColorBox box-color="hwb(180, 50%, 10%)">colorsea('hwb(180, 50%, 10%)')</ColorBox>
+
+
+:::tip
+
+If it contains parameters in the form of percentage, they can be expressed in the following types:
+- Use percentage signs directly, such as:`colorsea('rgba(204, 0, 32, 90%)')`
+- Can not write percent sign, input **90** equivalent to 90%：`colorsea('rgba(204, 0, 32, 90)')`
+- Using decimals less than 1, enter **0.9** equivalent to 90%: `colorsea('rgba(204, 0, 32, 0.9)')`
+The above three input colors are **equal**.
+
+**What should be noted is:**
+
+If you want to input `0.1%` can not directly input `0.1`, because input less than the number of `1`, will be automatically multiplied by `100`, input `0.1` is `10%`.
+
+So, you can just type '0.1%', or '0.001' to represent '0.1%'
+
+**This conversion only works if the colorInput argument is entered as a string. Unless otherwise noted, most percentages of colorsea are represented by numbers in the [0, 100] range from 0% to 100%**
+
+:::
+
 ---
+
+### Use color names
 
 The first parameter of `colorsea()` also supports passing in color names. When using these color names, you need to load the name mapping relationship table separately. The currently supported color names are **X11 color names**, **Chinese traditional colors**, **Japanese Traditional Colors**. You can also customize the color name. For specific usage, please refer to the document [Using Color Names](/colorsea/pages/Names.html)
 
 ---
+
+### Other
 
 In addition to creating Color instance objects through the colorsea function, you can also create Color instances through other color space methods
 
@@ -98,7 +189,7 @@ colorsea.hsv(h: number, s: number, v: number, alpha?: number)
 colorsea.hsv(100, 100, 50)
 ```
 
-<ColorBox box-color="#2a8000">colorsea.hsv(100, 100, 50)</ColorBox>
+<ColorBox box-color="hsv(100, 100, 50)">colorsea.hsv(100, 100, 50)</ColorBox>
 
 ---
 
@@ -117,7 +208,7 @@ colorsea.hsi(h: number, s: number, i: number, alpha?: number)
 colorsea.hsi(55, 9, 31)
 ```
 
-<ColorBox box-color="rgb(83, 82, 72)">colorsea.hsi(55, 9, 31)</ColorBox>
+<ColorBox box-color="hsi(55, 9, 31)">colorsea.hsi(55, 9, 31)</ColorBox>
 
 ---
 
@@ -136,7 +227,7 @@ colorsea.hwb(h: number, w: number, b: number, alpha?: number)
 colorsea.hwb(200, 30, 47)
 ```
 
-<ColorBox box-color="#4d7487">colorsea.hwb(200, 30, 47)</ColorBox>
+<ColorBox box-color="hwb(200, 30, 47)">colorsea.hwb(200, 30, 47)</ColorBox>
 
 ---
 
@@ -156,7 +247,7 @@ colorsea.cmyk(c: number, m: number, y: number, k: number, alpha?: number)
 colorsea.cmyk(65, 40, 0, 21.57)
 ```
 
-<ColorBox box-color="rgb(70, 120, 200)">colorsea.cmyk(65, 40, 0, 21.57)</ColorBox>
+<ColorBox box-color="cmyk(65, 40, 0, 21.57)">colorsea.cmyk(65, 40, 0, 21.57)</ColorBox>
 
 ---
 
@@ -175,7 +266,7 @@ colorsea.xyz(x: number, y: number, z: number, alpha?: number)
 colorsea.xyz(36.44, 21.54, 20.98)
 ```
 
-<ColorBox box-color="#e0457b">colorsea.xyz(36.44, 21.54, 20.98)</ColorBox>
+<ColorBox box-color="xyz(36.44, 21.54, 20.98)">colorsea.xyz(36.44, 21.54, 20.98)</ColorBox>
 
 ## colorsea.lab
 
@@ -192,7 +283,7 @@ colorsea.lab(l: number, a: number, b: number, alpha?: number)
 colorsea.lab(50.57, 8.77, -46.64)
 ```
 
-<ColorBox box-color="#4678C8">colorsea.lab(50.57, 8.77, -46.64)</ColorBox>
+<ColorBox box-color="lab(50.57, 8.77, -46.64)">colorsea.lab(50.57, 8.77, -46.64)</ColorBox>
 
 ---
 
@@ -211,7 +302,7 @@ colorsea.lch(l: number, c: number, h: number, alpha?: number)
 colorsea.lch(50, 120, 20)
 ```
 
-<ColorBox box-color="#ff003b">colorsea.lch(50, 120, 20)</ColorBox>
+<ColorBox box-color="lch(50, 120, 20)">colorsea.lch(50, 120, 20)</ColorBox>
 
 ## colorsea.random
 

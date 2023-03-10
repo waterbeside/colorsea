@@ -2,30 +2,121 @@
 
 ## colorsea()
 
-使用`colorsea(rgb, alpha)`函数创建一个颜色实例对象，
+使用`colorsea(colorInput, alpha, config)`函数创建一个颜色实例对象，
+
+### 参数说明
+
+- **colorInput**: string | [number, number, number]
+  - 颜色数据输入（*必填*）
+  - 当类型为string时，可以传入以几种形式的字符串
+    - 1 hex字符串，如 `'#ffffff'`，
+    - 2 颜色空间函数字符串<Badge text="v1.2.0+" type="tip"/>：如`'rgb(255, 255, 255)'`、 `'hsl(0, 20%, 50%)'` 等，此方式仅在**v1.2.0**及之后的版本支持，具体细节请参考后续的描述[【简单示例-示例二】](#spaceFunctionSample) 
+    - 3 颜色名称，加载颜色名称后，可直接使用该颜色的名称作为参数，具体用法请参考[【颜色名称】](./Names.md)
+  - 当类型为 [number, number, number]元组时，为rgb值
+
+- **alpha**: number | undefined
+  - alpha通道（不透明度），只接受范围为`[0, 100]`的数值, (*非必填*)
+  - 当此参数为`undefined`时，如果`colorInput`参数带有`alpha`值设置，则`alpha`值按`colorInput`设定，否则默认值为`100`
+
+- **config**<Badge text="v1.2.0+" type="tip"/>: Config 
+  - 设置  (*非必填*)
+  - 注意，此参数在**v1.2.0**之后才包含
+
+  ```typescript
+  type Config = {
+    throwParseError: boolean //  如果解析颜色出错，是否抛出错误, 默认值为false。当为false时，输入错误的颜色值，默认会输出黑色。
+  }
+  ```
+
+### 简单示例
+
+**示例1**：基本用法
 
 ```typescript
-/**
-colorsea函数包含两个参数:
-@param rgb string | [number, number, number] 
- （必填）十六进制rgb值，或[r, g, b]数组
-@param alpha number 
- （非必填）不透明度，按受[0, 100]的范围，默认值为100，即100%
- */
 
 // 可以传入HEX字
 colorsea('#cc0020', 90)
 // or [R, G, B]
 colorsea([204, 0, 32], 90)
+// 也等同于
+colorsea('rgb(204, 0, 32)', 90)
+// 或
+colorsea('rgba(204, 0, 32, 90%)')
 ```
+
+<div id="spaceFunctionSample"></div>
 
 <ColorBox box-color="rgba(204, 0, 32, 90%)">colorsea('#cc0020', 90)</ColorBox>
 
+
+**示例2**：使用颜色空间函数字符串
+
+colorInput参数可以以字符串型式输入以下几种颜色空间值设定
+
+ **rgb**, **rgba**, **cmyk**, **lab**, **hsl**, **hsla**, **hsv**, **hsva**,  **lch**, **hwb**, **hwba**, **xyz**,
+
+```typescript
+colorsea('hsl(150, 80%, 60%)')
+colorsea('hsl(150, 80, 60)')
+colorsea('hsl(150, 0.8, 0.6)')
+```
+
+<ColorBox box-color="hsl(150, 80%, 60%)">colorsea('hsl(150, 80%, 60%)')</ColorBox>
+
+
+```typescript
+colorsea('hsla(150, 80%, 60%, 20%)')
+// 如果inputColor参数设有alpha值，alpha参数也单独设置了值，优先使用alpha参数的值
+colorsea('hsla(150, 80%, 60%, 20%)', 40)
+```
+
+<ColorBox box-color="hsla(150, 80%, 60%, 20%)">colorsea('hsla(150, 80%, 60%, 20%)')</ColorBox> - 
+
+<ColorBox box-color="hsla(150, 80%, 60%, 20%)" :alpha="40">colorsea('hsla(150, 80%, 60%, 20%)', 40)</ColorBox>
+
+
+```typescript
+colorsea('cmyk(40, 80, 60, 20)')
+```
+
+<ColorBox box-color="cmyk(40, 80, 60, 20)">colorsea('cmyk(40, 80, 60, 20)')</ColorBox>
+
+```typescript
+colorsea('hwb(180, 50%, 10%)')
+// 各种颜色空间方法类似，此处不全部演示
+```
+
+<ColorBox box-color="hwb(180, 50%, 10%)">colorsea('hwb(180, 50%, 10%)')</ColorBox>
+
+
+:::tip
+
+其中如果包含有百分数形式的参数，可以以下几种型式表示：
+- 直接使用百分号, 如：`colorsea('rgba(204, 0, 32, 90%)')`
+- 可以不写百分号，输入**90**即为90%：`colorsea('rgba(204, 0, 32, 90)')`
+- 使用小于1的小数，输入**0.9**即为90%: `colorsea('rgba(204, 0, 32, 0.9)')`
+以上三种输入的颜色是**相等**的。
+
+**需要注意的是：**
+
+如果想输入`0.1%`则不能直接输入`0.1`，因为输入少于`1`的数，会自动乘以`100`，输入`0.1`即为`10%`。
+所以，你可以直接输入`0.1%`, 或者`0.001`以代表`0.1%`
+
+**这种转换只有在字符串形式输入colorInput参数以有效，除非特别说明，colorsea的大部分百分数，都以[0, 100]范围的数字代表0%到100%**
+
+:::
+
 ---
 
-`colorsea()`的第一个参数还支持传入颜色名称，使用这些颜色名称时，要另外加载名称映射关系表，现支持的颜色名称有**X11 color names**、**中国传统色**、**日本传统色**。也可以自定义颜色名，具体用法请参看文档[使用颜色名称](/colorsea/zh/Names.html)
+
+### 使用颜色名称
+
+`colorsea()`的第一个参数还支持传入颜色名称，使用这些颜色名称时，要另外加载名称映射关系表，现支持的颜色名称有**X11 color names**、**中国传统色**、**日本传统色**。也可以自定义颜色名，具体用法请参看文档[【使用颜色名称】](/colorsea/zh/Names.html)
 
 ---
+---
+
+### 其它
 
 除了通过colorsea函数创建Color实例对象外，还可以通过其它颜色空间方法创建Color实例
 
@@ -117,7 +208,7 @@ colorsea.hsi(h: number, s: number, i: number, alpha?: number)
 colorsea.hsi(55, 9, 31)
 ```
 
-<ColorBox box-color="rgb(83, 82, 72)">colorsea.hsi(55, 9, 31)</ColorBox>
+<ColorBox box-color="hsi(55, 9, 31)">colorsea.hsi(55, 9, 31)</ColorBox>
 
 ---
 
@@ -136,7 +227,7 @@ colorsea.hwb(h: number, w: number, b: number, alpha?: number)
 colorsea.hwb(200, 30, 47)
 ```
 
-<ColorBox box-color="#4d7487">colorsea.hwb(200, 30, 47)</ColorBox>
+<ColorBox box-color="hwb(200, 30, 47)">colorsea.hwb(200, 30, 47)</ColorBox>
 
 ---
 
@@ -156,7 +247,7 @@ colorsea.cmyk(c: number, m: number, y: number, k: number, alpha?: number)
 colorsea.cmyk(65, 40, 0, 21.57)
 ```
 
-<ColorBox box-color="rgb(70, 120, 200)">colorsea.cmyk(65, 40, 0, 21.57)</ColorBox>
+<ColorBox box-color="cmyk(65, 40, 0, 21.57)">colorsea.cmyk(65, 40, 0, 21.57)</ColorBox>
 
 ---
 
@@ -175,7 +266,7 @@ colorsea.xyz(x: number, y: number, z: number, alpha?: number)
 colorsea.xyz(36.44, 21.54, 20.98)
 ```
 
-<ColorBox box-color="#e0457b">colorsea.xyz(36.44, 21.54, 20.98)</ColorBox>
+<ColorBox box-color="xyz(36.44, 21.54, 20.98)">colorsea.xyz(36.44, 21.54, 20.98)</ColorBox>
 
 ## colorsea.lab
 
@@ -215,7 +306,7 @@ colorsea.lch(50, 120, 20)
 
 ## colorsea.random
 
-生成随机颜色
+生成随机颜色<Badge type="tip" text="v1.1.0+" vertical="top" />
 
 ```typescript
 colorsea.random()
