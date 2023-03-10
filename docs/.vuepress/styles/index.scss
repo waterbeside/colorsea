@@ -9,11 +9,17 @@ $primary-color-light: lighten($primary-color, 5%);
   --search-result-width: 90% !important;
 }
 
+@media screen and (max-width: 768px) {
+  :root {
+    --search-input-width: 5rem !important;
+  }
+}
+
 html.dark {
   --c-brand: #{$primary-color};
 }
 
-$rainbow-color: linear-gradient(80deg, #1BA784, #7091a6, #158BB8,#A35C8F, #1BA784);
+$rainbow-color: linear-gradient(70deg, #05b287, #5597c0, #0796ce,#b64997, #b64956, #da7319,  #05b287);
 
 @mixin rainbow {
   background-image: $rainbow-color;
@@ -26,6 +32,12 @@ $rainbow-color: linear-gradient(80deg, #1BA784, #7091a6, #158BB8,#A35C8F, #1BA78
 @keyframes scroll_background {
   0% { background-position: 0 0}
   50% { background-position: 400px 0}
+  100% { background-position: 100% 0}
+}
+
+@keyframes scroll_background2 {
+  0% { background-position: 0 0}
+  50% { background-position: 800px 0}
   100% { background-position: 100% 0}
 }
 
@@ -77,4 +89,13 @@ $rainbow-color: linear-gradient(80deg, #1BA784, #7091a6, #158BB8,#A35C8F, #1BA78
     background-image: repeating-linear-gradient(130deg, #25b1d0, #24b582);
   }
 
+}
+
+.navbar {
+  background-image: linear-gradient(90deg, rgb(182, 73, 151, 0.05),rgba(27, 167, 132, 0.05), rgba(21, 139, 184, 0.05), rgb(182, 73, 151, 0.05));
+  animation: scroll_background2 10s linear infinite;
+}
+
+.sidebar {
+  background-image: linear-gradient(45deg, rgba(27, 167, 132, 0.02), rgba(21, 139, 184, 0.02), rgb(182, 73, 151, 0.02));
 }
