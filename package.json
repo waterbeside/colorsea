@@ -1,6 +1,6 @@
 {
   "name": "colorsea",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A color tool library written in Typescript, you can use it to convert color spaces, and operate on colors like LESS/SASS ( darken/lighten, saturate/desaturate, spin, mix), and color difference query. 颜色工具库，支持颜色空间的转换、各种颜色操作、多种色差查询, 支持中国色、日本色的查询",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
