@@ -1,3 +1,12 @@
+## [1.2.2](https://github.com/waterbeside/colorsea/compare/v1.2.1...v1.2.2) (2024-03-02)
+
+
+### Bug Fixes
+
+* Fixed typescript declaration file error. [#4](https://github.com/waterbeside/colorsea/issues/4) ([2492124](https://github.com/waterbeside/colorsea/commit/2492124922cac77e80507d7af3691c81fc5e4a13))
+
+
+
 ## [1.2.1](https://github.com/waterbeside/colorsea/compare/v1.2.0...v1.2.1) (2023-03-10)
 
 
