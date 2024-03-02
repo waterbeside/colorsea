@@ -173,7 +173,7 @@ const prettyMode = (mode: DeltaEMode): DeltaEModeUpper => {
  * @param setting The settable value of the corresponding formula
  * @returns {number} return color difference value
  */
-export function deltaE(
+export const deltaE = function(
   color1: Color,
   color2: Color,
   mode: DeltaEMode = 'CIE',

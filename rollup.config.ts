@@ -2,6 +2,7 @@ import { defineConfig } from 'rollup'
 import ts from 'rollup-plugin-typescript2'
 import terser from '@rollup/plugin-terser'
 import dts from 'rollup-plugin-dts'
+import copy from 'rollup-plugin-copy'
 import fs from 'fs'
 import path from 'path'
 
@@ -29,16 +30,24 @@ const config = [
       file: pkg.module,
       format: 'es'
     },
-    plugins: [ts(), terser()]
+    plugins: [
+      ts(),
+      terser(),
+      copy({
+        targets: [
+          {src: 'typings/index.d.ts', dest: 'dist'}
+        ]
+      })
+    ]
   }),
-  defineConfig({
-    input,
-    output: {
-      file: pkg.types,
-      format: 'es'
-    },
-    plugins: [dts()]
-  })
+  // defineConfig({
+  //   input,
+  //   output: {
+  //     file: pkg.types,
+  //     format: 'es'
+  //   },
+  //   plugins: [dts()]
+  // })
 ]
 
 // rollup color names
