@@ -55,7 +55,7 @@ const color2 = colorsea.lab(79, 28, 100) // Sample color
 color1.deltaE(color2, 'CIE2000') // 3.6815...
 
 // Efficacy coefficient, kL, kC, kH default value is 1
-color1.deltaE(color2, 'CIE2000', { kL：1, kC: 1: kH: 1})
+color1.deltaE(color2, 'CIE2000', { kL: 1, kC: 1, kH: 1 })
 ```
 
 ## CIE1994
@@ -70,7 +70,7 @@ const color2 = colorsea.lab(79, 28, 100) // Sample color
 color1.deltaE(color2, 'CIE1994') // 3.3725...
 
 // Effect coefficient, kL, kC, kH default value is 1
-color1.deltaE(color2, 'CIE1994', { kL：1, kC: 1: kH: 1})
+color1.deltaE(color2, 'CIE1994', { kL: 1, kC: 1, kH: 1 })
 
 // Note: The default value of cate is 'graphic', that is, graphic arts
 // If used for fabric evaluation, set cate to 'textiles'.
