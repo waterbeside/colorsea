@@ -1,4 +1,4 @@
-import{u as F}from"./app-602c13fb.js";import{r as g,h as E,C as P,c as M,S as A,u as N,_ as B,p as h,q as p,Z as H,a8 as W,Q as b,w as C,a2 as v,O as T,P as S,v as y,R as z,a9 as j}from"./framework-cbc93935.js";const q=[{path:"/",title:"colorsea.js",pathLocale:"/",contents:[]},{path:"/pages/About.html",title:"About",pathLocale:"/",contents:[{header:"About",slug:"about",content:`This is a tiny color tool library written in Typescript. You can use it to convert color spaces (RGB, HSL, HSV, HSI, HWB, XYZ, LAB, LCH, xyY),
+import{u as F}from"./app-0b6ae81a.js";import{r as g,h as E,C as P,c as M,S as A,u as N,_ as B,p as h,q as p,Z as H,a8 as W,Q as b,w as C,a2 as v,O as T,P as S,v as y,R as z,a9 as j}from"./framework-cbc93935.js";const q=[{path:"/",title:"colorsea.js",pathLocale:"/",contents:[]},{path:"/pages/About.html",title:"About",pathLocale:"/",contents:[{header:"About",slug:"about",content:`This is a tiny color tool library written in Typescript. You can use it to convert color spaces (RGB, HSL, HSV, HSI, HWB, XYZ, LAB, LCH, xyY),
 Operate on colors like LESS/SASS (darken/lighten, saturate/desaturate, spin, fadeIn/fadeOut, mix).
 Support CMC(l:c), CIE2000, CIE1994, CIE1976 color difference queries.
 Support to use X11, Chinese Traditional Color, Japanese Traditional Color types of color names to get the color`}]},{path:"/pages/ColorOperation.html",title:"Color manipulation",pathLocale:"/",contents:[{header:"Color manipulation",slug:"color-manipulation",content:""},{header:"Example",slug:"example",content:`Example1：Darken the color by 20%
@@ -204,11 +204,11 @@ When evaluating the acceptability of color difference, it is recommended to use 
 const color1 = colorsea.lab(80, 30, 120) // Standard color (reference color)
 const color2 = colorsea.lab(79, 28, 100) // Sample color // Using the CIE2000 formula
 color1.deltaE(color2, 'CIE2000') // 3.6815... // Efficacy coefficient, kL, kC, kH default value is 1
-color1.deltaE(color2, 'CIE2000', { kL：1, kC: 1: kH: 1})`},{header:"CIE1994",slug:"cie1994",content:`Example：
+color1.deltaE(color2, 'CIE2000', { kL: 1, kC: 1, kH: 1 })`},{header:"CIE1994",slug:"cie1994",content:`Example：
 const color1 = colorsea.lab(80, 30, 120) // Standard color (reference color)
 const color2 = colorsea.lab(79, 28, 100) // Sample color // Using the CIE1994 formula
 color1.deltaE(color2, 'CIE1994') // 3.3725... // Effect coefficient, kL, kC, kH default value is 1
-color1.deltaE(color2, 'CIE1994', { kL：1, kC: 1: kH: 1}) // Note: The default value of cate is 'graphic', that is, graphic arts
+color1.deltaE(color2, 'CIE1994', { kL: 1, kC: 1, kH: 1 }) // Note: The default value of cate is 'graphic', that is, graphic arts
 // If used for fabric evaluation, set cate to 'textiles'.
 color1.deltaE(color2, 'CIE1994', { cate: 'textiles'}) TIP
 When { cate: 'textiles' }, the coefficient kL will ignore the custom setting and automatically become 2.`},{header:"CIE1976",slug:"cie1976",content:`Example：
@@ -601,11 +601,11 @@ CMC（l:c）色差公式中，l表示明度加权值，调节明度的相对宽�
 const color1 = colorsea.lab(80, 30, 120) // 标准色（参考色）
 const color2 = colorsea.lab(79, 28, 100) // 样品色 // 使用CIE2000公式
 color1.deltaE(color2, 'CIE2000') // 3.6815... // （效正系数，kL, kC, kH 默认值都为1）
-color1.deltaE(color2, 'CIE2000', { kL：1, kC: 1: kH: 1})`},{header:"CIE1994色差查询",slug:"cie1994色差查询",content:`示例
+color1.deltaE(color2, 'CIE2000', { kL: 1, kC: 1, kH: 1 })`},{header:"CIE1994色差查询",slug:"cie1994色差查询",content:`示例
 const color1 = colorsea.lab(80, 30, 120) // 标准色（参考色）
 const color2 = colorsea.lab(79, 28, 100) // 样品色 // 使用CIE1994公式
 color1.deltaE(color2, 'CIE1994') // 3.3725... // （效正系数，kL, kC, kH 默认值都为1）
-color1.deltaE(color2, 'CIE1994', { kL：1, kC: 1: kH: 1}) // 注：cate默认值为 'graphic'，即图像艺术（graphic arts）
+color1.deltaE(color2, 'CIE1994', { kL: 1, kC: 1, kH: 1 }) // 注：cate默认值为 'graphic'，即图像艺术（graphic arts）
 // 如果用于进行织物评价，设置cate为'textiles'。
 color1.deltaE(color2, 'CIE1994', { cate: 'textiles'}) TIP
 当 { cate: 'textiles' } 时，系数 kL将无视自定义设置，自动变为2。`},{header:"CIE1976色差查询",slug:"cie1976色差查询",content:`示例
