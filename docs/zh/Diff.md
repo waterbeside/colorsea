@@ -54,7 +54,7 @@ const color2 = colorsea.lab(79, 28, 100) // 样品色
 color1.deltaE(color2, 'CIE2000') // 3.6815...
 
 // （效正系数，kL, kC, kH 默认值都为1）
-color1.deltaE(color2, 'CIE2000', { kL：1, kC: 1: kH: 1})
+color1.deltaE(color2, 'CIE2000', { kL: 1, kC: 1, kH: 1 })
 ```
 
 ## CIE1994色差查询
@@ -69,7 +69,7 @@ const color2 = colorsea.lab(79, 28, 100) // 样品色
 color1.deltaE(color2, 'CIE1994') // 3.3725...
 
 // （效正系数，kL, kC, kH 默认值都为1）
-color1.deltaE(color2, 'CIE1994', { kL：1, kC: 1: kH: 1})
+color1.deltaE(color2, 'CIE1994', { kL: 1, kC: 1, kH: 1 })
 
 // 注：cate默认值为 'graphic'，即图像艺术（graphic arts）
 // 如果用于进行织物评价，设置cate为'textiles'。
